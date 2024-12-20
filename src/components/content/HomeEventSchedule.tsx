@@ -38,9 +38,9 @@ const HomeEventSchedule: React.FC<HomeEventScheduleProps> = ({ scheduleData }) =
 
         <ul className="nav nav-tabs" role="tablist">
           {scheduleData.map((dayData) => (
-            <li className="nav-item" key={dayData.day}>
+            <li className="nav-item mx-1" key={dayData.day}>
               <a
-                className={`nav-link mx-1 ${activeDay === dayData.day ? "active" : ""}`}
+                className={`nav-link ${activeDay === dayData.day ? "active" : ""}`}
                 onClick={() => handleTabClick(dayData.day)}
               >
                 {dayData.day}

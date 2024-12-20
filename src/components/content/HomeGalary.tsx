@@ -15,6 +15,21 @@ const HomeGallery: React.FC = () => {
     "img/gallery/8.jpg",
   ];
 
+  const carouselOptions = {
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    responsive: {
+      0: { items: 1 }, // 1 item for small screens
+      600: { items: 2 }, // 2 items for medium screens
+      1000: { items: 3 }, // 3 items for larger screens
+    },
+  };
+
   return (
     <section id="gallery" className="wow fadeInUp">
       <div className="container">
@@ -25,16 +40,19 @@ const HomeGallery: React.FC = () => {
       </div>
 
       <OwlCarousel
-        className="gallery-carousel" loop margin={10} nav items={3}  autoplay autoplayTimeout={3000} dots >
+        className="gallery-carousel"
+        {...carouselOptions} // Use carouselOptions for flexibility
+      >
         {galleryImages.map((image, index) => (
-          <a
-            key={index}
-            href={image}
-            className="venobox"
-            data-gall="gallery-carousel"
-          >
-            <img src={image} alt={`Gallery ${index + 1}`} />
-          </a>
+          <div className="item" key={index}>
+            <a
+              href={image}
+              className="venobox"
+              data-gall="gallery-carousel"
+            >
+              <img src={image} alt={`Gallery ${index + 1}`} />
+            </a>
+          </div>
         ))}
       </OwlCarousel>
     </section>
