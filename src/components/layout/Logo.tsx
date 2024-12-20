@@ -5,7 +5,7 @@ interface LogoProps {
   width?: string | number;
 }
 
-const Logo: React.FC<LogoProps> = ({ height = "50px", width = "50px" }) => {
+const Logo: React.FC<LogoProps> = ({ height = "auto", width = "auto" }) => {
   return (
     <div>
       <div id="logo" className="pull-left">
