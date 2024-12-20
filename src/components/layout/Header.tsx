@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "./Logo";
 
 
 const Header: React.FC = () => {
@@ -7,9 +8,7 @@ const Header: React.FC = () => {
         <header id="header">
             <div className="container">
 
-            <div id="logo" className="pull-left">
-                <a href="#intro" className="scrollto"><img src="img/logo.png" alt="Title" /></a>
-            </div>
+            <Logo/>
 
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
