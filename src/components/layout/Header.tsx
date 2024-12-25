@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "./Logo";
 
-
 const Header: React.FC = () => {
   return(
     <div>
@@ -21,7 +20,7 @@ const Header: React.FC = () => {
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#sponsors">Sponsors</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li className="buy-tickets"><a href="#buy-tickets">Buy Tickets</a></li>
+                <li className="buy-tickets"><a href="#buy-tickets">Sign In</a></li>
                 </ul>
             </nav>
         </div>

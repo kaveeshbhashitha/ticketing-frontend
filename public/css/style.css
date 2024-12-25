@@ -20,12 +20,36 @@ a {
   transition: 0.5s;
 }
 
+.active{
+  background-color: rgb(214, 214, 216);
+  color: white;
+}
+
 a:hover,
 a:active,
 a:focus {
   color: #f8234a;
   outline: none;
   text-decoration: none;
+}
+
+.visible{
+  display: block;
+}
+
+.hidden{
+  display: none;
+}
+
+.tableimg{
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 50%;
+}
+
+.center-column{
+  text-align: center;
 }
 
 p {
