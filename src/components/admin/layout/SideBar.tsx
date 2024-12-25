@@ -104,13 +104,13 @@ const SideBar: React.FC = () => {
           </li>
           <li className="menu-item">
             <NavLink
-              to="/"
+              to="/addEvent"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
             >
               <i className="menu-icon tf-icons bx bx-collection"></i>
-              <div data-i18n="Analytics">Activities</div>
+              <div data-i18n="Analytics">Add New Event</div>
             </NavLink>
           </li>
           <li className="menu-item">
@@ -121,57 +121,11 @@ const SideBar: React.FC = () => {
               }
             >
               <i className="menu-icon tf-icons bx bx-box"></i>
-              <div data-i18n="Analytics">Sport and Match</div>
+              <div data-i18n="Analytics">See All Events</div>
             </NavLink>
           </li>
-          <li className="menu-item">
-            <NavLink
-              to="/Theater"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon tf-icons bx bx-copy"></i>
-              <div data-i18n="Analytics">Theater</div>
-            </NavLink>
-          </li>
-
-          <li className="menu-item">
-            <NavLink
-              to="/addEvent"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon tf-icons bx bx-crown"></i>
-              <div data-i18n="Analytics">Events and Occations</div>
-            </NavLink>
-          </li>
-
-          <li className="menu-item">
-            <NavLink
-              to="/DeleteEvent"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon fa-solid fa-triangle-exclamation"></i>
-              <div data-i18n="Analytics">Update and Delete Events</div>
-            </NavLink>
-          </li>
-
-          <li className="menu-item">
-            <NavLink
-              to="/seeEvent"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon fa-solid fa-file-video"></i>
-              <div data-i18n="Analytics">All Events</div>
-            </NavLink>
-          </li>
-
+          
+        
           <li className="menu-header small text-uppercase">
             <span className="menu-header-text">Actions</span>
           </li>

@@ -54,8 +54,8 @@ const Home: React.FC = () => {
 
   return (
     <body>
-      <div>
-        <Header />
+        <div>
+            <Header />
             <HomeIntro />
             <HomeAbout />
             <HomeSpeecker />
@@ -67,8 +67,8 @@ const Home: React.FC = () => {
             <HomeNewsLetter />
             <HomePackages />
             <HomeContactUs />
-        <Footer />
-      </div>
+            <Footer />
+        </div>
     </body>
   );
 };
