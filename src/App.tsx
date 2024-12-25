@@ -5,6 +5,7 @@ import AdminLogin from "./components/admin/AdminLogin";
 import Test from "./components/web/Test";
 import GetEvent from "./components/web/GetEvent";
 import AddEvent from "./components/admin/actions/AddEvent";
+import SeeEvents from "./components/admin/actions/SeeEvents";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/get" element={<GetEvent />} />
           <Route path="/addEvent" element={<AddEvent />} />
+          <Route path="/seeEvents" element={<SeeEvents />} />
         </Routes>
       </Router>
     </div>
