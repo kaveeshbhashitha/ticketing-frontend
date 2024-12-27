@@ -3,6 +3,7 @@ import SideBar from "../layout/SideBar";
 import SeeGeneralEvent from "../operations/SeeGeneralEvent";
 import SeeAllSports from "../operations/SeeAllSports";
 import SeeTheater from "../operations/SeeTheater";
+import SeeOtherEvents from "../operations/SeeOtherEvents";
 
 const SeeEvents: React.FC = () => {
     const [visibleDiv, setVisibleDiv] = useState(1);
@@ -29,7 +30,7 @@ const SeeEvents: React.FC = () => {
                             <SeeAllSports />
                         </div>
                         <div className={visibleDiv === 3 ? "visible" : "hidden"}>
-                            
+                            <SeeOtherEvents />
                         </div>
                         <div className={visibleDiv === 4 ? "visible" : "hidden"}>
                             <SeeTheater />
