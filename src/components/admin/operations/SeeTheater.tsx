@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteEvent, getAllSports } from "../../../service/EventService";
+import { deleteEvent, getAllTheater } from "../../../service/EventService";
 
 interface Event {
   eventId: string;
@@ -28,14 +28,14 @@ interface Event {
   contentType?: string;
 }
 
-const SeeAllSports: React.FC = () => {
+const SeeTheater: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventList = await getAllSports();
+        const eventList = await getAllTheater();
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
           setError(""); 
@@ -49,7 +49,7 @@ const SeeAllSports: React.FC = () => {
     };
 
     fetchEvents();
-  }, []);
+}, []);
 
   const handleDelete = async (id: string) => { 
         try { 
@@ -71,7 +71,7 @@ const SeeAllSports: React.FC = () => {
         </div>
       )}
       <div className="table-container">
-        <h5>Sport and Match</h5>
+        <h5>Drama and Theater</h5>
         {events.length > 0 ? (
           <table className="table table-bordered">
             <thead>
@@ -80,10 +80,10 @@ const SeeAllSports: React.FC = () => {
                 <th>Venue</th>
                 <th>Event Name</th>
                 <th>Date</th>
-                <th>Time</th>
                 <th>Max</th>
-                <th>Team 01</th>
-                <th>Team 02</th>
+                <th>Time 01</th>
+                <th>Time 02</th>
+                <th>Duration</th>
                 <th>Organizer</th>
                 <th>Action</th>
                 <th>Image</th>
@@ -96,16 +96,16 @@ const SeeAllSports: React.FC = () => {
                   <td>{event.eventVenue}</td>
                   <td>{event.eventName}</td>
                   <td>{event.eventDate}</td>
-                  <td>{event.startTime}</td>
                   <td>{event.maxPerson}</td>
-                  <td>{event.teamOne}</td>
-                  <td>{event.teamTwo}</td>
+                  <td>{event.theaterTime1}</td>
+                  <td>{event.theaterTime2}</td>
+                  <td>{event.duration}</td>
                   <td>{event.eventOrganizer}</td>
                   <td className="text-center">
                     <button onClick={() => handleDelete(event.eventId)} className="btn btn-outline-secondary btn-sm">
-                            <i className="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
+                        <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                   {event.imageData && (
                     <td className="center-column">
                       <img
@@ -120,7 +120,8 @@ const SeeAllSports: React.FC = () => {
             </tbody>
           </table>
         ) : (
-          <div className="" role="alert">
+          <div className="alert alert-warning" role="alert">
+            No events to display.
           </div>
         )}
       </div>
@@ -128,5 +129,4 @@ const SeeAllSports: React.FC = () => {
   );
 };
 
-export default SeeAllSports;
-
+export default SeeTheater;

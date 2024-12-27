@@ -206,11 +206,11 @@ return (
                   <div className="row">
                       <div className="mb-3 col-md-6">
                           <label htmlFor="eventName" className="form-label"> Team 01 </label>
-                          <input className="form-control" type="text" name="eventName" value={event.teamOne} onChange={handleChange} />
+                          <input className="form-control" type="text" name="teamOne" value={event.teamOne} onChange={handleChange} />
                       </div>
                       <div className="mb-3 col-md-6">
                           <label htmlFor="eventName" className="form-label"> Team 02 </label>
-                          <input className="form-control" type="text" name="eventName" value={event.teamTwo} onChange={handleChange} />
+                          <input className="form-control" type="text" name="teamTwo" value={event.teamTwo} onChange={handleChange} />
                       </div>
                   </div>
 

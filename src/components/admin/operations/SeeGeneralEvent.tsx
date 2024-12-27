@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getGeneralEvents } from "../../../service/EventService";
+import { deleteEvent, getGeneralEvents } from "../../../service/EventService";
 
 interface Event {
   eventId: string;
@@ -51,6 +51,18 @@ const SeeGeneralEvent: React.FC = () => {
     fetchEvents();
   }, []);
 
+  const handleDelete = async (id: string) => { 
+      try { 
+          const confirmRespond = confirm("Are you sure to delete this record?"); 
+          if(confirmRespond){
+            await deleteEvent(id); 
+            setEvents((prev) => prev.filter((event) => event.eventId !== id)); 
+          }
+      } catch (error) { 
+          console.error('Failed to delete employee:', error); 
+      } 
+  };
+
   return (
     <div>
       {error && (
@@ -88,13 +100,9 @@ const SeeGeneralEvent: React.FC = () => {
                   <td>{event.eventIsFor}</td>
                   <td>{event.oneTicketPrice}</td>
                   <td className="text-center">
-                    <a
-                      href={event.eventImagePath}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </a>
+                    <button onClick={() => handleDelete(event.eventId)} className="btn btn-outline-secondary btn-sm">
+                          <i className="fa-solid fa-trash"></i>
+                    </button>
                   </td>
                   {event.imageData && (
                     <td className="center-column">
