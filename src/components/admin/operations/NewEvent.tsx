@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState} from "react";
+import { addEvent } from "../../../service/EventService";
 
 const NewEvent: React.FC = () => {
   const [event, setEvent] = useState({
@@ -22,6 +22,7 @@ const NewEvent: React.FC = () => {
     theaterTime2: "",
     theaterIsFor: "",
 });
+
 const [file, setFile] = useState<File | null>(null);
 const [eventType, setEventType] = useState<string>("select");
 const [eventIsFor, setEventIsFor] = useState<string>("");
@@ -42,8 +43,39 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     }
 };
 
+const isFormValid = () => {
+  const requiredFields = [
+    "eventName",
+    "eventType",
+    "eventDate",
+    "eventVenue",
+    "startTime",
+    "endTime",
+    "eventOrganizer",
+    "numOfTickets",
+    "oneTicketPrice",
+    "eventIsFor",
+    "maxPerson",
+  ];
+
+  for (const field of requiredFields) {
+    if (!event[field as keyof typeof event]) {
+      return false;
+    }
+  }
+  return true; 
+};
+
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isFormValid()) {
+        setErrorMessege("Please fill in all required fields indicated with '*'");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+    } else {
+        setErrorMessege(""); 
+    }
 
     const formData = new FormData();
     formData.append("event", JSON.stringify(event));
@@ -52,20 +84,21 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
 
     try {
-        const response = await axios.post("http://localhost:8080/events/addEvent", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        setSuccessMessege("Data inserted Successfully...!");
-        console.log(response.data);
+        const response = await addEvent(formData);
+        setSuccessMessege("Data inserted successfully!");
+        setErrorMessege("");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        console.log(response);
     } catch (error) {
-      setErrorMessege("An error occured...! Insertion Not Success");
-      console.error("There was an error uploading the event!", error);
+        const msg = "An error occurred! Insertion not successful" + error;
+        setErrorMessege(msg);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        //console.error("There was an error uploading the event!", error);
     }
 };
 
-  return (
+
+return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className="row">
@@ -82,12 +115,12 @@ const handleSubmit = async (e: React.FormEvent) => {
                   </div>)}
                   <div className="row">
                     <div className="mb-3 col-md-6">
-                        <label htmlFor="eventName" className="form-label"> Event Name </label>
-                        <input className="form-control" type="text" name="eventName" value={event.eventName} onChange={handleChange} />
+                        <label htmlFor="eventName" className="form-label"> Event Name <span className="text-danger">*</span></label>
+                        <input className="form-control" type="text" name="eventName" value={event.eventName} onChange={handleChange}/>
                     </div>
                     <div className="mb-3 col-md-6">
-                      <label htmlFor="category" className="form-label"> Event Type </label>
-                      <select id="category" name="eventType" value={eventType} onChange={handleChange} className="form-control" >
+                      <label htmlFor="category" className="form-label"> Event Type <span className="text-danger">*</span></label>
+                      <select id="category" name="eventType" value={eventType} onChange={handleChange} className="form-control">
                         <option value="select">-- Select Event Type --</option>
                         <option value="generalEvent">General Event</option>
                         <option value="sports">Sports</option>
@@ -99,60 +132,60 @@ const handleSubmit = async (e: React.FormEvent) => {
 
                   <div className="row">
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Event Date </label>
-                          <input className="form-control" type="date" name="eventDate" value={event.eventDate} onChange={handleChange} />
+                          <label htmlFor="eventName" className="form-label"> Event Date <span className="text-danger">*</span></label>
+                          <input className="form-control" type="date" name="eventDate" value={event.eventDate} onChange={handleChange}/>
                       </div>
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Event Venue </label>
-                          <input className="form-control" type="text" name="eventVenue" value={event.eventVenue} onChange={handleChange} />
-                      </div>
-                  </div>
-
-                  <div className="row">
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Event Start Time </label>
-                          <input className="form-control" type="time" name="startTime" value={event.startTime} onChange={handleChange} />
-                      </div>
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Event End Time </label>
-                          <input className="form-control" type="time" name="endTime" value={event.endTime} onChange={handleChange} />
+                          <label htmlFor="eventName" className="form-label"> Event Venue <span className="text-danger">*</span></label>
+                          <input className="form-control" type="text" name="eventVenue" value={event.eventVenue} onChange={handleChange}/>
                       </div>
                   </div>
 
                   <div className="row">
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Event Organizer </label>
-                          <input className="form-control" type="text" name="eventOrganizer" value={event.eventOrganizer} onChange={handleChange} />
+                          <label htmlFor="eventName" className="form-label"> Event Start Time <span className="text-danger">*</span></label>
+                          <input className="form-control" type="time" name="startTime" value={event.startTime} onChange={handleChange}/>
                       </div>
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Available Tickets </label>
-                          <input className="form-control" type="number" name="numOfTickets" value={event.numOfTickets} onChange={handleChange} />
+                          <label htmlFor="eventName" className="form-label"> Event End Time <span className="text-danger">*</span></label>
+                          <input className="form-control" type="time" name="endTime" value={event.endTime} onChange={handleChange}/>
                       </div>
                   </div>
 
                   <div className="row">
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> One Ticket Price </label>
-                          <input className="form-control" type="text" name="oneTicketPrice" value={event.oneTicketPrice} onChange={handleChange} />
+                          <label htmlFor="eventName" className="form-label"> Event Organizer <span className="text-danger">*</span></label>
+                          <input className="form-control" type="text" name="eventOrganizer" value={event.eventOrganizer} onChange={handleChange}/>
                       </div>
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Event is for </label>
+                          <label htmlFor="eventName" className="form-label"> Available Tickets <span className="text-danger">*</span></label>
+                          <input className="form-control" type="number" name="numOfTickets" value={event.numOfTickets} onChange={handleChange}/>
+                      </div>
+                  </div>
+
+                  <div className="row">
+                      <div className="mb-3 col-md-6">
+                          <label htmlFor="eventName" className="form-label"> One Ticket Price <span className="text-danger">*</span></label>
+                          <input className="form-control" type="text" name="oneTicketPrice" value={event.oneTicketPrice} onChange={handleChange}/>
+                      </div>
+                      <div className="mb-3 col-md-6">
+                          <label htmlFor="eventName" className="form-label"> Event is for <span className="text-danger">*</span></label>
                           <select id="category" className="form-control" name="eventIsFor" value={eventIsFor} onChange={handleChange}>
                             <option value="select">-- Select Event Type --</option>
-                            <option value="generalEvent">Students</option>
-                            <option value="sports">Teens</option>
-                            <option value="theater">Adults</option>
-                            <option value="otherEvent">Childs</option>
-                            <option value="otherEvent">All</option>
-                            <option value="otherEvent">Forigners Only</option>
-                            <option value="otherEvent">Locals Only</option>
+                            <option value="Students">Students</option>
+                            <option value="Teens">Teens</option>
+                            <option value="Adults">Adults</option>
+                            <option value="Childs">Childs</option>
+                            <option value="All">All</option>
+                            <option value="Forigners Only">Forigners Only</option>
+                            <option value="Locals Only">Locals Only</option>
                           </select>
                       </div>
                   </div>
                   <div className="row">
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Limit of Participation </label>
-                          <input className="form-control" type="text" name="maxPerson" value={event.maxPerson} onChange={handleChange} />
+                          <label htmlFor="eventName" className="form-label"> Limit of Participation <span className="text-danger">*</span></label>
+                          <input className="form-control" type="text" name="maxPerson" value={event.maxPerson} onChange={handleChange}/>
                       </div>
                   </div>
 
@@ -166,9 +199,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <div className="col-md-12">
             <div className="card mb-4">
               <h5 className="card-header">Sports and Match</h5>
-              {/* <div className="alert alert-success mx-2 d-flex justify-content-between">
-                <i className="fas fa-check-circle pt-1"></i>
-              </div> */}
               <hr className="my-0" />
               <div className="card-body">
                 <div id="formAccountSettings">
@@ -176,11 +206,11 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <div className="row">
                       <div className="mb-3 col-md-6">
                           <label htmlFor="eventName" className="form-label"> Team 01 </label>
-                          <input className="form-control" type="text" name="eventName" value={event.teamOne} onChange={handleChange} />
+                          <input className="form-control" type="text" name="teamOne" value={event.teamOne} onChange={handleChange} />
                       </div>
                       <div className="mb-3 col-md-6">
                           <label htmlFor="eventName" className="form-label"> Team 02 </label>
-                          <input className="form-control" type="text" name="eventName" value={event.teamTwo} onChange={handleChange} />
+                          <input className="form-control" type="text" name="teamTwo" value={event.teamTwo} onChange={handleChange} />
                       </div>
                   </div>
 
@@ -217,13 +247,13 @@ const handleSubmit = async (e: React.FormEvent) => {
                           <label htmlFor="eventName" className="form-label"> Theater is for </label>
                           <select id="category" className="form-control" name="theaterIsFor" value={event.theaterIsFor} onChange={handleChange}>
                             <option value="select">-- Select Event Type --</option>
-                            <option value="generalEvent">Students</option>
-                            <option value="sports">Teens</option>
-                            <option value="theater">Adults</option>
-                            <option value="otherEvent">Childs</option>
-                            <option value="otherEvent">All</option>
-                            <option value="otherEvent">Forigners Only</option>
-                            <option value="otherEvent">Locals Only</option>
+                            <option value="Students">Students</option>
+                            <option value="Teens">Teens</option>
+                            <option value="Adults">Adults</option>
+                            <option value="Childs">Childs</option>
+                            <option value="All">All</option>
+                            <option value="Forigners Only">Forigners Only</option>
+                            <option value="Locals Only">Locals Only</option>
                           </select>
                       </div>
                   </div>
@@ -240,7 +270,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
                 <div className="row">
                     <div className="mb-3 col-md-6">
-                        <label htmlFor="eventName" className="form-label"> Upload Image </label>
+                        <label htmlFor="eventName" className="form-label"> Upload Image <span className="text-danger">*</span></label>
                         <input className="form-control" type="file" name="events" onChange={handleFileChange} required />
                     </div>
                 </div>

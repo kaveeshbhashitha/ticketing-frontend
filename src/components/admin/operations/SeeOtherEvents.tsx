@@ -28,7 +28,7 @@ interface Event {
   contentType?: string;
 }
 
-const SeeGeneralEvent: React.FC = () => {
+const SeeOtherEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<string>("");
 
@@ -71,7 +71,7 @@ const SeeGeneralEvent: React.FC = () => {
         </div>
       )}
       <div className="table-container">
-        <h5>General Event Data</h5>
+        <h5>Other Event Data</h5>
         {events.length > 0 ? (
           <table className="table table-bordered">
             <thead>
@@ -127,4 +127,4 @@ const SeeGeneralEvent: React.FC = () => {
   );
 };
 
-export default SeeGeneralEvent;
+export default SeeOtherEvents;

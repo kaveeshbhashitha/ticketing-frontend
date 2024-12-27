@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteEvent, getGeneralEvents } from "../../../service/EventService";
+import { deleteEvent, getAllSports } from "../../../service/EventService";
 
 interface Event {
   eventId: string;
@@ -28,14 +28,14 @@ interface Event {
   contentType?: string;
 }
 
-const SeeGeneralEvent: React.FC = () => {
+const SeeAllSports: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventList = await getGeneralEvents();
+        const eventList = await getAllSports();
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
           setError(""); 
@@ -52,16 +52,16 @@ const SeeGeneralEvent: React.FC = () => {
   }, []);
 
   const handleDelete = async (id: string) => { 
-      try { 
-          const confirmRespond = confirm("Are you sure to delete this record?"); 
-          if(confirmRespond){
-            await deleteEvent(id); 
-            setEvents((prev) => prev.filter((event) => event.eventId !== id)); 
-          }
-      } catch (error) { 
-          console.error('Failed to delete employee:', error); 
-      } 
-  };
+        try { 
+            const confirmRespond = confirm("Are you sure to delete this record?"); 
+            if(confirmRespond){
+              await deleteEvent(id); 
+              setEvents((prev) => prev.filter((event) => event.eventId !== id)); 
+            }
+        } catch (error) { 
+            console.error('Failed to delete employee:', error); 
+        } 
+    };
 
   return (
     <div>
@@ -71,19 +71,20 @@ const SeeGeneralEvent: React.FC = () => {
         </div>
       )}
       <div className="table-container">
-        <h5>General Event Data</h5>
+        <h5>Sport and Match</h5>
         {events.length > 0 ? (
           <table className="table table-bordered">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Event Type</th>
+                <th>Venue</th>
                 <th>Event Name</th>
-                <th>Event Date</th>
-                <th>Action</th>
-                <th>Image</th>
-                <th>Action</th>
-                <th>Image</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Max</th>
+                <th>Team 01</th>
+                <th>Team 02</th>
+                <th>Organizer</th>
                 <th>Action</th>
                 <th>Image</th>
               </tr>
@@ -92,18 +93,19 @@ const SeeGeneralEvent: React.FC = () => {
               {events.map((event) => (
                 <tr key={event.eventId}>
                   <td><abbr title={event.eventId}>#</abbr></td>
-                  <td>{event.eventType}</td>
+                  <td>{event.eventVenue}</td>
                   <td>{event.eventName}</td>
                   <td>{event.eventDate}</td>
                   <td>{event.startTime}</td>
-                  <td>{event.eventType}</td>
-                  <td>{event.eventIsFor}</td>
-                  <td>{event.oneTicketPrice}</td>
+                  <td>{event.maxPerson}</td>
+                  <td>{event.teamOne}</td>
+                  <td>{event.teamTwo}</td>
+                  <td>{event.eventOrganizer}</td>
                   <td className="text-center">
                     <button onClick={() => handleDelete(event.eventId)} className="btn btn-outline-secondary btn-sm">
-                          <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
+                            <i className="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
                   {event.imageData && (
                     <td className="center-column">
                       <img
@@ -118,8 +120,7 @@ const SeeGeneralEvent: React.FC = () => {
             </tbody>
           </table>
         ) : (
-          <div className="alert alert-warning" role="alert">
-            No events to display.
+          <div className="" role="alert">
           </div>
         )}
       </div>
@@ -127,4 +128,5 @@ const SeeGeneralEvent: React.FC = () => {
   );
 };
 
-export default SeeGeneralEvent;
+export default SeeAllSports;
+
