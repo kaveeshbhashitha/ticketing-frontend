@@ -12,3 +12,22 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
   });
   return response.data;
 };
+
+export const getGeneralEvents = async () => { 
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter((event: { eventType: string }) => event.eventType === "generalEvent");
+  return filteredEvents;
+};
+
+export const getAllSports = async () => { 
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter((event: { eventType: string }) => event.eventType === "sports");
+  return filteredEvents;
+};
+
+export const getAllTheater = async () => { 
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter((event: { eventType: string }) => event.eventType === "theater");
+  return filteredEvents;
+};
+ 

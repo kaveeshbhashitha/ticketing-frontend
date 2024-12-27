@@ -71,7 +71,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
     if (!isFormValid()) {
         setErrorMessege("Please fill in all required fields indicated with '*'");
-        console.log("Validation failed");
+        window.scrollTo({ top: 0, behavior: "smooth" });
         return;
     } else {
         setErrorMessege(""); 
@@ -90,13 +90,15 @@ const handleSubmit = async (e: React.FormEvent) => {
         window.scrollTo({ top: 0, behavior: "smooth" });
         console.log(response);
     } catch (error) {
-        setErrorMessege("An error occurred! Insertion not successful.");
-        console.error("There was an error uploading the event!", error);
+        const msg = "An error occurred! Insertion not successful" + error;
+        setErrorMessege(msg);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        //console.error("There was an error uploading the event!", error);
     }
 };
 
 
-  return (
+return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className="row">
@@ -268,7 +270,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
                 <div className="row">
                     <div className="mb-3 col-md-6">
-                        <label htmlFor="eventName" className="form-label"> Upload Image </label>
+                        <label htmlFor="eventName" className="form-label"> Upload Image <span className="text-danger">*</span></label>
                         <input className="form-control" type="file" name="events" onChange={handleFileChange} required />
                     </div>
                 </div>
