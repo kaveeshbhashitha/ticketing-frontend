@@ -8,23 +8,25 @@ const Login: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const navigate = useNavigate();
   
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const response = await login(userEmail, password);
-        if(response === "Login successful"){
-          console.log("Login successful:", response);
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      
+      try {
+        const response = await login(userEmail, password);
+        if (response.token && response.email) {
+          sessionStorage.setItem('user', userEmail);
+          //console.log("Login successful:", response.email);
           navigate('/');
-        }else{
+        } else {
           setMessage("Wrong");
-          console.log(response, userEmail, password);
+          console.log("Missing token or email", response);
         }
-
-    } catch (error) {
-        setMessage("Error");
+      } catch (error) {
+        setMessage("Login Failed. Try Again.!");
         console.error("Error logging in:", error);
-    }
-  };
+      }
+    };
+    
 
   return (
     <div
