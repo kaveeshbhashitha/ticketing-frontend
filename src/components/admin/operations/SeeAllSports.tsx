@@ -52,16 +52,16 @@ const SeeAllSports: React.FC = () => {
   }, []);
 
   const handleDelete = async (id: string) => { 
-        try { 
-            const confirmRespond = confirm("Are you sure to delete this record?"); 
-            if(confirmRespond){
-              await deleteEvent(id); 
-              setEvents((prev) => prev.filter((event) => event.eventId !== id)); 
-            }
-        } catch (error) { 
-            console.error('Failed to delete employee:', error); 
-        } 
-    };
+      try { 
+          const confirmRespond = confirm("Are you sure to delete this record?"); 
+          if(confirmRespond){
+            await deleteEvent(id); 
+            setEvents((prev) => prev.filter((event) => event.eventId !== id)); 
+          }
+      } catch (error) { 
+          console.error('Failed to delete employee:', error); 
+      } 
+  };
 
   return (
     <div>
