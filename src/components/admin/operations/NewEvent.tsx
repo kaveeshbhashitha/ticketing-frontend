@@ -2,6 +2,8 @@ import React, { useState} from "react";
 import { addEvent } from "../../../service/EventService";
 
 const NewEvent: React.FC = () => {
+  const [visibleDiv, setVisibleDiv] = useState(1);
+
   const [event, setEvent] = useState({
     eventName: "",
     eventDate: "",
@@ -188,30 +190,13 @@ return (
                           <label htmlFor="eventName" className="form-label"> Limit of Participation <span className="text-danger">*</span></label>
                           <input className="form-control" type="text" name="maxPerson" value={event.maxPerson} onChange={handleChange}/>
                       </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-12">
-            <div className="card mb-4">
-              <h5 className="card-header">Sports and Match</h5>
-              <hr className="my-0" />
-              <div className="card-body">
-                <div id="formAccountSettings">
-
-                  <div className="row">
                       <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Team 01 </label>
-                          <input className="form-control" type="text" name="teamOne" value={event.teamOne} onChange={handleChange} />
-                      </div>
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Team 02 </label>
-                          <input className="form-control" type="text" name="teamTwo" value={event.teamTwo} onChange={handleChange} />
+                          <label htmlFor="eventName" className="form-label"> Select to More Forward <span className="text-danger">*</span></label>
+                          <div className="button-container mb-4 mt-2">
+                              <button className='btn btn-outline-dark mx-2 btn-sm' onClick={() => setVisibleDiv(1)}>General Event</button>
+                              <button className='btn btn-outline-dark mx-2 btn-sm' onClick={() => setVisibleDiv(2)}>Sports and Match</button>
+                              <button className='btn btn-outline-dark mx-2 btn-sm' onClick={() => setVisibleDiv(3)}>Theater and Movie</button>
+                          </div>
                       </div>
                   </div>
 
@@ -221,44 +206,73 @@ return (
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-md-12">
-            <div className="card mb-4">
-              <h5 className="card-header">Theater and Drama</h5>
-              <hr className="my-0" />
-              <div className="card-body">
-                <div id="formAccountSettings">
+        <div className={visibleDiv === 2 ? "visible" : "hidden"}>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card mb-4">
+                <h5 className="card-header">Sports and Match</h5>
+                <hr className="my-0" />
+                <div className="card-body">
+                  <div id="formAccountSettings">
 
-                  <div className="row">
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Theater Time 01 </label>
-                          <input className="form-control" type="time" name="theaterTime1" value={event.theaterTime1} onChange={handleChange} />
-                      </div>
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Theater Time 02 </label>
-                          <input className="form-control" type="time" name="theaterTime2" value={event.theaterTime2} onChange={handleChange} />
-                      </div>
-                  </div>
-                  <div className="row">
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Duration </label>
-                          <input className="form-control" type="text" name="duration" value={event.duration} onChange={handleChange} />
-                      </div>
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Theater is for </label>
-                          <select id="category" className="form-control" name="theaterIsFor" value={event.theaterIsFor} onChange={handleChange}>
-                            <option value="select">-- Select Event Type --</option>
-                            <option value="Students">Students</option>
-                            <option value="Teens">Teens</option>
-                            <option value="Adults">Adults</option>
-                            <option value="Childs">Childs</option>
-                            <option value="All">All</option>
-                            <option value="Forigners Only">Forigners Only</option>
-                            <option value="Locals Only">Locals Only</option>
-                          </select>
-                      </div>
-                  </div>
+                    <div className="row">
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="eventName" className="form-label"> Team 01 </label>
+                            <input className="form-control" type="text" name="teamOne" value={event.teamOne} onChange={handleChange} />
+                        </div>
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="eventName" className="form-label"> Team 02 </label>
+                            <input className="form-control" type="text" name="teamTwo" value={event.teamTwo} onChange={handleChange} />
+                        </div>
+                    </div>
 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={visibleDiv === 3 ? "visible" : "hidden"}>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card mb-4">
+                <h5 className="card-header">Theater and Drama</h5>
+                <hr className="my-0" />
+                <div className="card-body">
+                  <div id="formAccountSettings">
+
+                    <div className="row">
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="eventName" className="form-label"> Theater Time 01 </label>
+                            <input className="form-control" type="time" name="theaterTime1" value={event.theaterTime1} onChange={handleChange} />
+                        </div>
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="eventName" className="form-label"> Theater Time 02 </label>
+                            <input className="form-control" type="time" name="theaterTime2" value={event.theaterTime2} onChange={handleChange} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="eventName" className="form-label"> Duration </label>
+                            <input className="form-control" type="text" name="duration" value={event.duration} onChange={handleChange} />
+                        </div>
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="eventName" className="form-label"> Theater is for </label>
+                            <select id="category" className="form-control" name="theaterIsFor" value={event.theaterIsFor} onChange={handleChange}>
+                              <option value="select">-- Select Event Type --</option>
+                              <option value="Students">Students</option>
+                              <option value="Teens">Teens</option>
+                              <option value="Adults">Adults</option>
+                              <option value="Childs">Childs</option>
+                              <option value="All">All</option>
+                              <option value="Forigners Only">Forigners Only</option>
+                              <option value="Locals Only">Locals Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
