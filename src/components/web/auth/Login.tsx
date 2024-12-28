@@ -1,54 +1,44 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../../service/UserService";
+import { login } from "../../../service/AuthService";
 
 const Login: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [message, setMessage] = useState<string>('');
     const navigate = useNavigate();
-    const [checkin, setCheckIn] = useState(false);
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
-      const response = await loginUser({ userEmail, password });
-      setMessage(response.data);
-
-      if (checkin) {
-        if (response.data === 'Login successful') {
-            sessionStorage.setItem('user', userEmail);
-            navigate('/');
-          } else {
-            setMessage('Invalid Email or Password, Try again');
-          }
-      }else{
-        setPassword('');
-        setUserEmail('');
-        setCheckIn(false);
-        setMessage("Invalid username or password");
-      }
+      const response = await login(userEmail, password);
+        if(response === "Login successful"){
+          console.log("Login successful:", response);
+          navigate('/');
+        }else{
+          setMessage("Wrong");
+          console.log(response, userEmail, password);
+        }
 
     } catch (error) {
-      setMessage('Error Login, Try again');
-      console.error("Login error:", error);
+        setMessage("Error");
+        console.error("Error logging in:", error);
     }
   };
 
   return (
     <div
-      className="d-flex align-items-center justify-content-center vh-100 bg-light"
+      className="d-flex align-items-center justify-content-center vh-100 bg-dark"
       style={{
-        backgroundImage: "url('/img/intro-bg.jpg')",
+        backgroundImage: "url('/img/poster.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
       <div className="card shadow-lg" style={{ maxWidth: "400px", width: "100%" }}>
-        <div className="card-header text-center bg-danger text-white">
-          <h3 className="text-white">Admin Login!</h3>
+        <div className="card-header text-center text-white" style={{backgroundColor:"#f82249"}}>
+          <h3 className="text-white">Ticketing Login!</h3>
           <p className="mb-0">Login to access your account</p>
         </div>
         <div className="card-body">
@@ -59,7 +49,7 @@ const Login: React.FC = () => {
                 Username
               </label>
               <input
-                type="text"
+                type="email"
                 id="username"
                 className="form-control"
                 value={userEmail}
@@ -87,18 +77,7 @@ const Login: React.FC = () => {
 
             {/* Remember Me and Forgot Password */}
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  id="remember"
-                  className="form-check-input"
-                  onChange={() => setCheckIn(!checkin)}
-                />
-                <label htmlFor="remember" className="form-check-label">
-                  Check me in
-                </label>
-              </div>
-              <a href="#" className="text-danger text-decoration-none small">
+              <a href="#" className="text-decoration-none small" style={{color:"#f82249"}}>
                 Forgot Password?
               </a>
             </div>
@@ -106,16 +85,17 @@ const Login: React.FC = () => {
             {message && <div className="alert alert-danger text-center">{message}</div>}
 
             <div className="d-grid mb-2">
-              <button type="submit" className="btn btn-danger btn-lg">
+              <button type="submit" className="btn btn-lg" style={{backgroundColor:"#f82249", color:"white"}}>
                 Login
               </button>
             </div>
           </form>
         </div>
+        <a href="/" className="text-center text-secondary"><span>Back to Home</span></a>
         <div className="card-footer text-center">
           <p className="mb-0">
             Don’t have an account?{" "}
-            <a href="#" className="text-danger text-decoration-none">
+            <a href="/register" className="text-decoration-none" style={{color:"#f82249"}}>
               Sign Up
             </a>
           </p>

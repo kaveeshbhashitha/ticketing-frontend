@@ -78,6 +78,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
 
     const formData = new FormData();
+    
     formData.append("event", JSON.stringify(event));
     if (file) {
         formData.append("imageFile", file);
