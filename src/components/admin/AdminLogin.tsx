@@ -14,7 +14,7 @@ const AdminLogin: React.FC = () => {
     if (username === "admin" && password === "admin123") {
       if (checkin) {
         setError("");
-        navigate("/admin/dashboard");
+        navigate("/dashboard");
       } else {
         setError("Click check box");
       }
