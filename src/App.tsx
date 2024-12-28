@@ -8,6 +8,7 @@ import AddEvent from "./components/admin/actions/AddEvent";
 import SeeEvents from "./components/admin/actions/SeeEvents";
 import Login from "./components/web/auth/Login";
 import Register from "./components/web/auth/Register";
+import SeeUsers from "./components/admin/actions/SeeUsers";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/seeEvents" element={<SeeEvents />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/seeUsers" element={<SeeUsers />} />
         </Routes>
       </Router>
     </div>
