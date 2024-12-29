@@ -1,8 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../layout/Logo";
+import axios from "axios";
 
 const SideBar: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/user/logout');
+      if (response) {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('role');
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+};
+
   return (
     <div>
       <aside
@@ -163,21 +179,12 @@ const SideBar: React.FC = () => {
             </NavLink>
           </li>
           <li className="menu-header small text-uppercase">
-            <span className="menu-header-text">Misc</span>
+            <span className="menu-header-text">Admin Action</span>
           </li>
           <li className="menu-item">
-            <a href="/bot" className="menu-link">
-              <i className="menu-icon tf-icons bx bx-support"></i>
-              <div data-i18n="Support">Support</div>
-            </a>
-          </li>
-          <li className="menu-item">
-            <a
-              href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-              className="menu-link"
-            >
-              <i className="menu-icon tf-icons bx bx-file"></i>
-              <div data-i18n="Documentation">Documentation</div>
+            <a className="menu-link" onClick={handleLogout}>
+              <i className="menu-icon fa-solid fa-arrow-right-from-bracket"></i>
+              <div data-i18n="Documentation">Admin Logout</div>
             </a>
           </li>
         </ul>

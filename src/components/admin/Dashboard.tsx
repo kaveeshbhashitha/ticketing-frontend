@@ -1,8 +1,10 @@
 import React from "react";
 import SideBar from "./layout/SideBar";
 import CongratulationsCard from "./layout/CongratulationsCard";
+import useAuthCheck from "../../useAuthCheck";
 
 const Dashboard: React.FC = () => {
+  useAuthCheck(['Admin']);
   return (
     <div>
     <div className="layout-wrapper layout-content-navbar">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../layout/SideBar";
 import { deleteUser, getAllUsers } from "../../../service/UserService";
+import useAuthCheck from "../../../useAuthCheck";
 
 interface User {
   userId: string;
@@ -14,6 +15,7 @@ interface User {
 }
 
 const SeeUsers: React.FC = () => {
+  useAuthCheck(['Admin']);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

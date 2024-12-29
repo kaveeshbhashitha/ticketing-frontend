@@ -17,7 +17,12 @@ const Login: React.FC = () => {
           sessionStorage.setItem('user', userEmail);
           sessionStorage.setItem('role', response.role);
           //console.log("Login successful:", response.email);
-          navigate('/');
+          if (response.role === "Admin") {
+            navigate('/dashboard');
+          }else{
+            navigate('/');
+          }
+
         } else {
           setMessage("Wrong");
           console.log("Missing token or email", response);
