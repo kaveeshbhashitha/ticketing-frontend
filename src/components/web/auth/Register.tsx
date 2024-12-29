@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../../service/AuthService";
+import Chatbot from "../../chatbot/Chatbot";
 
 interface Message {
   text: string;
@@ -173,6 +174,7 @@ const Register: React.FC = () => {
           </p>
         </div>
       </div>
+      <Chatbot />
     </div>
   );
 };

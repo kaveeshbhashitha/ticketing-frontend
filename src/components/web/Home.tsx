@@ -12,6 +12,7 @@ import HomeQandA from "../content/HomeQandA";
 import HomeNewsLetter from "../content/HomeNewsLetter";
 import HomePackages from "../content/HomePackages";
 import HomeContactUs from "../content/HomeContactUs";
+import Chatbot from "../chatbot/Chatbot";
 
 const Home: React.FC = () => {
   //useAuthCheck(['User']);
@@ -67,6 +68,7 @@ const Home: React.FC = () => {
             <HomeNewsLetter />
             <HomePackages />
             <HomeContactUs />
+            <Chatbot />
             <Footer />
         </div>
     </body>

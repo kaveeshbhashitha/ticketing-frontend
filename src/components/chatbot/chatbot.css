@@ -1,0 +1,141 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+}
+
+/* Chatbot Container */
+.minimized-chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.minimized-chatbot .chatbot-container {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* Minimized Chatbot Button */
+.minimized-button {
+  width: 50px;
+  height: 50px;
+  background-color: #f82249;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+
+.minimized-button:hover {
+  transform: scale(1.1);
+}
+
+/* Chatbot Messages Area */
+.chatbot-messages {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 80%;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+.message.user {
+  align-self: flex-end;
+  background-color: #f82249;
+  color: white;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+/* Chatbot Input Area */
+.chatbot-input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-top: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.chatbot-input:focus {
+  outline: none;
+  border-color: #f82249;
+}
+
+/* Send and Close Buttons */
+.send-button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #f82249;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.send-button:hover {
+  background-color: #b81432;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  color: #f82249;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.close-button:hover {
+  color: #ba2a44;
+}
