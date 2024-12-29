@@ -31,10 +31,13 @@ export function login(userEmail:string, password:string) {
 //   }
 // }
 
-
 export function register(firstName: string, lastName: string, userEmail: string, password: string) {
     return axios.post(`${API_URL}/register`, { firstName, lastName, userEmail, password });
 }
+
+export const logout = async () => {
+  return await axios.post(`${API_URL}/logout`);
+};
   
 
 

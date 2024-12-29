@@ -1,10 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "./layout/SideBar";
 import CongratulationsCard from "./layout/CongratulationsCard";
 import useAuthCheck from "../../useAuthCheck";
+import { getUserByEmail } from "../../service/UserService";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../service/AuthService";
+
+interface User {
+  userEmail: string;
+  firstName: string;
+  lastName: string;
+}
 
 const Dashboard: React.FC = () => {
   useAuthCheck(['Admin']);
+
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string>("");
+  
+  const userEmail = sessionStorage.getItem('user')
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (!userEmail) {
+          setError("No email found in session storage.");
+          return;
+        }
+
+        const fetchedUser = await getUserByEmail(userEmail);
+
+        if (fetchedUser) {
+          setUser(fetchedUser);
+          setError("");
+        } else {
+          setError("No user found for the given email.");
+        }
+      } catch (error) {
+        setError("Error fetching user data.");
+        console.error("Failed to fetch user:", error, userEmail);
+      }
+    };
+
+    fetchUser();
+  }, [userEmail]);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+      if (response) {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('role');
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+};
+
+
   return (
     <div>
     <div className="layout-wrapper layout-content-navbar">
@@ -37,13 +93,20 @@ const Dashboard: React.FC = () => {
               <ul className="navbar-nav flex-row align-items-center ms-auto">
                 <li className="nav-item lh-1 me-3">
                   <a
-                    className="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">
-                      Hello Admin
+                    className="github-button" onClick={handleLogout}>
+                      <span className="fw-semibold d-block">
+                        <abbr title="Click here to logout">
+                          <div>
+                            {error && <p>{error}</p>}
+                            {user && (
+                              <div>
+                                {user.firstName.toUpperCase()}{" "}
+                                {user.lastName.toUpperCase()}
+                              </div>
+                            )}
+                          </div>
+                        </abbr>
+                      </span>
                   </a>
                 </li>
                 <li className="nav-item navbar-dropdown dropdown-user dropdown">
@@ -59,7 +122,7 @@ const Dashboard: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex-grow-1">
-                            <span className="fw-semibold d-block">John Doe</span>
+                            <span className="fw-semibold d-block"></span>
                             <small className="text-muted">Admin</small>
                           </div>
                         </div>

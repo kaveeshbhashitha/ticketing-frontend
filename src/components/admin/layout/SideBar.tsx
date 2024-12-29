@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../layout/Logo";
-import axios from "axios";
+import { logout } from "../../../service/AuthService";
 
 const SideBar: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/user/logout');
+      const response = await logout();
       if (response) {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('role');
