@@ -15,6 +15,7 @@ const Login: React.FC = () => {
         const response = await login(userEmail, password);
         if (response.token && response.email) {
           sessionStorage.setItem('user', userEmail);
+          sessionStorage.setItem('role', response.role);
           //console.log("Login successful:", response.email);
           navigate('/');
         } else {
