@@ -25,6 +25,7 @@ const handleLogout = async () => {
       const response = await axios.post('http://localhost:8080/user/logout');
       if (response) {
         sessionStorage.removeItem('user');
+        //console.log(sessionStorage.getItem('role'));
         navigate('/login');
       }
     } catch (error) {
