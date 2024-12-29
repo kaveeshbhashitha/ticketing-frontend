@@ -32,4 +32,9 @@ export const getAllUsers = async () => {
 export const deleteUser = async (id: string) => { 
   const response = await axios.delete(`${API_URL}/user/delete/${id}`); 
   return response.data; 
-};  
+};
+
+export const getUserByEmail = async (userEmail: string) => { 
+  const response = await axios.get(`${API_URL}/user/getUserByEmail/${userEmail}`); 
+  return response.data; 
+}; 

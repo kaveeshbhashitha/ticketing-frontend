@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { logout } from "../../service/AuthService";
 
 const Header: React.FC = () => {
   const [className, setClassName] = useState('');
@@ -22,10 +22,10 @@ const Header: React.FC = () => {
 
 const handleLogout = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/user/logout');
+      const response = await logout();
       if (response) {
         sessionStorage.removeItem('user');
-        //console.log(sessionStorage.getItem('role'));
+        sessionStorage.removeItem('role');
         navigate('/login');
       }
     } catch (error) {
