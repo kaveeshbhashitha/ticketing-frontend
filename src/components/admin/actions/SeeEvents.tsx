@@ -4,8 +4,10 @@ import SeeGeneralEvent from "../operations/SeeGeneralEvent";
 import SeeAllSports from "../operations/SeeAllSports";
 import SeeTheater from "../operations/SeeTheater";
 import SeeOtherEvents from "../operations/SeeOtherEvents";
+import useAuthCheck from "../../../useAuthCheck";
 
 const SeeEvents: React.FC = () => {
+    useAuthCheck(['Admin']);
     const [visibleDiv, setVisibleDiv] = useState(1);
   return (
     <div>

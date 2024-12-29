@@ -12,9 +12,10 @@ import HomeQandA from "../content/HomeQandA";
 import HomeNewsLetter from "../content/HomeNewsLetter";
 import HomePackages from "../content/HomePackages";
 import HomeContactUs from "../content/HomeContactUs";
+import useAuthCheck from "../../useAuthCheck";
 
 const Home: React.FC = () => {
-
+  useAuthCheck(['User']);
   const scheduleData = [
     {
       day: "Day 1",

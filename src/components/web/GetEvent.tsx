@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import useAuthCheck from "../../useAuthCheck";
 
 interface Event {
   eventId: string;
@@ -29,6 +30,7 @@ interface Event {
 }
 
 const EventWithInput = () => {
+  useAuthCheck(['User']);
   const [eventId, setEventId] = useState<string>("");
   const [eventData, setEventData] = useState<Event | null>(null);  // Using Event type
   const [error, setError] = useState<string>("");
