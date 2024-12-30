@@ -29,6 +29,12 @@ export const getAllTheater = async () => {
   return filteredEvents;
 };
 
+export const getAllOtherEvents = async () => { 
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter((event: { eventType: string }) => event.eventType === "otherEvent");
+  return filteredEvents;
+};
+
 export const deleteEvent = async (id: string) => { 
   const response = await axios.delete(`${API_URL}/delete/${id}`); 
   return response.data; 
