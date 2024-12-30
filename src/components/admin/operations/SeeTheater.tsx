@@ -120,8 +120,7 @@ const SeeTheater: React.FC = () => {
             </tbody>
           </table>
         ) : (
-          <div className="alert alert-warning" role="alert">
-            No events to display.
+          <div className="" role="alert">
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteEvent, getGeneralEvents } from "../../../service/EventService";
+import { deleteEvent, getAllOtherEvents } from "../../../service/EventService";
 
 interface Event {
   eventId: string;
@@ -35,7 +35,7 @@ const SeeOtherEvents: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventList = await getGeneralEvents();
+        const eventList = await getAllOtherEvents();
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
           setError(""); 
@@ -118,8 +118,7 @@ const SeeOtherEvents: React.FC = () => {
             </tbody>
           </table>
         ) : (
-          <div className="alert alert-warning" role="alert">
-            No events to display.
+          <div className="" role="alert">
           </div>
         )}
       </div>
