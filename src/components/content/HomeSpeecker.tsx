@@ -1,90 +1,29 @@
-import React from "react";
-
-interface HomeSpeecker {
-    id: number;
-    name: string;
-    title: string;
-    image: string;
-    socials: { platform: string; url: string }[];
-}
-
-const speakersData: HomeSpeecker[] = [
-    {
-      id: 1,
-      name: 'Brenden Legros',
-      title: 'Quas alias incidunt',
-      image: '/img/speakers/1.jpg',
-      socials: [
-        { platform: 'twitter', url: '#' },
-        { platform: 'facebook', url: '#' },
-        { platform: 'google-plus', url: '#' },
-        { platform: 'linkedin', url: '#' },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Hubert Hirthe',
-      title: 'Consequuntur odio aut',
-      image: '/img/speakers/2.jpg',
-      socials: [
-        { platform: 'twitter', url: '#' },
-        { platform: 'facebook', url: '#' },
-        { platform: 'google-plus', url: '#' },
-        { platform: 'linkedin', url: '#' },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Cole Emmerich',
-      title: 'Fugiat laborum et',
-      image: '/img/speakers/3.jpg',
-      socials: [
-        { platform: 'twitter', url: '#' },
-        { platform: 'facebook', url: '#' },
-        { platform: 'google-plus', url: '#' },
-        { platform: 'linkedin', url: '#' },
-      ],
-    },
-    {
-      id: 4,
-      name: 'Jack Christiansen',
-      title: 'Debitis iure vero',
-      image: '/img/speakers/4.jpg',
-      socials: [
-        { platform: 'twitter', url: '#' },
-        { platform: 'facebook', url: '#' },
-        { platform: 'google-plus', url: '#' },
-        { platform: 'linkedin', url: '#' },
-      ],
-    },
-    {
-      id: 5,
-      name: 'Alejandrin Littel',
-      title: 'Qui molestiae natus',
-      image: '/img/speakers/5.jpg',
-      socials: [
-        { platform: 'twitter', url: '#' },
-        { platform: 'facebook', url: '#' },
-        { platform: 'google-plus', url: '#' },
-        { platform: 'linkedin', url: '#' },
-      ],
-    },
-    {
-      id: 6,
-      name: 'Willow Trantow',
-      title: 'Non autem dicta',
-      image: '/img/speakers/6.jpg',
-      socials: [
-        { platform: 'twitter', url: '#' },
-        { platform: 'facebook', url: '#' },
-        { platform: 'google-plus', url: '#' },
-        { platform: 'linkedin', url: '#' },
-      ],
-    },
-];
-  
+import React, { useEffect, useState } from "react";
+import { getAllOtherEventDataForFrontEnd } from "../../service/EventService";
+import { Event } from "../../interfaces/Event";
 
 const HomeSpeecker: React.FC = () => {
+
+  const [events, setEvents] = useState<Event[]>([]);
+  
+    useEffect(() => {
+      const fetchEvents = async () => {
+        try {
+          const eventList = await getAllOtherEventDataForFrontEnd();
+          if (eventList && eventList.length > 0) {
+            setEvents(eventList);
+            console.error(""); 
+          } else {
+            console.error("No events found to display.");
+          }
+        } catch (error) {
+          console.error("Error fetching event data.");
+          console.error("Failed to fetch events:", error);
+        }
+      };
+  
+      fetchEvents();
+    }, []);
   return (
     <section id="speakers" className="wow fadeInUp">
       <div className="container">
@@ -94,21 +33,21 @@ const HomeSpeecker: React.FC = () => {
         </div>
 
         <div className="row">
-          {speakersData.map((speaker) => (
-            <div className="col-lg-4 col-md-6" key={speaker.id}>
+          {events.map((event) => (
+            <div className="col-lg-4 col-md-6" key={event.eventId}>
               <div className="speaker">
-                <img src={speaker.image} alt={speaker.name} className="img-fluid" />
+                <img src={`data:${event.contentType};base64,${event.imageData}`} alt={event.eventName} className="img-fluid" style={{height:"280px", width:"100%"}}/>
                 <div className="details">
                   <h3>
-                    <a href="speaker-details.html">{speaker.name}</a>
+                    <a href="/">{event.eventName}</a>
                   </h3>
-                  <p>{speaker.title}</p>
+                  <p>{event.eventName}</p>
                   <div className="social">
-                    {speaker.socials.map((social, index) => (
-                      <a href={social.url} key={index}>
-                        <i className={`fa fa-${social.platform}`}></i>
+                      <a href="/">
+                        <i className="fa fa-facebook"></i>
+                        <i className="fa fa-facebook"></i>
+                        <i className="fa fa-facebook"></i>
                       </a>
-                    ))}
                   </div>
                 </div>
               </div>

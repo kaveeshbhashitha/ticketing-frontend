@@ -1,0 +1,143 @@
+import axios from "axios";
+
+const API_URL = "http://localhost:8080/events";
+
+export const addEvent = async (formData: FormData): Promise<unknown> => {
+  const response = await axios.post(`${API_URL}/addEvent`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
+export const getGeneralEvents = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter(
+    (event: { eventType: string }) => event.eventType === "generalEvent"
+  );
+  return filteredEvents;
+};
+
+export const getAllSports = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter(
+    (event: { eventType: string }) => event.eventType === "sports"
+  );
+  return filteredEvents;
+};
+
+export const getAllTheater = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter(
+    (event: { eventType: string }) => event.eventType === "theater"
+  );
+  return filteredEvents;
+};
+
+export const getAllOtherEvents = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter(
+    (event: { eventType: string }) => event.eventType === "otherEvent"
+  );
+  return filteredEvents;
+};
+
+export const deleteEvent = async (id: string) => {
+  const response = await axios.delete(`${API_URL}/delete/${id}`);
+  return response.data;
+};
+
+export const getAllEvents = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  return response.data;
+};
+
+//filter events for front page user interactions
+export const getAllOtherEventDataForFrontEnd = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const currentDateTime = new Date();
+
+  const filteredEvents = response.data.filter(
+    (event: { eventType: string; eventDate: string; startTime: string }) => {
+      // if (event.eventType !== "otherEvent") {
+      //   return false;
+      // }
+      const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= currentDateTime;
+    }
+  );
+
+  return filteredEvents.slice(0, 6);
+};
+
+const getStartAndEndOfWeek = (): { start: Date; end: Date } => {
+  const now = new Date();
+  const start = new Date(now.setDate(now.getDate() - now.getDay()));
+  start.setHours(0, 0, 0, 0); 
+
+  const end = new Date(now.setDate(start.getDate() + 6));
+  end.setHours(23, 59, 59, 999); 
+
+  return { start, end };
+};
+
+const getStartAndEndOfMonth = (): { start: Date; end: Date } => {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth(), 1);
+  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  end.setHours(23, 59, 59, 999);
+
+  return { start, end };
+};
+
+const getStartAndEndOfYear = (): { start: Date; end: Date } => {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const end = new Date(now.getFullYear(), 11, 31);
+  end.setHours(23, 59, 59, 999);
+
+  return { start, end };
+};
+
+export const getEventsInThisWeek = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const { start, end } = getStartAndEndOfWeek();
+
+  const filteredEvents = response.data.filter(
+    (event: { eventDate: string; startTime: string }) => {
+      const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= start && eventDateTime <= end;
+    }
+  );
+
+  return filteredEvents;
+};
+
+export const getEventsInThisMonth = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const { start, end } = getStartAndEndOfMonth();
+
+  const filteredEvents = response.data.filter(
+    (event: { eventDate: string; startTime: string }) => {
+      const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= start && eventDateTime <= end;
+    }
+  );
+
+  return filteredEvents;
+};
+
+export const getEventsInThisYear = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const { start, end } = getStartAndEndOfYear();
+
+  const filteredEvents = response.data.filter(
+    (event: { eventDate: string; startTime: string }) => {
+      const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= start && eventDateTime <= end;
+    }
+  );
+
+  return filteredEvents;
+};

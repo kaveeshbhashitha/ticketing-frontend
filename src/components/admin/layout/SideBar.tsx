@@ -1,8 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../layout/Logo";
+import { logout } from "../../../service/AuthService";
 
 const SideBar: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+      if (response) {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('role');
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+};
+
   return (
     <div>
       <aside
@@ -68,7 +84,7 @@ const SideBar: React.FC = () => {
           </li>
           <li className="menu-item">
             <NavLink
-              to="/customer"
+              to="/seeUsers"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
@@ -90,7 +106,7 @@ const SideBar: React.FC = () => {
           </li>
           <li className="menu-item">
             <NavLink
-              to="/schedule"
+              to="/adminEventSchedule"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
@@ -104,74 +120,28 @@ const SideBar: React.FC = () => {
           </li>
           <li className="menu-item">
             <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon tf-icons bx bx-collection"></i>
-              <div data-i18n="Analytics">Activities</div>
-            </NavLink>
-          </li>
-          <li className="menu-item">
-            <NavLink
-              to="/Sports"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon tf-icons bx bx-box"></i>
-              <div data-i18n="Analytics">Sport and Match</div>
-            </NavLink>
-          </li>
-          <li className="menu-item">
-            <NavLink
-              to="/Theater"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon tf-icons bx bx-copy"></i>
-              <div data-i18n="Analytics">Theater</div>
-            </NavLink>
-          </li>
-
-          <li className="menu-item">
-            <NavLink
               to="/addEvent"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
             >
-              <i className="menu-icon tf-icons bx bx-crown"></i>
-              <div data-i18n="Analytics">Events and Occations</div>
+              <i className="menu-icon tf-icons bx bx-collection"></i>
+              <div data-i18n="Analytics">Add New Event</div>
             </NavLink>
           </li>
-
           <li className="menu-item">
             <NavLink
-              to="/DeleteEvent"
+              to="/seeEvents"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
             >
-              <i className="menu-icon fa-solid fa-triangle-exclamation"></i>
-              <div data-i18n="Analytics">Update and Delete Events</div>
+              <i className="menu-icon tf-icons bx bx-box"></i>
+              <div data-i18n="Analytics">See All Events</div>
             </NavLink>
           </li>
-
-          <li className="menu-item">
-            <NavLink
-              to="/seeEvent"
-              className={({ isActive }) =>
-                isActive ? "menu-link active" : "menu-link"
-              }
-            >
-              <i className="menu-icon fa-solid fa-file-video"></i>
-              <div data-i18n="Analytics">All Events</div>
-            </NavLink>
-          </li>
-
+          
+        
           <li className="menu-header small text-uppercase">
             <span className="menu-header-text">Actions</span>
           </li>
@@ -209,21 +179,12 @@ const SideBar: React.FC = () => {
             </NavLink>
           </li>
           <li className="menu-header small text-uppercase">
-            <span className="menu-header-text">Misc</span>
+            <span className="menu-header-text">Admin Action</span>
           </li>
           <li className="menu-item">
-            <a href="/bot" className="menu-link">
-              <i className="menu-icon tf-icons bx bx-support"></i>
-              <div data-i18n="Support">Support</div>
-            </a>
-          </li>
-          <li className="menu-item">
-            <a
-              href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-              className="menu-link"
-            >
-              <i className="menu-icon tf-icons bx bx-file"></i>
-              <div data-i18n="Documentation">Documentation</div>
+            <a className="menu-link" onClick={handleLogout}>
+              <i className="menu-icon fa-solid fa-arrow-right-from-bracket"></i>
+              <div data-i18n="Documentation">Admin Logout</div>
             </a>
           </li>
         </ul>

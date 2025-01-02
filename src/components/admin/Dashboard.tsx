@@ -1,8 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "./layout/SideBar";
 import CongratulationsCard from "./layout/CongratulationsCard";
+import useAuthCheck from "../../useAuthCheck";
+import { getUserByEmail } from "../../service/UserService";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../service/AuthService";
+
+interface User {
+  userEmail: string;
+  firstName: string;
+  lastName: string;
+}
 
 const Dashboard: React.FC = () => {
+  useAuthCheck(['Admin']);
+
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string>("");
+  
+  const userEmail = sessionStorage.getItem('user')
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (!userEmail) {
+          setError("No email found in session storage.");
+          return;
+        }
+
+        const fetchedUser = await getUserByEmail(userEmail);
+
+        if (fetchedUser) {
+          setUser(fetchedUser);
+          setError("");
+        } else {
+          setError("No user found for the given email.");
+        }
+      } catch (error) {
+        setError("Error fetching user data.");
+        console.error("Failed to fetch user:", error, userEmail);
+      }
+    };
+
+    fetchUser();
+  }, [userEmail]);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+      if (response) {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('role');
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+};
+
+
   return (
     <div>
     <div className="layout-wrapper layout-content-navbar">
@@ -35,13 +93,20 @@ const Dashboard: React.FC = () => {
               <ul className="navbar-nav flex-row align-items-center ms-auto">
                 <li className="nav-item lh-1 me-3">
                   <a
-                    className="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">
-                      Hello Admin
+                    className="github-button" onClick={handleLogout}>
+                      <span className="fw-semibold d-block">
+                        <abbr title="Click here to logout">
+                          <div>
+                            {error && <p>{error}</p>}
+                            {user && (
+                              <div>
+                                {user.firstName.toUpperCase()}{" "}
+                                {user.lastName.toUpperCase()}
+                              </div>
+                            )}
+                          </div>
+                        </abbr>
+                      </span>
                   </a>
                 </li>
                 <li className="nav-item navbar-dropdown dropdown-user dropdown">
@@ -57,7 +122,7 @@ const Dashboard: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex-grow-1">
-                            <span className="fw-semibold d-block">John Doe</span>
+                            <span className="fw-semibold d-block"></span>
                             <small className="text-muted">Admin</small>
                           </div>
                         </div>
@@ -254,6 +319,163 @@ const Dashboard: React.FC = () => {
                       </div>
                     </div>
                   </div>
+                
+                  <div>
+                    <div className="row mt-3">
+                      <div className="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                        <div className="card h-100">
+                          <div className="card-header d-flex align-items-center justify-content-between pb-0">
+                            <div className="card-title mb-0">
+                              <h5 className="m-0 me-2">Order Statistics</h5>
+                              <small className="text-muted">RS.42,982 Total Sales</small>
+                            </div>
+                            <div className="dropdown">
+                              <button
+                                className="btn p-0"
+                                type="button"
+                                id="orederStatistics"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i className="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div className="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
+                                <a className="dropdown-item" href="/">Select All</a>
+                                <a className="dropdown-item" href="/">Refresh</a>
+                                <a className="dropdown-item" href="/">Share</a>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="card-body">
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                              {/* <div id="orderStatisticsChart"><PieChart/> </div> */}
+                            </div>
+                            <ul className="p-0 m-0">
+                              <li className="d-flex mb-4 pb-1">
+                                <div className="avatar flex-shrink-0 me-3">
+                                  <span className="avatar-initial rounded bg-label-primary"
+                                    ><i className="bx bx-mobile-alt"></i
+                                  ></span>
+                                </div>
+                                <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                  <div className="me-2">
+                                    <h6 className="mb-0">Electronic</h6>
+                                    <small className="text-muted">Mobile, Earbuds, TV</small>
+                                  </div>
+                                  <div className="user-progress">
+                                    <small className="fw-semibold">82.5k</small>
+                                  </div>
+                                </div>
+                              </li>
+                              <li className="d-flex mb-4 pb-1">
+                                <div className="avatar flex-shrink-0 me-3">
+                                  <span className="avatar-initial rounded bg-label-success"><i className="bx bx-closet"></i></span>
+                                </div>
+                                <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                  <div className="me-2">
+                                    <h6 className="mb-0">Fashion</h6>
+                                    <small className="text-muted">T-shirt, Jeans, Shoes</small>
+                                  </div>
+                                  <div className="user-progress">
+                                    <small className="fw-semibold">23.8k</small>
+                                  </div>
+                                </div>
+                              </li>
+                              <li className="d-flex mb-4 pb-1">
+                                <div className="avatar flex-shrink-0 me-3">
+                                  <span className="avatar-initial rounded bg-label-info"><i className="bx bx-home-alt"></i></span>
+                                </div>
+                                <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                  <div className="me-2">
+                                    <h6 className="mb-0">Decor</h6>
+                                    <small className="text-muted">Fine Art, Dining</small>
+                                  </div>
+                                  <div className="user-progress">
+                                    <small className="fw-semibold">849k</small>
+                                  </div>
+                                </div>
+                              </li>
+                              <li className="d-flex">
+                                <div className="avatar flex-shrink-0 me-3">
+                                  <span className="avatar-initial rounded bg-label-secondary"
+                                    ><i className="bx bx-football"></i
+                                  ></span>
+                                </div>
+                                <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                  <div className="me-2">
+                                    <h6 className="mb-0">Sports</h6>
+                                    <small className="text-muted">Football, Cricket Kit</small>
+                                  </div>
+                                  <div className="user-progress">
+                                    <small className="fw-semibold">99</small>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6 col-lg-4 order-1 mb-4">
+                        <div className="card h-100">
+                          <div className="card-header">
+                            <ul className="nav nav-pills" role="tablist">
+                              <li className="nav-item">
+                                <button
+                                  type="button"
+                                  className="nav-link active"
+                                  role="tab"
+                                  data-bs-toggle="tab"
+                                  data-bs-target="#navs-tabs-line-card-income"
+                                  aria-controls="navs-tabs-line-card-income"
+                                  aria-selected="true"
+                                >
+                                  Income
+                                </button>
+                              </li>
+                              <li className="nav-item">
+                                <button type="button" className="nav-link" role="tab">Expenses</button>
+                              </li>
+                              <li className="nav-item">
+                                <button type="button" className="nav-link" role="tab">Profit</button>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="card-body px-0">
+                            <div className="tab-content p-0">
+                              <div className="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+                                <div className="d-flex p-4 pt-3">
+                                  <div className="avatar flex-shrink-0 me-3">
+                                    <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
+                                  </div>
+                                  <div>
+                                    <small className="text-muted d-block">Total Balance</small>
+                                    <div className="d-flex align-items-center">
+                                      <h6 className="mb-0 me-1">RS.45,910</h6>
+                                      <small className="text-success fw-semibold">
+                                        <i className="bx bx-chevron-up"></i>
+                                        42.9%
+                                      </small>
+                                    </div>
+                                  </div>
+                                </div>
+                                {/* <div id="incomeChart"><BarChart/></div> */}
+                                <div className="d-flex justify-content-center pt-4 gap-2">
+                                  <div className="flex-shrink-0">
+                                    <div id="expensesOfWeek"></div>
+                                  </div>
+                                  <div>
+                                    <p className="mb-n1 mt-1">Expenses This Week</p>
+                                    <small className="text-muted">RS.3900 less than last week</small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div className="row">
@@ -338,163 +560,6 @@ const Dashboard: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
-                  <div className="card h-100">
-                    <div className="card-header d-flex align-items-center justify-content-between pb-0">
-                      <div className="card-title mb-0">
-                        <h5 className="m-0 me-2">Order Statistics</h5>
-                        <small className="text-muted">RS.42,982 Total Sales</small>
-                      </div>
-                      <div className="dropdown">
-                        <button
-                          className="btn p-0"
-                          type="button"
-                          id="orederStatistics"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i className="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div className="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                          <a className="dropdown-item" href="/">Select All</a>
-                          <a className="dropdown-item" href="/">Refresh</a>
-                          <a className="dropdown-item" href="/">Share</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="card-body">
-                      <div className="d-flex justify-content-between align-items-center mb-3">
-                        {/* <div id="orderStatisticsChart"><PieChart/> </div> */}
-                      </div>
-                      <ul className="p-0 m-0">
-                        <li className="d-flex mb-4 pb-1">
-                          <div className="avatar flex-shrink-0 me-3">
-                            <span className="avatar-initial rounded bg-label-primary"
-                              ><i className="bx bx-mobile-alt"></i
-                            ></span>
-                          </div>
-                          <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div className="me-2">
-                              <h6 className="mb-0">Electronic</h6>
-                              <small className="text-muted">Mobile, Earbuds, TV</small>
-                            </div>
-                            <div className="user-progress">
-                              <small className="fw-semibold">82.5k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="d-flex mb-4 pb-1">
-                          <div className="avatar flex-shrink-0 me-3">
-                            <span className="avatar-initial rounded bg-label-success"><i className="bx bx-closet"></i></span>
-                          </div>
-                          <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div className="me-2">
-                              <h6 className="mb-0">Fashion</h6>
-                              <small className="text-muted">T-shirt, Jeans, Shoes</small>
-                            </div>
-                            <div className="user-progress">
-                              <small className="fw-semibold">23.8k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="d-flex mb-4 pb-1">
-                          <div className="avatar flex-shrink-0 me-3">
-                            <span className="avatar-initial rounded bg-label-info"><i className="bx bx-home-alt"></i></span>
-                          </div>
-                          <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div className="me-2">
-                              <h6 className="mb-0">Decor</h6>
-                              <small className="text-muted">Fine Art, Dining</small>
-                            </div>
-                            <div className="user-progress">
-                              <small className="fw-semibold">849k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="d-flex">
-                          <div className="avatar flex-shrink-0 me-3">
-                            <span className="avatar-initial rounded bg-label-secondary"
-                              ><i className="bx bx-football"></i
-                            ></span>
-                          </div>
-                          <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div className="me-2">
-                              <h6 className="mb-0">Sports</h6>
-                              <small className="text-muted">Football, Cricket Kit</small>
-                            </div>
-                            <div className="user-progress">
-                              <small className="fw-semibold">99</small>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-lg-4 order-1 mb-4">
-                  <div className="card h-100">
-                    <div className="card-header">
-                      <ul className="nav nav-pills" role="tablist">
-                        <li className="nav-item">
-                          <button
-                            type="button"
-                            className="nav-link active"
-                            role="tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#navs-tabs-line-card-income"
-                            aria-controls="navs-tabs-line-card-income"
-                            aria-selected="true"
-                          >
-                            Income
-                          </button>
-                        </li>
-                        <li className="nav-item">
-                          <button type="button" className="nav-link" role="tab">Expenses</button>
-                        </li>
-                        <li className="nav-item">
-                          <button type="button" className="nav-link" role="tab">Profit</button>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="card-body px-0">
-                      <div className="tab-content p-0">
-                        <div className="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-                          <div className="d-flex p-4 pt-3">
-                            <div className="avatar flex-shrink-0 me-3">
-                              <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
-                            </div>
-                            <div>
-                              <small className="text-muted d-block">Total Balance</small>
-                              <div className="d-flex align-items-center">
-                                <h6 className="mb-0 me-1">RS.45,910</h6>
-                                <small className="text-success fw-semibold">
-                                  <i className="bx bx-chevron-up"></i>
-                                  42.9%
-                                </small>
-                              </div>
-                            </div>
-                          </div>
-                          {/* <div id="incomeChart"><BarChart/></div> */}
-                          <div className="d-flex justify-content-center pt-4 gap-2">
-                            <div className="flex-shrink-0">
-                              <div id="expensesOfWeek"></div>
-                            </div>
-                            <div>
-                              <p className="mb-n1 mt-1">Expenses This Week</p>
-                              <small className="text-muted">RS.3900 less than last week</small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-lg-4 order-2 mb-4">
-                    DataCounts
                 </div>
               </div>
             </div>
