@@ -59,17 +59,18 @@ export const getAllOtherEventDataForFrontEnd = async () => {
   const currentDateTime = new Date();
 
   const filteredEvents = response.data.filter(
-    (event: { eventType: string; eventDate: string; startTime: string }) => {
-      // if (event.eventType !== "otherEvent") {
-      //   return false;
-      // }
-      const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+    (event: { eventType: string; eventDate: string; startTime: string }) => {const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
       return eventDateTime >= currentDateTime;
     }
   );
-
-  return filteredEvents.slice(0, 6);
+  const sortedEvents = filteredEvents.sort((a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
+    const dateA = new Date(`${a.eventDate}T${a.startTime}`);
+    const dateB = new Date(`${b.eventDate}T${b.startTime}`);
+    return dateB.getTime() - dateA.getTime();
+  });
+  return sortedEvents.slice(0, 6);
 };
+
 
 const getStartAndEndOfWeek = (): { start: Date; end: Date } => {
   const now = new Date();

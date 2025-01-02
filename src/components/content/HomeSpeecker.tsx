@@ -44,9 +44,7 @@ const HomeSpeecker: React.FC = () => {
                   <p>{event.eventName}</p>
                   <div className="social">
                       <a href="/">
-                        <i className="fa fa-facebook"></i>
-                        <i className="fa fa-facebook"></i>
-                        <i className="fa fa-facebook"></i>
+                        <i className="fa-solid fa-cart-shopping"></i>
                       </a>
                   </div>
                 </div>

@@ -33,7 +33,7 @@ const SideBar: React.FC = () => {
           </NavLink>
 
           <a
-            href="/"
+            href=""
             className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
           >
             <i className="bx bx-chevron-left bx-sm align-middle"></i>
