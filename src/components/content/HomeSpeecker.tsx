@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllOtherEventDataForFrontEnd } from "../../service/EventService";
 import { Event } from "../../interfaces/Event";
+import "../../styles/HomeSpeecker.css";
 
 const HomeSpeecker: React.FC = () => {
 
@@ -28,8 +29,8 @@ const HomeSpeecker: React.FC = () => {
     <section id="speakers" className="wow fadeInUp">
       <div className="container">
         <div className="section-header">
-          <h2>Event Speakers</h2>
-          <p>Here are some of our speakers</p>
+          <h2>All Events</h2>
+          <p>Here are some of our Events</p>
         </div>
 
         <div className="row">
@@ -39,12 +40,20 @@ const HomeSpeecker: React.FC = () => {
                 <img src={`data:${event.contentType};base64,${event.imageData}`} alt={event.eventName} className="img-fluid" style={{height:"280px", width:"100%"}}/>
                 <div className="details">
                   <h3>
-                    <a href="/">{event.eventName}</a>
+                  <a href="/" title={event.eventName}>{event.eventName.length > 20
+                      ? `${event.eventName.substring(0, 26)}...`
+                      : event.eventName}</a>
                   </h3>
-                  <p>{event.eventName}</p>
+                  <span className="test">{event.eventDate}</span>
+                  <span className="test">{event.startTime} to {event.endTime}</span>
+                  <span className="test"><br />
+                    <i className="fa-solid fa-location-dot rightgap"></i> At{" "}
+                    {event.eventVenue}
+                  </span><br />
+                  <span className="test">{event.oneTicketPrice}.00 LKR upwards</span>
                   <div className="social">
                       <a href="/">
-                        <i className="fa-solid fa-cart-shopping"></i>
+                        <i className="fa-solid fa-cart-shopping">&nbsp;Buy</i>
                       </a>
                   </div>
                 </div>
