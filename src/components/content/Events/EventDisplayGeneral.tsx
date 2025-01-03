@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { getAllOtherEventDataForFrontEnd } from "../../service/EventService";
-import { Event } from "../../interfaces/Event";
-import "../../styles/HomeSpeecker.css";
+import { getGeneralEvents } from "../../../service/EventService";
+import { Event } from "../../../interfaces/Event";
+import "../../../styles/HomeSpeecker.css";
 
-const HomeSpeecker: React.FC = () => {
+const EventDisplayGeneral: React.FC = () => {
 
   const [events, setEvents] = useState<Event[]>([]);
   
     useEffect(() => {
       const fetchEvents = async () => {
         try {
-          const eventList = await getAllOtherEventDataForFrontEnd();
+          const eventList = await getGeneralEvents();
           if (eventList && eventList.length > 0) {
             setEvents(eventList);
             console.error(""); 
@@ -29,8 +29,8 @@ const HomeSpeecker: React.FC = () => {
     <section id="speakers" className="wow fadeInUp">
       <div className="container">
         <div className="section-header">
-          <h2>All Events</h2>
-          <p>Here are some of our Events</p>
+          <h2>General Events</h2>
+          <p>Here are some of our General Events</p>
         </div>
 
         <div className="row">
@@ -65,4 +65,4 @@ const HomeSpeecker: React.FC = () => {
     </section>
   );
 };
-export default HomeSpeecker;
+export default EventDisplayGeneral;

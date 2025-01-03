@@ -71,6 +71,23 @@ export const getAllOtherEventDataForFrontEnd = async () => {
   return sortedEvents.slice(0, 6);
 };
 
+export const getAllOtherEventDataForFrontEndWithoutSort = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const currentDateTime = new Date();
+
+  const filteredEvents = response.data.filter(
+    (event: { eventType: string; eventDate: string; startTime: string }) => {const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= currentDateTime;
+    }
+  );
+  const sortedEvents = filteredEvents.sort((a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
+    const dateA = new Date(`${a.eventDate}T${a.startTime}`);
+    const dateB = new Date(`${b.eventDate}T${b.startTime}`);
+    return dateB.getTime() - dateA.getTime();
+  });
+  return sortedEvents;
+};
+
 
 const getStartAndEndOfWeek = (): { start: Date; end: Date } => {
   const now = new Date();
