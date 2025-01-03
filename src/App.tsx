@@ -9,6 +9,8 @@ import Login from "./components/web/auth/Login";
 import Register from "./components/web/auth/Register";
 import SeeUsers from "./components/admin/actions/SeeUsers";
 import EventSchedule from "./components/admin/actions/EventSchedule";
+import AllEvents from "./components/content/Events/AllEvents";
+import GeneralEvents from "./components/content/Events/GeneralEvent";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/seeUsers" element={<SeeUsers />} />
           <Route path="/adminEventSchedule" element={<EventSchedule />} />
+          <Route path="/AllEvents" element={<AllEvents/>}/>
+          <Route path="/GeneralEvent" element={<GeneralEvents/>}/>
         </Routes>
       </Router>
     </div>
