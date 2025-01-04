@@ -43,14 +43,10 @@ const handleLogout = async () => {
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
                   <li className="menu-active"><a href="#intro">Home</a></li>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#speakers">Updates</a></li>
-                  <li><a href="#schedule">Schedule</a></li>
-                  <li><a href="AllEvents">AllEvents</a></li>
-                  <li><a href="#hotels">Hotels</a></li>
-                  <li><a href="#gallery">Gallery</a></li>
-                  <li><a href="#sponsors">Sponsors</a></li>
-                  <li><a href="#contact">Contact</a></li>
+                  <li><a href="/AllEvents">Events</a></li>
+                  <li><a href="#speakers">Reservations</a></li>
+                  <li><a href="#schedule">My Tickets</a></li>
+                  <li><a href="#contact">Contact Us</a></li>
                   <li className={signed}><a href="/login">Sign In</a></li>
                   <li className={className}><a onClick={handleLogout}>Logout</a></li>
                 </ul>
