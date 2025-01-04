@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Logo from "./Logo";
+import Logo from "../../layout/Logo";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../service/AuthService";
+import { logout } from "../../../service/AuthService";
 
-const Header: React.FC = () => {
+const EventHeader: React.FC = () => {
   const [className, setClassName] = useState('');
   const [signed, setSigned] = useState('');
   const navigate = useNavigate();
@@ -42,11 +42,12 @@ const handleLogout = async () => {
 
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
-                  <li className="menu-active"><a href="#intro">Home</a></li>
-                  <li><a href="/AllEvents">Events</a></li>
-                  <li><a href="#speakers">Reservations</a></li>
-                  <li><a href="#schedule">My Tickets</a></li>
-                  <li><a href="#contact">Contact Us</a></li>
+                  <li className="menu-active"><a href="/">Home</a></li>
+                  <li><a href="#speakers">All Events</a></li>
+                  <li><a href="/GeneralEvent">General Events</a></li>
+                  <li><a href="/SportEvent">Sport Events</a></li>
+                  <li><a href="/TheaterEvent">Theater Events</a></li>
+                  <li><a href="/OtherEvent">Other Events</a></li>
                   <li className={signed}><a href="/login">Sign In</a></li>
                   <li className={className}><a onClick={handleLogout}>Logout</a></li>
                 </ul>
@@ -56,4 +57,4 @@ const handleLogout = async () => {
     </div>
   );
 };
-export default Header;
+export default EventHeader;

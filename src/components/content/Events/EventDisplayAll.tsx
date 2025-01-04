@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { getAllOtherEventDataForFrontEnd } from "../../service/EventService";
-import { Event } from "../../interfaces/Event";
-import "../../styles/HomeSpeecker.css";
+import { getAllOtherEventDataForFrontEndWithoutSort } from "../../../service/EventService";
+import { Event } from "../../../interfaces/Event";
+import "../../../styles/HomeSpeecker.css";
 
-const HomeSpeecker: React.FC = () => {
+const EventDisplayAll: React.FC = () => {
 
   const [events, setEvents] = useState<Event[]>([]);
   
     useEffect(() => {
       const fetchEvents = async () => {
         try {
-          const eventList = await getAllOtherEventDataForFrontEnd();
+          const eventList = await getAllOtherEventDataForFrontEndWithoutSort();
           if (eventList && eventList.length > 0) {
             setEvents(eventList);
             console.error(""); 
@@ -65,4 +65,4 @@ const HomeSpeecker: React.FC = () => {
     </section>
   );
 };
-export default HomeSpeecker;
+export default EventDisplayAll;
