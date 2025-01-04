@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {User} from "../../../interfaces/User"
-
+import defaultImage from "../../../../public/assets/img/avatars/userlogo.png"; // Import the default image
+import { User } from "../../../interfaces/User";
 
 interface UserProfileProps {
   userId: string;
@@ -14,9 +14,9 @@ const UserProfile: React.FC<UserProfileProps> = ({
   currentUserId,
   isAdmin,
 }) => {
-  const [user, setUser] = (useState < User) | (null > null);
+  const [user, setUser] = useState<User | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [profileImage, setProfileImage] = (useState < File) | (null > null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
 
   useEffect(() => {
     fetchUserDetails();
@@ -96,10 +96,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
       <div className="d-flex">
         {/* User Information container*/}
         <div className="col-md-6">
-          <div
-            className="card p-4 me-3 shadow"
-            style={{ height: "fit-content" }}
-          >
+          <div className="card p-4 me-3 shadow" style={{ height: "fit-content" }}>
             <form>
               <div className="mb-2">
                 <label htmlFor="userId" className="form-label small">
@@ -254,10 +251,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
         </div>
 
         {/* Profile Image Section */}
-        <div
-          className="col-md-5 ms-3 d-flex flex-column justify-content-between"
-          style={{ height: "fit-content" }}
-        >
+        <div className="col-md-5 ms-3 d-flex flex-column justify-content-between" style={{ height: "fit-content" }}>
           <div className="card p-4 text-center mb-5" style={{ height: "auto" }}>
             <div className="mb-4">
               <img
