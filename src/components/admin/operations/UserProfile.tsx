@@ -300,12 +300,22 @@
 
 // export default UserProfile;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import defaultImage from "../../../../public/assets/img/avatars/userlogo.png";
+import { User } from "../../../interfaces/User";
+import SideBar from "../layout/SideBar";
+import { getUserByEmail } from "../../../service/UserService";
 
 const UserProfile: React.FC = () => {
-  const [error, setError] = useState();
-  const [isEditing, setIsEditing] = useState(false); // Toggle edit mode
+
+  const [error, setError] = useState<string | null>(null);
+  // Toggle edit mode (click event of edit button)
+  const [isEditing, setIsEditing] = useState(false); 
+  const [loading, setLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [updatedUser, setUpdatedUser] = useState<User | null>(null);
+
+  const userEmail = sessionStorage.getItem('user');
 
   // Default values for User Profile Image and Full name container
   const profileImageSrc = defaultImage;
@@ -313,10 +323,31 @@ const UserProfile: React.FC = () => {
   const userRole = "User Role";
 
   const handleEditToggle = () => {
-    setIsEditing(!isEditing); // Toggle edit mode
+    setIsEditing(!isEditing);
   };
 
+  useEffect(() => {
+    // fetch user details
+    const fetchUser = async () => {
+      try{
+        const data = await getUserByEmail(userEmail);
+        setUser(data);
+        setLoading(false);
+      }catch(error){
+        setError("Failed to fetch user details. Please try again later.");
+        setLoading(false);
+        console.error(error);
+      }
+    };
+    fetchUser();
+  },[])
+
+  // method for delete user
+  /* write code here... */
+
   return (
+    <>
+    <SideBar/>
     <div className="container mt-5">
       <h4 className="mb-4">User Profile</h4>
 
@@ -496,6 +527,7 @@ const UserProfile: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
