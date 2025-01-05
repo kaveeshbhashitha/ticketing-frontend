@@ -1,0 +1,27 @@
+.buy{
+    color: white;
+    width: 2cm;
+  }
+
+  .buytickets{
+    width: auto;
+    height: 100%;
+    padding: 8px 5px;
+    text-align: center;
+    background-color: #135bf2;
+    color: white;
+    border-radius: 1 1 8px 8px;
+  }
+  
+  .buytickets Link{
+    color: white;
+  }
+  
+  .buytickets:hover{
+    background-color: #fd7e14;
+    color: white;
+    cursor: pointer;
+  }
+  .test{
+    color: white;
+  }

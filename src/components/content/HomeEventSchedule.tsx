@@ -1,28 +1,40 @@
-import React, { useState } from "react";
-
-interface Speaker {
-  name: string;
-  image: string;
-}
-
-interface Event {
-  time: string;
-  title: string;
-  description: string;
-  speaker?: Speaker;
-}
+import React, { useState, useEffect } from "react";
+import { getEventsInThisMonth, getEventsInThisWeek, getEventsInThisYear } from "../../service/EventService";
+import { Event } from "../../interfaces/Event";
 
 interface DaySchedule {
   day: string;
   events: Event[];
 }
 
-interface HomeEventScheduleProps {
-  scheduleData: DaySchedule[];
-}
+const HomeEventSchedule: React.FC = () => {
+  const [scheduleData, setScheduleData] = useState<DaySchedule[]>([]);
+  const [activeDay, setActiveDay] = useState<string>("This Week");
 
-const HomeEventSchedule: React.FC<HomeEventScheduleProps> = ({ scheduleData }) => {
-  const [activeDay, setActiveDay] = useState<string>(scheduleData[0]?.day || ""); 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const [weekEvents, monthEvents, yearEvents] = await Promise.all([
+          getEventsInThisWeek(),
+          getEventsInThisMonth(),
+          getEventsInThisYear(),
+        ]);
+
+        const formattedScheduleData: DaySchedule[] = [
+          { day: "This Week", events: weekEvents },
+          { day: "This Month", events: monthEvents },
+          { day: "This Year", events: yearEvents },
+        ];
+
+        setScheduleData(formattedScheduleData);
+        setActiveDay("This Week"); // Default to "This Week"
+      } catch (error) {
+        console.error("Error fetching event data:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const handleTabClick = (day: string) => {
     setActiveDay(day);
@@ -59,19 +71,24 @@ const HomeEventSchedule: React.FC<HomeEventScheduleProps> = ({ scheduleData }) =
             .map((dayData) => (
               <div key={dayData.day} className="col-lg-9 tab-pane fade show active">
                 {dayData.events.map((event, index) => (
-                  <div className="row schedule-item" key={index}>
+                  <div className="row schedule-item" key={event.eventId || index}>
                     <div className="col-md-2">
-                      <time>{event.time}</time>
+                      <time>
+                        {`${event.startTime} - ${event.endTime}`} <br />
+                        {new Date(event.eventDate).toDateString()}
+                      </time>
                     </div>
                     <div className="col-md-10">
-                      {event.speaker && (
+                      {event.imageData && (
                         <div className="speaker">
-                          <img src={event.speaker.image} alt={event.speaker.name} />
+                          <img
+                            src={`data:${event.contentType};base64,${event.imageData}`}
+                            alt={event.eventName}
+                          />
                         </div>
                       )}
                       <h4>
-                        {event.title}{" "}
-                        {event.speaker && <span>{event.speaker.name}</span>}
+                        {event.eventName} <span>({event.eventType})</span>
                       </h4>
                       <p>{event.description}</p>
                     </div>

@@ -20,12 +20,36 @@ a {
   transition: 0.5s;
 }
 
+.active{
+  background-color: rgb(214, 214, 216);
+  color: white;
+}
+
 a:hover,
 a:active,
 a:focus {
   color: #f8234a;
   outline: none;
   text-decoration: none;
+}
+
+.visible{
+  display: block;
+}
+
+.hidden{
+  display: none;
+}
+
+.tableimg{
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 50%;
+}
+
+.center-column{
+  text-align: center;
 }
 
 p {
@@ -232,6 +256,12 @@ h6 {
 .nav-menu ul li {
   min-width: 180px;
 }
+.block{
+  display: block;
+}
+.none{
+  display: none;
+}
 
 /* Nav Menu Arrows */
 
@@ -300,6 +330,10 @@ h6 {
   width: 100%;
 }
 
+.menu-link:hover{
+  cursor: pointer;
+}
+
 .nav-menu li.buy-tickets a {
   color: #fff;
   background: #f82249;
@@ -316,6 +350,8 @@ h6 {
 
 .nav-menu li.buy-tickets a:hover {
   background: none;
+  color: white;
+  cursor: pointer;
 }
 
 .nav-menu li.buy-tickets:hover a:before,

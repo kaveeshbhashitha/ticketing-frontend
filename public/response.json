@@ -1,0 +1,90 @@
+[
+    {
+        "question": "What is your name?",
+        "answer": "I'm a BK Ticketing chatbot designed to assist you with your queries!"
+    },
+    {
+        "question": "How are you?",
+        "answer": "I'm just a bot, but I'm doing great! How can I assist you today?"
+    },
+    {
+        "question": "What can you do?",
+        "answer": "I can answer your questions, help with basic tasks, and provide information on various topics!"
+    },
+    {
+        "question": "Who created you?",
+        "answer": "I was created by a team of developers to help you with your questions."
+    },
+    {
+        "question": "What is the weather like today?",
+        "answer": "I can't provide real-time weather updates yet, but you can check a weather app or website!"
+    },
+    {
+        "question": "Tell me a joke",
+        "answer": "Why don't skeletons fight each other? They don't have the guts!"
+    },
+    {
+        "question": "What is the capital of France?",
+        "answer": "The capital of France is Paris."
+    },
+    {
+        "question": "What is 2 + 2?",
+        "answer": "2 + 2 equals 4."
+    },
+    {
+        "question": "How can I contact customer support?",
+        "answer": "You can contact customer support by calling 1-800-123-456 or emailing support@company.com."
+    },
+    {
+        "question": "What are your business hours?",
+        "answer": "Our business hours are from 9 AM to 6 PM, Monday through Friday."
+    },
+    {
+        "question": "Can you help me with my account?",
+        "answer": "Yes, I can assist with basic account-related queries. What seems to be the problem?"
+    },
+    {
+        "question": "How do I reset my password?",
+        "answer": "You can reset your password by clicking on the 'Forgot Password' link on the login page."
+    },
+    {
+        "question": "Where is my order?",
+        "answer": "Please check the tracking link we sent to your email. If you need further assistance, feel free to ask!"
+    },
+    {
+        "question": "What is your return policy?",
+        "answer": "You can return most items within 30 days for a full refund. Please refer to our Return Policy page for more details."
+    },
+    {
+        "question": "How do I cancel an order?",
+        "answer": "To cancel an order, please contact our customer service team as soon as possible, ideally before it ships."
+    },
+    {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept credit cards, PayPal, and bank transfers."
+    },
+    {
+        "question": "Can you help me with a technical issue?",
+        "answer": "I'll do my best! Please describe your issue, and I'll help you troubleshoot."
+    },
+    {
+        "question": "What is your refund policy?",
+        "answer": "Refunds are processed within 5-7 business days. If you are not satisfied with your purchase, please contact us."
+    },
+    {
+        "question": "Do you offer discounts?",
+        "answer": "Yes! We offer seasonal discounts and promotions. Be sure to check our website for the latest offers."
+    },
+    {
+        "question": "What is the best way to contact support?",
+        "answer": "You can contact support via email, live chat, or by phone. Our support team is available 24/7."
+    },
+    {
+        "question": "Where are you located?",
+        "answer": "Our headquarters is based in New York, but we serve customers globally."
+    },
+    {
+        "question": "Can I change my shipping address?",
+        "answer": "Yes, you can change your shipping address by contacting customer service before your order is shipped."
+    }
+]
