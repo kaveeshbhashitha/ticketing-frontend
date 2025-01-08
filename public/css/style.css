@@ -334,6 +334,47 @@ h6 {
   cursor: pointer;
 }
 
+.ticket-input{
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  margin: 10px 0;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+}
+
+.ticket-input-1{
+  width: 95%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  margin: 10px 0;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+}
+
+.buttonforres{
+  width: 80%;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.ticketcountbutton{
+  background-color: #f82249;
+  color: white;
+  border: none;
+}
+
+.ticketcountbutton-outline{
+  color: #f82249;
+  border: solid 1px #f82249;
+  background-color: transparent;
+}
+
 .nav-menu li.buy-tickets a {
   color: #fff;
   background: #f82249;
@@ -346,6 +387,12 @@ h6 {
   margin-top: 2px;
   line-height: 1;
   font-size: 13px;
+}
+.selection-image{
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  max-height: 400px;
 }
 
 .nav-menu li.buy-tickets a:hover {
