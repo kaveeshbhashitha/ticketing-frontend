@@ -11,6 +11,12 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
   return response.data;
 };
 
+export const getEventById = async (eventId: string | undefined) => {
+  const response = await axios.get(`${API_URL}/getEvent/${eventId}`);
+  console.log(`${API_URL}/getEvent/${eventId}`);
+  return response.data;
+};
+
 export const getGeneralEvents = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   const filteredEvents = response.data.filter(
