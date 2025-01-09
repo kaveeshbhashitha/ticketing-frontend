@@ -33,6 +33,10 @@ a:focus {
   text-decoration: none;
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .visible{
   display: block;
 }
@@ -329,6 +333,47 @@ h6 {
   visibility: visible;
   width: 100%;
 }
+
+.nav-menu .NavLink {
+  padding: 8px;
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(202, 206, 221, 0.8);
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  outline: none;
+  position: relative; /* Ensure `:before` works properly */
+}
+
+.nav-menu .menu-active,
+.nav-menu .NavLink:hover {
+  color: #fff;
+}
+
+.nav-menu > li {
+  margin-left: 8px;
+}
+
+.nav-menu > li > .NavLink:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #f82249;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.nav-menu .NavLink:hover:before,
+.nav-menu li:hover > .NavLink:before,
+.nav-menu .menu-active:before {
+  visibility: visible;
+  width: 100%;
+}
+
 
 .menu-link:hover{
   cursor: pointer;

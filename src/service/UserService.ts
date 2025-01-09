@@ -43,3 +43,9 @@ export const getLoggedUserEmail = async()=>{
   const response = sessionStorage.getItem('user');
   return response;
 }
+
+export const getUserId = async()=>{
+  const userEmail = sessionStorage.getItem('user');
+  const response = await axios.get(`${API_URL}/getUserByEmail/${userEmail}`); 
+  return response.data.userId;
+}
