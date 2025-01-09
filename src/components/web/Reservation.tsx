@@ -250,8 +250,7 @@ const Reservation: React.FC = () => {
                   <div className="col-6 mt-3 text-center">
                     <div className="mx-3">
                       <h3 className="text-white">
-                        <i className="fa-solid fa-futbol mr-3"></i>Teams:{" "}
-                        {event.teamOne} vs. {event.teamTwo}
+                        <i className="fa-solid fa-compact-disc mr-2"></i>Theater {event.eventName} by {event.eventOrganizer} 
                       </h3>
 
                       <div className="w-100 d-flex justify-content-center align-items-center mx-auto">
@@ -261,11 +260,11 @@ const Reservation: React.FC = () => {
                         </p>
                         <p className="text-white mx-3">
                           <i className="fa-regular fa-clock mx-2"></i>{" "}
-                          {event.startTime} - {event.endTime}
+                          {event.theaterTime1} | {event.theaterTime2} | Duration: {event.duration} Hours
                         </p>
                         <p className="text-white">
                           <i className="fa-regular fa-circle-user mx-2"></i>{" "}
-                          {event.eventIsFor}
+                          For {event.eventIsFor}
                         </p>
                       </div>
                       <p>Max Persons: {event.maxPerson}</p>
