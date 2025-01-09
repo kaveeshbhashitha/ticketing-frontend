@@ -3,4 +3,6 @@ export interface CheckoutFormProps {
     userId: string;
     userEmail: string;
     amount: number;
+    numOfTickets: number;
+    perTicketCharge: number;
   }

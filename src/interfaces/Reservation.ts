@@ -3,4 +3,5 @@ export interface Reservation {
     userId: string;
     numOfTickets: number;
     totalCharge: number;
+    perTicketCharge: number;
   }
