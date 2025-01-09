@@ -9,7 +9,7 @@ import { getUserId } from "../../service/UserService";
 import { addReservation } from "../../service/ReservationService";
 
 const Reservation: React.FC = () => {
-  useAuthCheck(['User']);
+  useAuthCheck(['User', 'Admin']);
   const { eventId } = useParams<{ eventId: string }>();
   const [event, setEvent] = useState<Event | null>(null);
   const [error, setError] = useState<string | null>(null);
