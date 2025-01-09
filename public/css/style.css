@@ -359,6 +359,57 @@ h6 {
   padding: 20px;
 }
 
+.form-control-cardnum{
+  width: 80%;
+  border: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+}
+.form-control-date{
+  width: 40%;
+  border-top: 0;
+  border-left: 1px solid rgb(169, 169, 169);
+  border-bottom: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 0 0 0 5px;
+}
+.form-control-cvc{
+  width: 40%;
+  border-top: 0;
+  border-left: 1px solid rgb(169, 169, 169);
+  border-bottom: 1px solid rgb(169, 169, 169);
+  border-right: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 0 0 5px 0;
+}
+.emailinput{
+  width: 80%;
+  border: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+.form-control-name{
+  width: 80%;
+  border: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.pay-button{
+  width: 80%;
+  background-color: #3B71CA;
+  color: white;
+  border: none;
+  border-radius: 0 0 5px 5px;
+  padding: 10px;
+}
+
+.marginright{
+  margin-right: 105px;
+}
+
 .nav-menu > li > .NavLink:before {
   content: "";
   position: absolute;
@@ -369,6 +420,11 @@ h6 {
   background-color: #f82249;
   visibility: hidden;
   transition: all 0.3s ease-in-out 0s;
+}
+.width-70{
+  width: 80%;
+  padding: 15px 10px;
+  border-radius: 10px 10px 0 0;
 }
 
 .nav-menu .NavLink:hover:before,

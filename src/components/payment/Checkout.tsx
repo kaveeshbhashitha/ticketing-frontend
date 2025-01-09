@@ -77,7 +77,8 @@ const Checkout: React.FC = () => {
                 </div>
 
               </div>
-              <div className="col-md-6">
+              <div className="col-1"></div>
+              <div className="col-md-5">
                 {reservationId && (
                   <Elements stripe={stripePromise}>
                     <Payment

@@ -64,85 +64,61 @@ const Payment: React.FC<CheckoutFormProps> = ({ reservationId, userId, userEmail
   };
 
   return (
-    <form className="form-group p-3 border shadow" onSubmit={handlePayment}>
-      <div className="bg-dark rounded">
-        <h5 className="text-light p-3 text-center">Payment Details</h5>
-      </div>
-      <div className="d-flex justify-content-between text-dark px-2">
-        <p className="h5 text-end btn btn-outline-dark disabled">One ticket price: Rs.{perTicketCharge}.00</p>
-        <p className="h5 text-end btn btn-outline-dark disabled">Num of tickets: {numOfTickets}</p>
-        <p className="h5 text-end btn btn-outline-dark disabled">Total: Rs.{amount}.00</p>
-      </div>
-      
-      {/* <CardElement className="form-control mb-3 py-3" /> */}
+    <form className="px-3 pb-3" onSubmit={handlePayment}>
+        <div className="payment-container">
+        <div className="form-element">
+          <div className="mb-3 text-white bg-dark text-center width-70">
+            Payment Form
+          </div>
+          <div className='d-flex justify-content-between width-70 alert alert-dark'>
+              <span>Selected: {numOfTickets}</span>|<span>One is: Rs.{perTicketCharge}.00</span>|<span>Total: Rs.{amount}.00</span>
+          </div>
+          <div className="mb-3">
+              <label htmlFor="card-number" className="form-label mt-2">Email</label><br />
+              <input type="email" className='emailinput' value={userEmail} disabled/>
+          </div>
+            
+        <div className="">
+            <div className="d-flex justify-content-between marginright">
+              <label htmlFor="card-number" className="form-label mt-2">Card information</label>
+              {cardBrand && (
+                <img src={cardBrandIcons[cardBrand] || cardBrandIcons['unknown']} alt={cardBrand} className="ms-2" style={{ height: "40px", width: "auto" }} />
+              )}
+              </div>
+          
 
-      <div className="mb-3">
-          {cardBrand && (
-            <div className="mt-1 text-muted d-flex align-items-center">
-              <label htmlFor="card-number" className="form-label">Card Number <i className={`${cardBrandIcons[cardBrand] || cardBrandIcons['unknown']} m-2`}></i></label>
-            </div>
-          )}
-          <CardNumberElement
-            id="card-number"
-            className="form-control py-3"
-            options={{
-              style: { base: { fontSize: '16px' } },
-            }}
-            onChange={(event) => {
-              setCardBrand(event?.brand || "unknown");
-            }}
-          />
-        </div>
+          <CardNumberElement id="card-number" className="form-control-cardnum" options={{ style: { base: { fontSize: '16px' } }, }} onChange={(event) => { setCardBrand(event?.brand || "unknown"); }}  />
+          </div>
 
 
-        <div className="mb-3">
-          <label htmlFor="card-expiry" className="form-label">Expiration Date</label>
-          <CardExpiryElement
-            id="card-expiry"
-            className="form-control"
-            options={{
-              style: { base: { fontSize: '16px' } }
-            }}
-          />
-        </div>
+          <div className="d-flex mb-3">
+            <CardExpiryElement id="card-expiry" className="form-control-date" options={{ style: { base: { fontSize: '16px' } } }} />
+            <CardCvcElement id="card-cvc" className="form-control-cvc" options={{  style: { base: { fontSize: '16px' } } }} />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="card-cvc" className="form-label">CVC</label>
-          <CardCvcElement
-            id="card-cvc"
-            className="form-control"
-            options={{
-              style: { base: { fontSize: '16px' } }
-            }}
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="postal-code" className="form-label">Name on the Card</label><br />
+            <input type="text" id="postal-code" className="form-control-name" placeholder="Zhang San" />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="postal-code" className="form-label">Postal Code</label>
+
+        <div className="form-check mb-3">
           <input
-            type="text"
-            id="postal-code"
-            className="form-control"
-            placeholder="Enter your postal code"
+            type="checkbox"
+            className="form-check-input"
+            id="termsCheck"
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
           />
+          <label htmlFor="termsCheck" className="form-check-label">
+            I accept the terms and conditions
+          </label>
         </div>
-
-
-      <div className="form-check mb-3">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="termsCheck"
-          checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
-        />
-        <label htmlFor="termsCheck" className="form-check-label">
-          I accept the terms and conditions
-        </label>
+        <button type="submit" className="pay-button" disabled={isProcessing}>
+          {isProcessing ? 'Processing...' : 'Pay Now'}
+        </button>
+        </div>
       </div>
-      <button type="submit" className="btn btn-primary w-100" disabled={isProcessing}>
-        {isProcessing ? 'Processing...' : 'Pay Now'}
-      </button>
     </form>
   );
 };
