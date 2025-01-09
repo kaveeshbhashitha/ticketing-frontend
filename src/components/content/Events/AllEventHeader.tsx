@@ -42,7 +42,6 @@ const handleLogout = async () => {
 
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
-                  <li className="menu-active"><a href="/">Home</a></li>
                   <li><a href="#speakers">All Events</a></li>
                   <li><a href="/GeneralEvent">General Events</a></li>
                   <li><a href="/SportEvent">Sport Events</a></li>

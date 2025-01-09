@@ -42,7 +42,7 @@ const handleLogout = async () => {
 
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
-                  <li className="menu-active"><a href="#intro">Home</a></li>
+                  <li className="menu-active"><a href="/">Home</a></li>
                   <li><a href="/AllEvents">Events</a></li>
                   <li><a href="#speakers">Reservations</a></li>
                   <li><a href="#schedule">My Tickets</a></li>

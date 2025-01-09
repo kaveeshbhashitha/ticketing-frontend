@@ -24,12 +24,12 @@ const SeeUsers: React.FC = () => {
     const fetchUsers = async () => {
       try {
         const data = await getAllUsers(); 
-        setUsers(data); 
-        setLoading(false);
+          setUsers(data); 
+          setLoading(false);
       } catch (error) {
-        setError("Failed to fetch user data. Please try again later.");
-        setLoading(false);
-        console.error(error);
+          setError("Failed to fetch user data. Please try again later.");
+          setLoading(false);
+          console.error(error);
       }
     };
 
