@@ -15,6 +15,7 @@ import OtherEvent from "./components/content/Events/OtherEvent";
 import Reservation from "./components/web/Reservation";
 import NotFoundPage from "./components/web/NotFoundPage";
 import Checkout from "./components/payment/Checkout";
+import MyTickets from "./components/web/MyTickets";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/reservation/:eventId" element={<Reservation/>}/>
           <Route path="/unauthorized" element={<NotFoundPage/>}/>
           <Route path="/payment/:reservationId" element={<Checkout/>}/>
+          <Route path="/myTickets" element={<MyTickets/>}/>
         </Routes>
       </Router>
     </div>
