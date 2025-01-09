@@ -13,6 +13,7 @@ import SportEvent from "./components/content/Events/SportEvent";
 import TheaterEvent from "./components/content/Events/TheaterEvent";
 import OtherEvent from "./components/content/Events/OtherEvent";
 import Reservation from "./components/web/Reservation";
+import NotFoundPage from "./components/web/NotFoundPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/TheaterEvent" element={<TheaterEvent/>}/>
           <Route path="/OtherEvent" element={<OtherEvent/>}/>
           <Route path="/reservation/:eventId" element={<Reservation/>}/>
+          <Route path="/unauthorized" element={<NotFoundPage/>}/>
         </Routes>
       </Router>
     </div>
