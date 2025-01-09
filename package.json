@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^3.1.1",
     "axios": "^1.7.9",
     "moment": "^2.30.1",
     "owl.carousel": "^2.3.4",

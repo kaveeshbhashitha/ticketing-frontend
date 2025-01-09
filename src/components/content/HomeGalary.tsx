@@ -36,9 +36,9 @@ const HomeGallery: React.FC = () => {
     autoplayTimeout: 3000,
     autoplayHoverPause: true,
     responsive: {
-      0: { items: 1 }, // 1 item for small screens
-      600: { items: 2 }, // 2 items for medium screens
-      1000: { items: 3 }, // 3 items for larger screens
+      0: { items: 1 },
+      600: { items: 2 }, 
+      1000: { items: 3 }, 
     },
   };
 

@@ -43,7 +43,7 @@ const Reservation: React.FC = () => {
             const totalCharge = event.oneTicketPrice * event.oneTicketPrice;
             const respone = await addReservation(userId, eventId, ticketCount, totalCharge, event.oneTicketPrice);
             if (respone) {
-              navigate(`/checkout/${respone.data.reservationId}`);
+              navigate(`/payment/${respone.data.reservationId}`);
             }
           }
       } catch (error) {
