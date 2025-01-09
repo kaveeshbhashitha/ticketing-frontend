@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import { getAllEvents } from "../../service/EventService";
+import { Event } from "../../interfaces/Event";
 
 const HomeGallery: React.FC = () => {
-  const galleryImages = [
-    "img/gallery/1.jpg",
-    "img/gallery/2.jpg",
-    "img/gallery/3.jpg",
-    "img/gallery/4.jpg",
-    "img/gallery/5.jpg",
-    "img/gallery/6.jpg",
-    "img/gallery/7.jpg",
-    "img/gallery/8.jpg",
-  ];
+  const [events, setEvents] = useState<Event[]>([]);
+    
+      useEffect(() => {
+        const fetchEvents = async () => {
+          try {
+            const eventList = await getAllEvents();
+            if (eventList && eventList.length > 0) {
+              setEvents(eventList);
+              console.error(""); 
+            } else {
+              console.error("No events found to display.");
+            }
+          } catch (error) {
+            console.error("Error fetching event data.");
+            console.error("Failed to fetch events:", error);
+          }
+        };
+    
+        fetchEvents();
+      }, []);
 
   const carouselOptions = {
     loop: true,
@@ -43,14 +55,14 @@ const HomeGallery: React.FC = () => {
         className="gallery-carousel"
         {...carouselOptions} // Use carouselOptions for flexibility
       >
-        {galleryImages.map((image, index) => (
+        {events.map((image, index) => (
           <div className="item" key={index}>
             <a
-              href={image}
+              href={'/images/gallery/' + image}
               className="venobox"
               data-gall="gallery-carousel"
             >
-              <img src={image} alt={`Gallery ${index + 1}`} />
+              <img src={`data:${image.contentType};base64,${image.imageData}`} alt={image.eventName} style={{width:'460px', height:'300px'}}/>
             </a>
           </div>
         ))}
