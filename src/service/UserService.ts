@@ -36,7 +36,7 @@ export const deleteUser = async (id: string) => {
   return response.data;
 };
 
-export const getUserByEmail = async (userEmail: string) => {
+export const getUserByEmail = async (userEmail: string | null) => {
   const response = await axios.get(
     `${API_URL}/user/getUserByEmail/${userEmail}`
   );
