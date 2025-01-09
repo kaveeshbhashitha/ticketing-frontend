@@ -4,7 +4,7 @@ const EventAbout: React.FC = () => {
   return (
     <div>
       <section id="about">
-        <div className="container">
+        <div className="container about-container">
         </div>
       </section>
     </div>

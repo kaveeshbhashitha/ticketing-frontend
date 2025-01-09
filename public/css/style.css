@@ -434,9 +434,9 @@ h6 {
   width: 100%;
 }
 
-
 .menu-link:hover{
   cursor: pointer;
+  color: #8d8d8d;
 }
 
 .ticket-input{
