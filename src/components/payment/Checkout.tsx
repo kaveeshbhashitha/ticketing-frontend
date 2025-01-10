@@ -13,12 +13,14 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import EventAbout from "../content/Events/EventAbout";
 import Chatbot from "../chatbot/Chatbot";
+import useAuthCheck from "../../useAuthCheck";
 
 const stripePromise = loadStripe(
   "pk_test_51NHnWuSCKBfIrcyXTDjnlJ02Q1NrzvaXIcxUYJnMzxhs6m3YlOI6086oNufEMnQd76GPnFYFp3F4tpj74rShq3lH00L3MDtZ5i"
 );
 
 const Checkout: React.FC = () => {
+  useAuthCheck(["User", "Admin"]);
   const { reservationId } = useParams<{ reservationId: string }>();
   const [reservationData, setReservationData] = useState<Reservation | null>(
     null

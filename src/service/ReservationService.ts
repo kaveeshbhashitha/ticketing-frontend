@@ -15,3 +15,13 @@ export async function getReservationById(reservationId: string) {
     const response = await axios.get(`${API_URL}/getReservationById/${reservationId}`);
     return response.data;
 }
+
+export async function getAllReservations() {
+    const response = await axios.get(`${API_URL}/getAllReservations`);
+    return response.data;
+}
+
+export const deleteReservation = async (id: string) => {
+    const response = await axios.delete(`${API_URL}/deleteReservation/${id}`);
+    return response.data;
+  };

@@ -4,4 +4,8 @@ export interface Reservation {
     numOfTickets: number;
     totalCharge: number;
     perTicketCharge: number;
+    reservationId: string;
+    reservationTime: string;
+    reservationDate: string;
+    status: string;
   }

@@ -7,14 +7,16 @@ import { getReservationsByUserId } from "../../service/ReservationService";
 import { deleteEvent, getEventById } from "../../service/EventService";
 import { Event } from "../../interfaces/Event";
 import { Reservation } from "../../interfaces/Reservation";
+import useAuthCheck from "../../useAuthCheck";
 
 const MyTickets: React.FC = () => {
+  useAuthCheck(["User", "Admin"]);
   const [, setUser] = useState(null);
   const [, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [filter, setFilter] = useState("upcoming");
   const [errorMessage, setErrorMessage] = useState("");
-  
+
   // state to store reservations data
   const [reservations, setReservations] = useState<Reservation[]>([]);
 
@@ -26,20 +28,27 @@ const MyTickets: React.FC = () => {
         setUser(userResponse);
 
         const reservationsResponse = await getReservationsByUserId(userId);
-        const eventPromises = reservationsResponse.map((reservation: { eventId: string }) =>
-          getEventById(reservation.eventId)
+        const eventPromises = reservationsResponse.map(
+          (reservation: { eventId: string }) =>
+            getEventById(reservation.eventId)
         );
         const eventsResponse = await Promise.all(eventPromises);
-        
+
         if (eventsResponse && eventsResponse.length > 0) {
           setEvents(eventsResponse);
-          const upcomingEvents = eventsResponse.filter((event) => new Date(event.eventDate) > new Date());
-          const pastEvents = eventsResponse.filter((event) => new Date(event.eventDate) < new Date());
-          
+          const upcomingEvents = eventsResponse.filter(
+            (event) => new Date(event.eventDate) > new Date()
+          );
+          const pastEvents = eventsResponse.filter(
+            (event) => new Date(event.eventDate) < new Date()
+          );
+
           // Store reservations data separately to later map it to the events
           setReservations(reservationsResponse);
 
-          setFilteredEvents(filter === "upcoming" ? upcomingEvents : pastEvents);
+          setFilteredEvents(
+            filter === "upcoming" ? upcomingEvents : pastEvents
+          );
         } else {
           setErrorMessage("No events found.");
         }
@@ -58,11 +67,17 @@ const MyTickets: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const confirmRespond = confirm("Are you sure you want to delete this record?");
+      const confirmRespond = confirm(
+        "Are you sure you want to delete this record?"
+      );
       if (confirmRespond) {
         await deleteEvent(id);
-        setEvents((prevEvents) => prevEvents.filter((event) => event.eventId !== id));
-        setFilteredEvents((prevEvents) => prevEvents.filter((event) => event.eventId !== id));
+        setEvents((prevEvents) =>
+          prevEvents.filter((event) => event.eventId !== id)
+        );
+        setFilteredEvents((prevEvents) =>
+          prevEvents.filter((event) => event.eventId !== id)
+        );
       }
     } catch (error) {
       console.error("Failed to delete event:", error);
@@ -72,7 +87,12 @@ const MyTickets: React.FC = () => {
   // Helper function to get reservation details
   const getReservationDetails = (eventId: string) => {
     const reservation = reservations.find((res) => res.eventId === eventId);
-    return reservation ? { numOfTickets: reservation.numOfTickets, totalCharge: reservation.totalCharge } : { numOfTickets: 0, totalCharge: 0 };
+    return reservation
+      ? {
+          numOfTickets: reservation.numOfTickets,
+          totalCharge: reservation.totalCharge,
+        }
+      : { numOfTickets: 0, totalCharge: 0 };
   };
 
   return (
@@ -83,10 +103,24 @@ const MyTickets: React.FC = () => {
         <div className="container">
           <div className="section-header">
             <h2>My Tickets</h2>
-            <div className="text-center">{filter === "upcoming" ? "You have new upcoming Events for next weeks" : "You have reached following Events last few weeks"}</div>
+            <div className="text-center">
+              {filter === "upcoming"
+                ? "You have new upcoming Events for next weeks"
+                : "You have reached following Events last few weeks"}
+            </div>
             <div className="d-flex justify-content-center my-2">
-                <button onClick={() => handleFilterChange("upcoming")} className="btn btn-outline-primary btn-sm mr-2">Upcoming Events</button>
-                <button onClick={() => handleFilterChange("past")} className="btn btn-outline-primary btn-sm">Past Events</button>
+              <button
+                onClick={() => handleFilterChange("upcoming")}
+                className="btn btn-outline-primary btn-sm mr-2"
+              >
+                Upcoming Events
+              </button>
+              <button
+                onClick={() => handleFilterChange("past")}
+                className="btn btn-outline-primary btn-sm"
+              >
+                Past Events
+              </button>
             </div>
           </div>
 
@@ -118,19 +152,32 @@ const MyTickets: React.FC = () => {
                     </thead>
                     <tbody>
                       {filteredEvents.map((event) => {
-                        const { numOfTickets, totalCharge } = getReservationDetails(event.eventId);
+                        const { numOfTickets, totalCharge } =
+                          getReservationDetails(event.eventId);
                         return (
                           <tr key={event.eventId}>
                             <td>
                               <abbr title={event.eventId}>#</abbr>
                             </td>
                             <td>{event.eventVenue}</td>
-                            <td> 
-                                <div className="text-white px-2 py-1 rounded" style={{ backgroundColor: event.eventType === "generalEvent" ? "#df526c" : 
-                                    event.eventType === "sports" ? "#52df81" : 
-                                    event.eventType === "theater" ? "#5e52df" : 
-                                    event.eventType === "otherEvent" ? "#8d8d8d" : "black" }}>{event.eventName}
-                                </div>
+                            <td>
+                              <div
+                                className="text-white px-2 py-1 rounded"
+                                style={{
+                                  backgroundColor:
+                                    event.eventType === "generalEvent"
+                                      ? "#df526c"
+                                      : event.eventType === "sports"
+                                      ? "#52df81"
+                                      : event.eventType === "theater"
+                                      ? "#5e52df"
+                                      : event.eventType === "otherEvent"
+                                      ? "#8d8d8d"
+                                      : "black",
+                                }}
+                              >
+                                {event.eventName}
+                              </div>
                             </td>
 
                             <td>{event.eventDate}</td>
@@ -140,7 +187,10 @@ const MyTickets: React.FC = () => {
                             <td>Rs.{totalCharge}.00</td>
                             <td>{event.eventOrganizer}</td>
                             <td className="text-center">
-                              <button onClick={() => handleDelete(event.eventId)} className="btn btn-outline-secondary btn-sm">
+                              <button
+                                onClick={() => handleDelete(event.eventId)}
+                                className="btn btn-outline-secondary btn-sm"
+                              >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </td>
