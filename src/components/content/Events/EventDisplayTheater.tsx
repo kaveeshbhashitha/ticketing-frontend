@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllTheater } from "../../../service/EventService";
 import { Event } from "../../../interfaces/Event";
 import "../../../styles/HomeSpeecker.css";
+import { Link } from "react-router-dom";
 
 const EventDisplayTheater: React.FC = () => {
 
@@ -52,9 +53,9 @@ const EventDisplayTheater: React.FC = () => {
                   </span><br />
                   <span className="test">{event.oneTicketPrice}.00 LKR upwards</span>
                   <div className="social">
-                      <a href="/">
-                        <i className="fa-solid fa-cart-shopping">&nbsp;Buy</i>
-                      </a>
+                      <Link to={`/reservation/${event.eventId}`}>
+                        <i className="fa-solid fa-cart-shopping">&nbsp;Buy Tickets</i>
+                      </Link>
                   </div>
                 </div>
               </div>

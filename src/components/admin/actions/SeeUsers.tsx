@@ -2,17 +2,7 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../layout/SideBar";
 import { deleteUser, getAllUsers } from "../../../service/UserService";
 import useAuthCheck from "../../../useAuthCheck";
-
-interface User {
-  userId: string;
-  userEmail: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  userRole: string;
-  dateRegistered: string;
-  timeRegistered: string;
-}
+import { User } from "../../../interfaces/User";
 
 const SeeUsers: React.FC = () => {
   useAuthCheck(['Admin']);
@@ -24,12 +14,12 @@ const SeeUsers: React.FC = () => {
     const fetchUsers = async () => {
       try {
         const data = await getAllUsers(); 
-        setUsers(data); 
-        setLoading(false);
+          setUsers(data); 
+          setLoading(false);
       } catch (error) {
-        setError("Failed to fetch user data. Please try again later.");
-        setLoading(false);
-        console.error(error);
+          setError("Failed to fetch user data. Please try again later.");
+          setLoading(false);
+          console.error(error);
       }
     };
 
