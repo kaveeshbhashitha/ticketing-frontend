@@ -1,295 +1,177 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import defaultImage from "../../../../public/assets/img/avatars/userlogo.png"; // Import the default image
-import { User } from "../../../interfaces/User";
+import React from "react";
+import Header from "../../layout/Header";
+import EventAbout from "../../content/Events/EventAbout";
+import Footer from "../../layout/Footer";
+import Chatbot from "../../chatbot/Chatbot";
 
-interface UserProfileProps {
-  userId: string;
-  currentUserId: string;
-  isAdmin: boolean;
-}
-
-const UserProfile: React.FC<UserProfileProps> = ({
-  userId,
-  currentUserId,
-  isAdmin,
-}) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileImage, setProfileImage] = useState<File | null>(null);
-
-  useEffect(() => {
-    fetchUserDetails();
-  }, [userId]);
-
-  const fetchUserDetails = async () => {
-    try {
-      const response = await axios.get(`/api/users/${userId}`);
-      setUser(response.data);
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (user) {
-      setUser({ ...user, [e.target.name]: e.target.value });
-    }
-  };
-
-  const handleUpdate = async () => {
-    try {
-      await axios.put(`/api/users/${userId}`, {
-        ...user,
-        userRole: user?.userRole, // Ensure userRole is not updated
-      });
-      setIsEditing(false);
-      alert("User updated successfully");
-    } catch (error) {
-      console.error("Error updating user details:", error);
-    }
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setProfileImage(e.target.files[0]);
-    }
-  };
-
-  const handleImageUpload = async () => {
-    if (!profileImage) return;
-    const formData = new FormData();
-    formData.append("file", profileImage);
-
-    try {
-      await axios.post(`/api/users/${userId}/upload-profile-image`, formData);
-      alert("Profile image uploaded successfully");
-    } catch (error) {
-      console.error("Error uploading profile image:", error);
-    }
-  };
-
-  const handleDelete = async () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this profile?"
-    );
-    if (confirmed) {
-      try {
-        await axios.delete(`/api/users/${userId}`);
-        alert("Profile deleted successfully");
-      } catch (error) {
-        console.error("Error deleting user:", error);
-        alert("Error deleting the profile.");
-      }
-    }
-  };
-
-  if (!user) return <p>Loading user details...</p>;
-
-  const profileImageSrc = user.profileImage || defaultImage; // Use default image if profile image doesn't exist
-  const fullName = `${user.firstName} ${user.lastName}` || "User's Full Name"; // Default name
+const UserProfile: React.FC = () => {
+  
 
   return (
-    <div className="container mt-5">
-      <h4 className="mb-4">User Profile</h4>
-
-      <div className="d-flex">
-        {/* User Information container*/}
-        <div className="col-md-6">
-          <div
-            className="card p-4 me-3 shadow"
-            style={{ height: "fit-content" }}
-          >
-            <form>
-              <div className="mb-2">
-                <label htmlFor="userId" className="form-label small">
-                  USER ID
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  name="userId"
-                  value={user.userId}
-                  onChange={handleChange}
-                  disabled
-                />
+    <div>
+      <Header/>
+      <EventAbout/>
+      <div className="container mt-3">
+        <div className="main-body">
+            <div className="row gutters-sm">
+              <div className="col-md-4 mb-3">
+                <div className="card">
+                  <div className="card-body">
+                    <div className="d-flex flex-column align-items-center text-center">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
+                      <div className="mt-3">
+                        <h4>John Doe</h4>
+                        <p className="text-secondary mb-1">Full Stack Developer</p>
+                        <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                        <button className="btn btn-primary">Follow</button>
+                        <button className="btn btn-outline-primary">Message</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="card mt-3">
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                      <h6 className="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
+                      <span className="text-secondary">https://bootdey.com</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                      <h6 className="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-github mr-2 icon-inline"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>Github</h6>
+                      <span className="text-secondary">bootdey</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                      <h6 className="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-twitter mr-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>
+                      <span className="text-secondary">@bootdey</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                      <h6 className="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-instagram mr-2 icon-inline text-danger"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</h6>
+                      <span className="text-secondary">bootdey</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                      <h6 className="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
+                      <span className="text-secondary">bootdey</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
+              <div className="col-md-8">
+                <div className="card mb-3">
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Full Name</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        Kenneth Valdez
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Email</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        fip@jukmuh.al
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Phone</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        (239) 816-9029
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Mobile</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        (320) 380-4539
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Address</h6>
+                      </div>
+                      <div className="col-sm-9 text-secondary">
+                        Bay Area, San Francisco, CA
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <a className="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-              <div className="mb-2">
-                <label htmlFor="firstName" className="form-label small">
-                  FIRST NAME <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  name="firstName"
-                  value={user.firstName}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="lastName" className="form-label small">
-                  LAST NAME <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  name="lastName"
-                  value={user.lastName}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="password" className="form-label small">
-                  PASSWORD <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="password"
-                  className="form-control bg-white"
-                  name="password"
-                  value={user.password}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="email" className="form-label small">
-                  EMAIL <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="email"
-                  className="form-control bg-white"
-                  name="userEmail"
-                  value={user.userEmail}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="userRole" className="form-label small">
-                  USER ROLE
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  value={user.userRole}
-                  disabled
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="dateRegistered" className="form-label small">
-                  DATE REGISTERED
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  value={user.dateRegistered}
-                  disabled
-                />
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="timeRegistered" className="form-label small">
-                  TIME REGISTERED
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  value={user.timeRegistered}
-                  disabled
-                />
-              </div>
-
-              {isEditing ? (
-                <>
-                  <button
-                    type="button"
-                    className="btn btn-primary me-2"
-                    onClick={handleUpdate}
-                  >
-                    Save Changes
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary me-2"
-                    onClick={() => setIsEditing(false)}
-                  >
-                    Cancel Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={handleDelete}
-                  >
-                    Delete Profile
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    className="btn btn-secondary me-2"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    Edit Details
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={handleDelete}
-                  >
-                    Delete Profile
-                  </button>
-                </>
-              )}
-            </form>
-          </div>
-        </div>
-
-        {/* Profile Image Section */}
-        <div
-          className="col-md-5 ms-3 d-flex flex-column justify-content-between"
-          style={{ height: "fit-content" }}
-        >
-          <div className="card p-4 text-center mb-5" style={{ height: "auto" }}>
-            <div className="mb-4">
-              <img
-                src={profileImageSrc}
-                alt="Profile"
-                className="rounded-circle"
-                style={{ width: "150px", height: "150px", objectFit: "cover" }}
-              />
-            </div>
-            <h4 className="mb-1">{fullName}</h4>
-            <h5 className="text-muted">{user.userRole}</h5>
-          </div>
-
-          <div className="card p-4 shadow mb-5">
-            <h5 className="mb-4">Upload Profile Picture</h5>
-            <input
-              type="file"
-              className="form-control mb-3"
-              onChange={handleFileChange}
-              disabled={!isEditing}
-            />
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleImageUpload}
-              disabled={!isEditing}
-            >
-              Upload Image
-            </button>
+                <div className="row gutters-sm">
+                  <div className="col-sm-6 mb-3">
+                    <div className="card h-100">
+                      <div className="card-body">
+                        <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
+                        <small>Web Design</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                          <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Website Markup</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>One Page</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Mobile Template</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Backend API</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-sm-6 mb-3">
+                    <div className="card h-100">
+                      <div className="card-body">
+                        <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
+                        <small>Web Design</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Website Markup</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>One Page</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Mobile Template</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Backend API</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
           </div>
         </div>
       </div>
+      <Chatbot/>
+      <Footer/>
     </div>
   );
 };
