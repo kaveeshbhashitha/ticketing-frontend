@@ -14,6 +14,7 @@ import Footer from "../layout/Footer";
 import EventAbout from "../content/Events/EventAbout";
 import Chatbot from "../chatbot/Chatbot";
 
+
 const stripePromise = loadStripe(
   "pk_test_51NHnWuSCKBfIrcyXTDjnlJ02Q1NrzvaXIcxUYJnMzxhs6m3YlOI6086oNufEMnQd76GPnFYFp3F4tpj74rShq3lH00L3MDtZ5i"
 );
