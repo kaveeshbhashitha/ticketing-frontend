@@ -5,14 +5,11 @@ import { User } from "../../../interfaces/User";
 
 interface UserProfileProps {
   userId: string;
-  currentUserId: string;
   isAdmin: boolean;
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({
   userId,
-  currentUserId,
-  isAdmin,
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -87,7 +84,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
   if (!user) return <p>Loading user details...</p>;
 
   const profileImageSrc = user.profileImage || defaultImage; // Use default image if profile image doesn't exist
-  const fullName = `${user.firstName} ${user.lastName}` || "User's Full Name"; // Default name
+  const fullName = user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : "User's Full Name"; // Default name
 
   return (
     <div className="container mt-5">
