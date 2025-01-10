@@ -13,6 +13,7 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import EventAbout from "../content/Events/EventAbout";
 import Chatbot from "../chatbot/Chatbot";
+import useAuthCheck from "../../useAuthCheck";
 
 
 const stripePromise = loadStripe(
@@ -20,6 +21,7 @@ const stripePromise = loadStripe(
 );
 
 const Checkout: React.FC = () => {
+  useAuthCheck(["User", "Admin"]);
   const { reservationId } = useParams<{ reservationId: string }>();
   const [reservationData, setReservationData] = useState<Reservation | null>(
     null
