@@ -18,6 +18,7 @@ import NotFoundPage from "./components/web/NotFoundPage";
 import Checkout from "./components/payment/Checkout";
 import MyTickets from "./components/web/MyTickets";
 import AdminReservation from "./components/admin/actions/Reservation";
+import UserProfile from "./components/admin/operations/UserProfile";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/payment/:reservationId" element={<Checkout/>}/>
           <Route path="/myTickets" element={<MyTickets/>}/>
           <Route path="/userReservations" element={<AdminReservation/>}/>
+          <Route path="/userProfile" element={<UserProfile/>}/>
         </Routes>
       </Router>
     </div>

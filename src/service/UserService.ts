@@ -45,3 +45,9 @@ export const getUserId = async()=>{
   const response = await axios.get(`${API_URL}/getUserByEmail/${userEmail}`); 
   return response.data.userId;
 }
+
+export const updateUser = async(userId:string, userData:User)=>{
+  const response = await axios.put(`${API_URL}/updateUser/${userId}`, userData); 
+  return response.data.userId;
+}
+

@@ -1,8 +1,25 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import defaultImage from "../../../../public/assets/img/avatars/userlogo.png"; // Import the default image
+import React, { useEffect, useState } from "react";
+import Header from "../../layout/Header";
+import EventAbout from "../../content/Events/EventAbout";
+import Footer from "../../layout/Footer";
+import Chatbot from "../../chatbot/Chatbot";
+import useAuthCheck from "../../../useAuthCheck";
 import { User } from "../../../interfaces/User";
+import { useNavigate } from "react-router-dom";
+import { deleteUser, getUserByEmail, updateUser } from "../../../service/UserService";
+import { logout } from "../../../service/AuthService";
+import { Event } from "../../../interfaces/Event";
+import { getEventsByUserId } from "../../../service/EventService";
 
+const UserProfile: React.FC = () => {
+  useAuthCheck(["User", "Admin"]);
+  const [userData, setUserData] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [, setError] = useState<string | null>(null);
+  const [events, setEvents] = useState<Event[] | null>(null);
+
+  const navigate = useNavigate();
+  
 interface UserProfileProps {
   userId: string;
   isAdmin: boolean;
@@ -15,278 +32,211 @@ const UserProfile: React.FC<UserProfileProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [profileImage, setProfileImage] = useState<File | null>(null);
 
+
   useEffect(() => {
-    fetchUserDetails();
-  }, [userId]);
+    const fetchUserData = async () => {
+      try {
+        const userEmail = sessionStorage.getItem("user"); 
+        if (!userEmail) throw new Error("User email not found");
 
-  const fetchUserDetails = async () => {
-    try {
-      const response = await axios.get(`/api/users/${userId}`);
-      setUser(response.data);
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
+        const data = await getUserByEmail(userEmail);
+        const event = await getEventsByUserId(data.userId);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (user) {
-      setUser({ ...user, [e.target.name]: e.target.value });
-    }
-  };
+        setUserData(data);
+        setEvents(event);
+        console.log(events);
+
+      } catch {
+        setError("Failed to fetch user data. Please try again later.");
+
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleUpdate = async () => {
+    if (!userData) return;
     try {
-      await axios.put(`/api/users/${userId}`, {
-        ...user,
-        userRole: user?.userRole, // Ensure userRole is not updated
-      });
-      setIsEditing(false);
-      alert("User updated successfully");
-    } catch (error) {
-      console.error("Error updating user details:", error);
-    }
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setProfileImage(e.target.files[0]);
-    }
-  };
-
-  const handleImageUpload = async () => {
-    if (!profileImage) return;
-    const formData = new FormData();
-    formData.append("file", profileImage);
-
-    try {
-      await axios.post(`/api/users/${userId}/upload-profile-image`, formData);
-      alert("Profile image uploaded successfully");
-    } catch (error) {
-      console.error("Error uploading profile image:", error);
+      await updateUser(userData.userId, userData);
+      logout();
+      navigate("/");
+    } catch {
+      setError("Failed to update user profile. Please try again.");
     }
   };
 
   const handleDelete = async () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this profile?"
+    if (!userData) return;
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
     );
-    if (confirmed) {
+    if (confirmDelete) {
       try {
-        await axios.delete(`/api/users/${userId}`);
-        alert("Profile deleted successfully");
-      } catch (error) {
-        console.error("Error deleting user:", error);
-        alert("Error deleting the profile.");
+        await deleteUser(userData.userId);
+        logout();
+        navigate("/");
+      } catch{
+        setError("Failed to delete account. Please try again later.");
       }
     }
   };
+
+
+  if (loading) return <p>Loading user data...</p>;
 
   if (!user) return <p>Loading user details...</p>;
 
   const profileImageSrc = user.profileImage || defaultImage; // Use default image if profile image doesn't exist
   const fullName = user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : "User's Full Name"; // Default name
 
+
   return (
-    <div className="container mt-5">
-      <h4 className="mb-4">User Profile</h4>
-
-      <div className="d-flex">
-        {/* User Information container*/}
-        <div className="col-md-6">
-          <div
-            className="card p-4 me-3 shadow"
-            style={{ height: "fit-content" }}
-          >
-            <form>
-              <div className="mb-2">
-                <label htmlFor="userId" className="form-label small">
-                  USER ID
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  name="userId"
-                  value={user.userId}
-                  onChange={handleChange}
-                  disabled
-                />
+    <div>
+      <Header/>
+      <EventAbout/>
+      <div className="container mt-3">
+        <div className="main-body">
+            <div className="row gutters-sm">
+              <div className="col-md-4 mb-3">
+                <div className="card">
+                  <div className="card-body">
+                    <div className="d-flex flex-column align-items-center text-center">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
+                      <div className="mt-3">
+                        <h4>{`${userData?.firstName} ${userData?.lastName}`}</h4>
+                        <p className="text-muted font-size-sm">{`${userData?.userEmail} | ${userData?.userRole}`}</p>
+                        <button className="btn btn-outline-danger" onClick={handleDelete}>Delete My Account</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="card mt-3">
+                  <h5 className="btn btn-outline-primary m-2">My Recent Activities</h5>
+                  <ul className="list-group list-group-flush">
+                    {events?.map((event) => (
+                    <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap" key={event.eventId}>
+                      <h6 className="mb-0"><img
+                        src={`data:${event.contentType};base64,${event.imageData}`}
+                        alt="Event"
+                        className="tableimg"
+                      /> <span className="mx-3">{event.eventType}</span></h6>
+                      <span className="text-secondary"><a href={`http://localhost:5173/AllEvents`}>Go to event</a></span>
+                    </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
+              <div className="col-md-8">
+                <div className="card mb-3">
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">First Name</h6>
+                      </div>
+                      <input className="col-sm-9 text-secondary border-0" value={userData?.firstName}/>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Last Name</h6>
+                      </div>
+                      <input className="col-sm-9 text-secondary border-0" value={userData?.lastName}/>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Email</h6>
+                      </div>
+                      <input className="col-sm-9 text-secondary border-0" value={userData?.userEmail}/>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">User Role</h6>
+                      </div>
+                      <input className="col-sm-9 text-secondary border-0" value={userData?.userRole} disabled/>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Timestamp</h6>
+                      </div>
+                      <input className="col-sm-9 text-secondary border-0" value={`You have Registered on: ${userData?.dateRegistered} and at: ${userData?.timeRegistered}`} disabled/>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <button className="btn btn-outline-dark" onClick={handleUpdate}>Edit My Profile</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-              <div className="mb-2">
-                <label htmlFor="firstName" className="form-label small">
-                  FIRST NAME <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  name="firstName"
-                  value={user.firstName}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="lastName" className="form-label small">
-                  LAST NAME <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  name="lastName"
-                  value={user.lastName}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="password" className="form-label small">
-                  PASSWORD <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="password"
-                  className="form-control bg-white"
-                  name="password"
-                  value={user.password}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="email" className="form-label small">
-                  EMAIL <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="email"
-                  className="form-control bg-white"
-                  name="userEmail"
-                  value={user.userEmail}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="userRole" className="form-label small">
-                  USER ROLE
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  value={user.userRole}
-                  disabled
-                />
-              </div>
-
-              <div className="mb-2">
-                <label htmlFor="dateRegistered" className="form-label small">
-                  DATE REGISTERED
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  value={user.dateRegistered}
-                  disabled
-                />
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="timeRegistered" className="form-label small">
-                  TIME REGISTERED
-                </label>
-                <input
-                  type="text"
-                  className="form-control bg-white"
-                  value={user.timeRegistered}
-                  disabled
-                />
-              </div>
-
-              {isEditing ? (
-                <>
-                  <button
-                    type="button"
-                    className="btn btn-primary me-2"
-                    onClick={handleUpdate}
-                  >
-                    Save Changes
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary me-2"
-                    onClick={() => setIsEditing(false)}
-                  >
-                    Cancel Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={handleDelete}
-                  >
-                    Delete Profile
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    className="btn btn-secondary me-2"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    Edit Details
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={handleDelete}
-                  >
-                    Delete Profile
-                  </button>
-                </>
-              )}
-            </form>
-          </div>
-        </div>
-
-        {/* Profile Image Section */}
-        <div
-          className="col-md-5 ms-3 d-flex flex-column justify-content-between"
-          style={{ height: "fit-content" }}
-        >
-          <div className="card p-4 text-center mb-5" style={{ height: "auto" }}>
-            <div className="mb-4">
-              <img
-                src={profileImageSrc}
-                alt="Profile"
-                className="rounded-circle"
-                style={{ width: "150px", height: "150px", objectFit: "cover" }}
-              />
-            </div>
-            <h4 className="mb-1">{fullName}</h4>
-            <h5 className="text-muted">{user.userRole}</h5>
-          </div>
-
-          <div className="card p-4 shadow mb-5">
-            <h5 className="mb-4">Upload Profile Picture</h5>
-            <input
-              type="file"
-              className="form-control mb-3"
-              onChange={handleFileChange}
-              disabled={!isEditing}
-            />
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleImageUpload}
-              disabled={!isEditing}
-            >
-              Upload Image
-            </button>
+                <div className="row gutters-sm">
+                  <div className="col-sm-6 mb-3">
+                    <div className="card h-100">
+                      <div className="card-body">
+                        <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
+                        <small>Web Design</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                          <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Website Markup</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>One Page</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Mobile Template</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Backend API</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-sm-6 mb-3">
+                    <div className="card h-100">
+                      <div className="card-body">
+                        <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
+                        <small>Web Design</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Website Markup</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>One Page</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Mobile Template</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                        <small>Backend API</small>
+                        <div className="progress mb-3" style={{height: '5px'}}>
+                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
           </div>
         </div>
       </div>
+      <Chatbot/>
+      <Footer/>
     </div>
   );
 };
