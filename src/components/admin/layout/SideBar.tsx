@@ -147,7 +147,7 @@ const SideBar: React.FC = () => {
           </li>
           <li className="menu-item">
             <NavLink
-              to="/reservation"
+              to="/userReservations"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
