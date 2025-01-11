@@ -20,59 +20,98 @@ const UserProfile: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [, setError] = useState<string | null>(null);
   const [events, setEvents] = useState<Event[] | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState<User>({
+    userId: userData?.userId || "",
+    userEmail: userData?.userEmail || "",
+    firstName: userData?.firstName || "",
+    lastName: userData?.lastName || "",
+    password: "",
+    userRole: userData?.userRole || "",
+    dateRegistered: userData?.dateRegistered || "",
+    timeRegistered: userData?.timeRegistered || "",
+    profileImage: userData?.profileImage || ""
+  });
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userEmail = sessionStorage.getItem("user"); 
-        if (!userEmail) throw new Error("User email not found");
-
-        const data = await getUserByEmail(userEmail);
-        const event = await getEventsByUserId(data.userId);
-
-        setUserData(data);
-        setEvents(event);
-        console.log(events);
-
-      } catch {
-        setError("Failed to fetch user data. Please try again later.");
-
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleUpdate = async () => {
-    if (!userData) return;
+  const fetchUserData = async () => {
     try {
-      await updateUser(userData.userId, userData);
-      logout();
-      navigate("/");
+      const userEmail = sessionStorage.getItem("user"); 
+      if (!userEmail) throw new Error("User email not found");
+
+      const data = await getUserByEmail(userEmail);
+      const event = await getEventsByUserId(data.userId);
+
+      setFormData(data);
+      setUserData(data);
+      setEvents(event);
+      //console.log(events);
+
     } catch {
-      setError("Failed to update user profile. Please try again.");
+      setError("Failed to fetch user data. Please try again later.");
+
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   const handleDelete = async () => {
     if (!userData) return;
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete your account? This action cannot be undone."
-    );
-    if (confirmDelete) {
+    const confirmDelete = window.prompt("Are you sure you want to delete your account? Please enter your Email to perform delete");
+    if (confirmDelete === userData.userEmail) {
       try {
-        await deleteUser(userData.userId);
-        logout();
-        navigate("/");
+        const confirm = window.confirm("Are you sure you want to delete your account?");
+        if (confirm) {
+          await deleteUser(userData.userId);
+          
+          const response = await logout();
+          if (response) {
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('role');
+            navigate('/login');
+          }
+        }
       } catch{
         setError("Failed to delete account. Please try again later.");
       }
     }
+    else {
+      alert("Email does not match. Please try again.");
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleEdit = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleSave = async () => {
+    try {
+      if (userData?.userId) {
+        const updatedUserId = await updateUser(userData.userId, formData);
+        console.log(userData.userId, userData);
+        console.log("User updated successfully with userId:", updatedUserId);
+      }
+      alert("Profile updated successfully!");
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      alert("Failed to update profile. Please try again.");
+    }
+  };
+
+  const handleCancel = () => {
+    fetchUserData();
+    setIsEditing(false);
   };
 
   if (loading) return <p>Loading user data...</p>;
@@ -92,7 +131,7 @@ const UserProfile: React.FC = () => {
                       <div className="mt-3">
                         <h4>{`${userData?.firstName} ${userData?.lastName}`}</h4>
                         <p className="text-muted font-size-sm">{`${userData?.userEmail} | ${userData?.userRole}`}</p>
-                        <button className="btn btn-outline-danger" onClick={handleDelete}>Delete My Account</button>
+                        <button className="btn btn-outline-danger btn-sm" onClick={handleDelete}>Delete My Account</button>
                       </div>
                     </div>
                   </div>
@@ -120,40 +159,83 @@ const UserProfile: React.FC = () => {
                       <div className="col-sm-3">
                         <h6 className="mb-0">First Name</h6>
                       </div>
-                      <input className="col-sm-9 text-secondary border-0" value={userData?.firstName}/>
+                      <input
+                        className="col-sm-9 text-secondary border-0"
+                        name="firstName"
+                        value={formData?.firstName}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                      />
                     </div>
                     <hr />
                     <div className="row">
                       <div className="col-sm-3">
                         <h6 className="mb-0">Last Name</h6>
                       </div>
-                      <input className="col-sm-9 text-secondary border-0" value={userData?.lastName}/>
+                      <input
+                        className="col-sm-9 text-secondary border-0"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                      />
                     </div>
                     <hr />
                     <div className="row">
                       <div className="col-sm-3">
                         <h6 className="mb-0">Email</h6>
                       </div>
-                      <input className="col-sm-9 text-secondary border-0" value={userData?.userEmail}/>
+                      <input
+                        className="col-sm-9 text-secondary border-0"
+                        name="userEmail"
+                        value={formData.userEmail}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                      />
                     </div>
                     <hr />
                     <div className="row">
                       <div className="col-sm-3">
                         <h6 className="mb-0">User Role</h6>
                       </div>
-                      <input className="col-sm-9 text-secondary border-0" value={userData?.userRole} disabled/>
+                      <input
+                        className="col-sm-9 text-secondary border-0"
+                        name="userRole"
+                        value={formData.userRole}
+                        disabled
+                      />
                     </div>
                     <hr />
                     <div className="row">
                       <div className="col-sm-3">
                         <h6 className="mb-0">Timestamp</h6>
                       </div>
-                      <input className="col-sm-9 text-secondary border-0" value={`You have Registered on: ${userData?.dateRegistered} and at: ${userData?.timeRegistered}`} disabled/>
+                      <input
+                        className="col-sm-9 text-secondary border-0"
+                        value={`You have registered on: ${userData?.dateRegistered ?? ''} and at: ${userData?.timeRegistered ?? ''}`}
+                        disabled
+                      />
                     </div>
                     <hr />
                     <div className="row">
                       <div className="col-sm-12">
-                        <button className="btn btn-outline-dark" onClick={handleUpdate}>Edit My Profile</button>
+                        {!isEditing ? (
+                          <button className="btn btn-outline-dark btn-sm" onClick={handleEdit}>
+                            Edit My Profile
+                          </button>
+                        ) : (
+                          <>
+                            <button className="btn btn-success btn-sm" onClick={handleSave}>
+                              Save Changes
+                            </button>
+                            <button
+                              className="btn btn-secondary ms-2 btn-sm"
+                              onClick={handleCancel}
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
