@@ -39,4 +39,23 @@ export const getUserId = async () => {
   const userEmail = sessionStorage.getItem("user");
   const response = await axios.get(`${API_URL}/getUserByEmail/${userEmail}`);
   return response.data.userId;
+<<<<<<< HEAD
 };
+=======
+}
+
+export const updateUser = async (userId: string, userData: User): Promise<string> => {
+  try {
+    const response = await axios.put(`${API_URL}/updateUser/${userId}`, userData);
+    if (response.status === 200) {
+      return response.data.userId;
+    } else {
+      throw new Error("Failed to update user");
+    }
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw error; 
+  }
+};
+
+>>>>>>> main

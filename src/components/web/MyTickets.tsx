@@ -3,8 +3,8 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import EventAbout from "../content/Events/EventAbout";
 import { getUserById, getUserId } from "../../service/UserService";
-import { getReservationsByUserId } from "../../service/ReservationService";
-import { deleteEvent, getEventById } from "../../service/EventService";
+import { deleteReservation, getReservationsByUserId } from "../../service/ReservationService";
+import { getEventById } from "../../service/EventService";
 import { Event } from "../../interfaces/Event";
 import { Reservation } from "../../interfaces/Reservation";
 import useAuthCheck from "../../useAuthCheck";
@@ -71,7 +71,7 @@ const MyTickets: React.FC = () => {
         "Are you sure you want to delete this record?"
       );
       if (confirmRespond) {
-        await deleteEvent(id);
+        await deleteReservation(id);
         setEvents((prevEvents) =>
           prevEvents.filter((event) => event.eventId !== id)
         );
