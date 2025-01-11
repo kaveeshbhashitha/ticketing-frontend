@@ -17,7 +17,7 @@ import NotFoundPage from "./components/web/NotFoundPage";
 import Checkout from "./components/payment/Checkout";
 import MyTickets from "./components/web/MyTickets";
 import AdminReservation from "./components/admin/actions/Reservation";
-import UserProfile from "./components/admin/operations/UserProfile";
+import UserProfile from "./components/web/UserProfile";
 
 function App() {
   return (

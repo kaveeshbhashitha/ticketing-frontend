@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../layout/Header";
-import EventAbout from "../../content/Events/EventAbout";
-import Footer from "../../layout/Footer";
-import Chatbot from "../../chatbot/Chatbot";
-import useAuthCheck from "../../../useAuthCheck";
-import { User } from "../../../interfaces/User";
+import Header from "../layout/Header";
+import EventAbout from "../content/Events/EventAbout";
+import Footer from "../layout/Footer";
+import Chatbot from "../chatbot/Chatbot";
+import useAuthCheck from "../../useAuthCheck";
+import { User } from "../../interfaces/User";
 import { useNavigate } from "react-router-dom";
-import { deleteUser, getUserByEmail, updateUser } from "../../../service/UserService";
-import { logout } from "../../../service/AuthService";
-import { Event } from "../../../interfaces/Event";
-import { getEventsByUserId } from "../../../service/EventService";
+import { deleteUser, getUserByEmail, updateUser } from "../../service/UserService";
+import { logout } from "../../service/AuthService";
+import { Event } from "../../interfaces/Event";
+import { getEventsByUserId } from "../../service/EventService";
+import PieChart from "../charts/PieChart";
+import { LineChart } from "../charts/LineChart";
+
 
 const UserProfile: React.FC = () => {
   useAuthCheck(["User", "Admin"]);
@@ -42,6 +45,7 @@ const UserProfile: React.FC = () => {
     };
 
     fetchUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleUpdate = async () => {
@@ -159,54 +163,21 @@ const UserProfile: React.FC = () => {
                   <div className="col-sm-6 mb-3">
                     <div className="card h-100">
                       <div className="card-body">
-                        <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                        <small>Web Design</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                          <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>Website Markup</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>One Page</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>Mobile Template</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>Backend API</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
+                        {userData && <LineChart userId={userData.userId}/>}
                       </div>
                     </div>
                   </div>
                   <div className="col-sm-6 mb-3">
                     <div className="card h-100">
+                      <div className="d-flex">
                       <div className="card-body">
-                        <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                        <small>Web Design</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>Website Markup</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>One Page</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>Mobile Template</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
-                        <small>Backend API</small>
-                        <div className="progress mb-3" style={{height: '5px'}}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{width: "66%"}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
-                        </div>
+                        {userData?.userId && <PieChart userId={userData.userId} />}
+                      </div>
+                      <div className="p-5">
+                        <h5>Ticket Reservation</h5>
+                        <p>My Ticket Count</p>
+                        <p>Frequency distribution of purcheses</p>
+                      </div>
                       </div>
                     </div>
                   </div>
