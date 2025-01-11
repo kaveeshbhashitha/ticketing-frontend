@@ -57,7 +57,7 @@ const Checkout: React.FC = () => {
   };
 
   if (!reservationData || !eventData || !userData) {
-    console.log(eventData, reservationData, userData);
+    //console.log(eventData, reservationData, userData);
     return <div>Loading...</div>;
   }
 

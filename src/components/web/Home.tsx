@@ -10,7 +10,6 @@ import HomeGalary from "../content/HomeGalary";
 import HomeSponsors from "../content/HomeSponsers";
 import HomeQandA from "../content/HomeQandA";
 import HomeNewsLetter from "../content/HomeNewsLetter";
-import HomePackages from "../content/HomePackages";
 import HomeContactUs from "../content/HomeContactUs";
 import Chatbot from "../chatbot/Chatbot";
 
@@ -29,7 +28,7 @@ const Home: React.FC = () => {
             <HomeSponsors />
             <HomeQandA />
             <HomeNewsLetter />
-            <HomePackages />
+            {/* <HomePackages /> */}  // remove subscription packages from home page 
             <HomeContactUs />
             <Chatbot />
             <Footer />
