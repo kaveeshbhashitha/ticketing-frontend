@@ -34,7 +34,7 @@ const HomeContactUs: React.FC = () => {
       <div className="contact-email">
         <i className="ion-ios-email-outline"></i>
         <h3>Email</h3>
-        <p><a href="mailto:info@example.com">theevenet@hotmail.com</a></p>
+        <p><a href="mailto:info@example.com">contact@theevenet.com</a></p>
       </div>
     </div>
 
