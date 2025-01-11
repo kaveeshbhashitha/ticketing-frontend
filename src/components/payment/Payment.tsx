@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  CardElement,
   useStripe,
   useElements,
   CardCvcElement,
@@ -11,6 +10,25 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CheckoutFormProps } from "../../interfaces/CheckoutFormProps";
 import { cardBrandIcons } from "../../data/CardData";
+
+// Function to send data to backend
+const insertPaymentData = async (paymentDetails: {
+  userId: string;
+  reservationId: string;
+  userEmail: string;
+  amount: number;
+}) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/payment/process",
+      paymentDetails
+    );
+    return response;
+  } catch (error) {
+    console.error("Error inserting payment data:", error);
+    throw new Error("Failed to insert payment data");
+  }
+};
 
 const Payment: React.FC<CheckoutFormProps> = ({
   reservationId,
@@ -27,13 +45,11 @@ const Payment: React.FC<CheckoutFormProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [cardBrand, setCardBrand] = useState<string | null>(null);
-
   const handlePayment = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!stripe || !elements) {
       alert("Stripe is not loaded properly.");
-      console.error(userId);
       return;
     }
 
@@ -45,39 +61,23 @@ const Payment: React.FC<CheckoutFormProps> = ({
     setIsProcessing(true);
 
     try {
-      const { data: clientSecret } = await axios.post(
-        "http://localhost:8080/payment/create-intent",
-        {
-          amount,
-          reservationId,
-        }
-      );
+      // Send only necessary data to the backend
+      const paymentDetails = {
+        userId,
+        reservationId,
+        userEmail,
+        amount,
+      };
 
-      const cardElement = elements.getElement(CardElement);
-      if (!cardElement) throw new Error("CardElement not found");
+      // Call function to insert payment details into the backend
+      await insertPaymentData(paymentDetails);
 
-      const { paymentIntent, error } = await stripe.confirmCardPayment(
-        clientSecret,
-        {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              email: userEmail,
-            },
-          },
-        }
-      );
-
-      if (error) {
-        console.error("Payment error:", error);
-        alert("Payment failed.");
-      } else if (paymentIntent?.status === "succeeded") {
-        alert("Payment successful!");
-        navigate("/myTickets");
-      }
+      // After inserting into backend, navigate to another page (example: tickets page)
+      alert("Payment data saved successfully!");
+      navigate("/myTickets");
     } catch (error) {
-      console.error("Payment error:", error);
-      alert("An error occurred during the payment process.");
+      console.error("Error during payment process:", error);
+      alert("An error occurred while saving payment data.");
     } finally {
       setIsProcessing(false);
     }
@@ -91,27 +91,18 @@ const Payment: React.FC<CheckoutFormProps> = ({
             Payment Form
           </div>
           <div className="d-flex justify-content-between width-70 alert alert-dark">
-            <span>Selected: {numOfTickets}</span>|
-            <span>One is: Rs.{perTicketCharge}.00</span>|
-            <span>Total: Rs.{amount}.00</span>
+            <span>Selected: {numOfTickets}</span>|<span>One is: Rs.{perTicketCharge}.00</span>|<span>Total: Rs.{amount}.00</span>
           </div>
           <div className="mb-3">
-            <label htmlFor="card-number" className="form-label mt-2">
-              Email
-            </label>
-            <br />
-            <input
-              type="email"
-              className="emailinput"
-              value={userEmail}
-              disabled
-            />
+            <label htmlFor="card-number" className="form-label mt-2">Email</label><br />
+            <input type="email" className="emailinput" value={userEmail} disabled />
           </div>
 
-          <div className="">
+          {/* Card Details */}
+          <div>
             <div className="d-flex justify-content-between marginright">
               <label htmlFor="card-number" className="form-label mt-2">
-                Card information
+                Card Information
               </label>
               {cardBrand && (
                 <img
@@ -159,6 +150,7 @@ const Payment: React.FC<CheckoutFormProps> = ({
             />
           </div>
 
+          {/* Terms & Conditions */}
           <div className="form-check mb-3">
             <input
               type="checkbox"
@@ -171,6 +163,8 @@ const Payment: React.FC<CheckoutFormProps> = ({
               I accept the terms and conditions
             </label>
           </div>
+
+          {/* Submit Button */}
           <button type="submit" className="pay-button" disabled={isProcessing}>
             {isProcessing ? "Processing..." : "Pay Now"}
           </button>
