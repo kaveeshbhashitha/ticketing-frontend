@@ -46,7 +46,7 @@ const handleLogout = async () => {
                   <li><NavLink to="/AllEvents" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Events</NavLink></li>
                   <li><NavLink to="/myTickets" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>My Tickets</NavLink></li>
                   <li><NavLink to="/userProfile" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Profile</NavLink></li>
-                  <li><NavLink to="/contactUs" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Contact Us</NavLink></li>
+                  <li><NavLink to="/contact" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Contact Us</NavLink></li>
                   <li className={signed}><a href="/login">Sign In</a></li>
                   <li className={className}><a onClick={handleLogout}>Logout</a></li>
                 </ul>
