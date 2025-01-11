@@ -182,7 +182,7 @@ export async function getEventsByUserId(userId: string) {
     const eventPromises = eventIds.map((eventId) => getEventById(eventId));
     const events = await Promise.all(eventPromises);
 
-    console.log("All fetched events:", events);
+    //console.log("All fetched events:", events);
     return events;
   } catch (error) {
     console.error("Error fetching events by userId:", error);

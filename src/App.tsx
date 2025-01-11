@@ -12,13 +12,12 @@ import GeneralEvents from "./components/content/Events/GeneralEvent";
 import SportEvent from "./components/content/Events/SportEvent";
 import TheaterEvent from "./components/content/Events/TheaterEvent";
 import OtherEvent from "./components/content/Events/OtherEvent";
-import UserProfile from "./components/admin/operations/UserProfile";
 import Reservation from "./components/web/Reservation";
 import NotFoundPage from "./components/web/NotFoundPage";
 import Checkout from "./components/payment/Checkout";
 import MyTickets from "./components/web/MyTickets";
 import AdminReservation from "./components/admin/actions/Reservation";
-import UserProfile from "./components/admin/operations/UserProfile";
+import UserProfile from "./components/web/UserProfile";
 
 function App() {
   return (
@@ -38,7 +37,6 @@ function App() {
           <Route path="/SportEvent" element={<SportEvent/>}/>
           <Route path="/TheaterEvent" element={<TheaterEvent/>}/>
           <Route path="/OtherEvent" element={<OtherEvent/>}/>
-          <Route path="/user" element={<UserProfile userId={"weferferfer"} isAdmin={false}/>}/>
           <Route path="/reservation/:eventId" element={<Reservation/>}/>
           <Route path="/unauthorized" element={<NotFoundPage/>}/>
           <Route path="/payment/:reservationId" element={<Checkout/>}/>
