@@ -225,11 +225,11 @@ const UserProfile: React.FC = () => {
                           </button>
                         ) : (
                           <>
-                            <button className="btn btn-success btn-sm" onClick={handleSave}>
+                            <button className="btn btn-outline-primary btn-sm" onClick={handleSave}>
                               Save Changes
                             </button>
                             <button
-                              className="btn btn-secondary ms-2 btn-sm"
+                              className="btn btn-outline-secondary ms-2 btn-sm"
                               onClick={handleCancel}
                             >
                               Cancel
