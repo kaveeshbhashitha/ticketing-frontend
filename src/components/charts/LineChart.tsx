@@ -12,8 +12,8 @@ import {
   PointElement,
   Filler,
 } from "chart.js";
-import { getReservationsByUserId } from "../../service/ReservationService"; // Ensure this is the correct path to your service
-import { Reservation } from "../../interfaces/Reservation"; // Ensure the interface matches the reservation schema
+import { getReservationsByUserId } from "../../service/ReservationService"; 
+import { Reservation } from "../../interfaces/Reservation"; 
 
 ChartJS.register(
   Title,

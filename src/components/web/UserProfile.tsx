@@ -22,19 +22,6 @@ const UserProfile: React.FC = () => {
   const [events, setEvents] = useState<Event[] | null>(null);
 
   const navigate = useNavigate();
-  
-interface UserProfileProps {
-  userId: string;
-  isAdmin: boolean;
-}
-
-const UserProfile: React.FC<UserProfileProps> = ({
-  userId,
-}) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileImage, setProfileImage] = useState<File | null>(null);
-
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -88,14 +75,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
     }
   };
 
-
   if (loading) return <p>Loading user data...</p>;
-
-  if (!user) return <p>Loading user details...</p>;
-
-  const profileImageSrc = user.profileImage || defaultImage; // Use default image if profile image doesn't exist
-  const fullName = user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : "User's Full Name"; // Default name
-
 
   return (
     <div>
