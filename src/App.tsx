@@ -24,7 +24,7 @@ import UpdatePassword from "./components/web/auth/UpdatePassword";
 import Profile from "./components/admin/Profile";
 import AdminPayment from "./components/admin/actions/AdminPayment";
 import Notification from "./components/admin/actions/Notifications";
-
+import UpdateAndDelete from "./components/admin/actions/UpdateAndDelete";
 function App() {
   return (
     <div>
@@ -55,6 +55,8 @@ function App() {
           <Route path="/adminProfile" element={<Profile/>}/>
           <Route path="/adminPayment" element={<AdminPayment/>}/>
           <Route path="/notification" element={<Notification/>}/>
+          <Route path="/UpdateAndDeleteEvent" element={<UpdateAndDelete/>}/>
+
         </Routes>
       </Router>
     </div>

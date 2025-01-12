@@ -1,0 +1,579 @@
+.search {
+  color: white;
+  height: auto;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  padding: 50px 20px 30px 20px;
+  align-items: center;
+  
+  /* Add animation for smooth color transition */
+  animation: colorTransition 10s infinite alternate;
+}
+
+/* Define the keyframes for the color animation */
+@keyframes colorTransition {
+  0% {
+      background-color: #135bf2;  /* Blue */
+  }
+  33% {
+      background-color: #003366;  /* Dark Blue */
+  }
+  66% {
+      background-color: #0e42b1;  /* Violet */
+  }
+  100% {
+      background-color:  #135bf2;  /* Light Blue (Deep Sky Blue) */
+  }
+}
+
+.search2 {
+  color: white;
+  height: auto;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  padding: 50px 20px 30px 20px;
+  align-items: center;
+  
+  /* Add animation for smooth color transition */
+  animation: colorTransition2 10s infinite alternate;
+}
+
+/* Define the keyframes for the color animation */
+@keyframes colorTransition2 {
+  0% {
+      background-color: #081434;  /* Blue */
+  }
+  33% {
+      background-color: #003366;  /* Dark Blue */
+  }
+  66% {
+      background-color: #081434  /* Violet */
+  }
+  100% {
+      background-color:  #135bf2;  /* Light Blue (Deep Sky Blue) */
+  }
+}
+
+
+.breadcrumb {
+  font-size: 16px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  
+}
+
+.deals-banner {
+  background-color: #051b35; 
+  color: white;
+  padding: 30px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: left;
+  padding: 20px;
+  margin-left: 2cm;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.filter-btn.active {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+  .hero-section .content {
+    max-width: 1280px;
+    margin: 0 auto 40px;
+    width: 100%;
+  }
+  
+  .content2 {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+
+    
+  }
+  .hero-section .content h2 {
+    color: #fff;
+    font-size: 37px;
+    max-width: 630px;
+    line-height: 50px;
+  }
+  
+  .search-bar {
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    margin-top: 20px;
+    width: 45%;
+  }
+  .search-bar i{
+    color: #135bf2;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  .search-bar input {
+    flex: 1;
+    border: none;
+    font-size: 16px;
+    height: 20px;
+    padding: 15px;
+    border-radius: 5px 0 0 5px;
+  }
+  .search-bar input:focus {
+    outline: none;
+  }
+  
+  .search-bar button {
+    background-color: #135bf2;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer; 
+  }
+  .search-bar button i {
+    margin-right: 5px;
+  }
+  .hidden{
+    display: none;
+  }
+
+  .midsection{
+    height: auto;
+    background-color: #141b27;
+    color: white;
+    margin: 50px 3cm;
+    padding: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .midtitle{
+    margin-bottom: 10px;
+  }
+
+  .infobutton{
+    display: flex;
+  }
+
+  .resend, .transfer{
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 25px;
+    font-size: 15px;
+  }
+  .resend{
+    color: white;
+    background-color: #135bf2;
+    margin-right: 10px;
+  }
+  .resend, .transfer i{
+    margin-right: 5px;
+  }
+  .transfer{
+    color: black;
+    background-color: white;
+    margin-left: 10px;
+  }
+.infoback img{
+    width: 400px;
+    height: auto;
+    margin-right: 50px;
+    margin-bottom: -120px;
+    margin-top: -100px;
+  }
+
+@media screen and (max-width: 900px) {
+    .content{
+      text-align: center;
+    }
+    .hero-section .content {
+        max-width: 1280px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: 20px;
+      }
+
+      .content2{
+        text-align: center;
+      }
+      
+      .hero-section .content h2 {
+        color: #fff;
+        font-size: 37px;
+        max-width: 630px;
+        line-height: 50px;
+      }
+    .search-bar {
+        background-color: #fff;
+        border-radius: 5px;
+        align-items: center;
+        padding: 8px 10px;
+        margin-top: 20px;
+        width: 100%;
+      }
+      .search-bar i{
+        display: none;
+      }
+      .search-bar input {
+        flex: 1;
+        border: none;
+        font-size: 16px;
+        height: 20px;
+        padding: 15px;
+        border-radius: 5px 0 0 5px;
+      }
+      .search-bar input:focus {
+        outline: none;
+      }
+      
+      .search-bar button {
+        background-color: #135bf2;
+        color: #fff;
+        border: none;
+        padding: 10px 12px;
+        font-size: 15px;
+        border-radius: 5px;
+        cursor: pointer; 
+      }
+      .search-bar button i {
+        margin-right: 5px;
+      }
+
+      .hidden{
+        display: block;
+        margin-right: -50px;
+        background-color: #135bf2;
+        padding: 5px;
+        color: white;
+        border-radius: 3px;
+      }
+
+      .midsection{
+        height: auto;
+        background-color: #141b27;
+        width: 90%;
+        color: white;
+        padding: 50px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 10px auto;
+      }
+      .infobutton{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      .resend, .transfer{
+        width: 100%;
+      }
+      .transfer{
+        margin-left: -1px;
+      }
+      .infoback img{
+        width: 100%;
+        height: auto;
+        margin-right: 50px;
+        margin-bottom: -120px;
+        margin-top: -100px;
+      }
+      .infoback img{
+        margin: 10px 0 -50px 0;
+      }
+      .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 10px;
+        margin-top: 1cm;
+        margin-left: 1.5cm;
+        margin-right: auto;
+        margin-bottom: 1cm;
+      }
+}
+
+.display-image{
+  height: auto;
+  width: 280px;
+  border-radius: 5px;
+  min-height: 230px;
+  max-height: 230px;
+}
+.image-container{
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  line-height: 30px;
+  padding-bottom: 0;
+}
+.textinimage{
+  margin: 120px 0;
+}
+.textforimg{
+  padding: 8px;
+}
+.event-title{
+  margin-left: 3cm;
+  margin-top: 1cm;
+}
+
+.error-msg{
+  margin-left: 3cm;
+  margin-top: 10px;
+  padding: 10px 10px;
+  background-color: #ebd2d2;
+  border: solid 1px rgb(236, 65, 65);
+  border-radius: 5px;
+  color: rgb(236, 65, 65);
+  display: flex;
+  justify-content: space-between;
+}
+
+.none{
+  display: none;
+}
+
+.event-container{
+  margin: 1cm 3cm;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.event-title, .error-msg, .event-container{
+  margin: 10px 3cm;
+}
+
+.textforimg{
+  padding: 8px;
+}
+.buytickets{
+  width: 100%;
+  height: auto;
+  padding: 8px 5px;
+  text-align: center;
+  background-color: #135bf2;
+  color: white;
+  border-radius: 0 0 8px 8px;
+}
+
+.buytickets Link{
+  color: white;
+}
+
+.buytickets:hover{
+  background-color: #fd7e14;
+  color: white;
+  cursor: pointer;
+}
+.buytickets1{
+  width: 100%;
+  height: auto;
+  padding: 8px 5px;
+  text-align: center;
+  background-color: #135bf2;
+  color: white;
+  border-radius: 0 0 8px 8px;
+}
+.buytickets1:hover{
+  background-color: #00f804;
+  color: white;
+  cursor: pointer;
+}
+.buytickets2{
+  width: 100%;
+  height: auto;
+  padding: 8px 5px;
+  text-align: center;
+  background-color: #ff0101;
+  color: white;
+  border-radius: 0 0 8px 8px;
+}
+.buytickets2:hover{
+  background-color: #135bf2;
+  color: white;
+  cursor: pointer;
+}
+.buybtn{
+  display: flex;
+  justify-content: center;
+}
+.textforimg span{
+  color: rgb(93, 93, 93);
+}
+.event-container{
+  margin: 1cm 3cm;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.image-box{
+  padding: 8px;
+  border: solid 0.1px rgb(229, 229, 229);
+  width: 110%;
+  max-width: 298px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.event-title{
+  margin: 30px 3cm 30px 3cm;
+  font-size: 30px;
+
+}
+.error-msg{
+  margin: 10px 3cm;
+}
+.event-title span{
+  color: #135bf2;
+}
+.rightgap{
+  margin-right: 5px;
+}
+.d-none{
+  display: none;
+}
+hr {
+  border: none;       
+  height: 1px;         
+  background-color:black;  
+  margin: 20px 0;       
+  opacity: 0.2;         
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.6cm;
+  margin-top: 1cm;
+  margin-left: 1.5cm;
+  margin-right: 1.5cm;
+  margin-bottom: 1cm;
+}
+.subtopic{
+  font-weight: 100px;
+  font-size: 25px;
+  display: none;
+}
+
+
+.date-filter-container {
+  position: absolute;
+  margin: 20px 2.5cm 20px 0;
+  right: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  width: 290px;
+}
+
+/* Date Input Wrapper */
+.date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Date Picker Style */
+.date-filter-container input[type="date"] {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: auto;
+  transition: border-color 0.3s ease;
+  background-color: transparent;
+  width: 40px;
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+  visibility: hidden;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  color: transparent;
+}
+
+input[type="date"]::placeholder {
+  color: transparent; 
+}
+
+input[type="date"] {
+  font-size: 17px; 
+  padding: 4px; 
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  font-size: inherit; 
+  padding: 0; 
+}
+
+/* Focus State */
+.date-filter-container input[type="date"]:focus {
+  border-color: #0056b3;
+}
+
+.date-filter-container label{
+  margin-top: 10px;
+}
+
+.date-filter-container i{
+  margin-top: 10px;
+}
+
+/* Clear Date Button Style */
+.clear-date-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #888;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.3s ease;
+}
+
+.clear-date-btn:hover {
+  color: #ff0000; /* Change to red on hover */
+}
+
+/* Label Style */
+.date-filter-container label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.space{
+  margin: 2cm 0;
+}
+
+.buy{
+  color: white;
+}
