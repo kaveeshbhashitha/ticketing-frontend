@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     if (user) {
         setClassName('block buy-tickets');
         setSigned('none buy-tickets');
-        console.log(user);
+        //console.log(user);
     } else {
         setSigned('blcok buy-tickets');
         setClassName('none buy-tickets');
