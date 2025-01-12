@@ -64,14 +64,6 @@ const HomeContactUs: React.FC = () => {
             </div>
 
             <div className="col-md-4">
-              <div className="contact-phone">
-                <i className="ion-ios-telephone-outline"></i>
-                <h3>Phone Number</h3>
-                <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
-              </div>
-            </div>
-
-            <div className="col-md-4">
               <div className="contact-email">
                 <i className="ion-ios-email-outline"></i>
                 <h3>Email</h3>

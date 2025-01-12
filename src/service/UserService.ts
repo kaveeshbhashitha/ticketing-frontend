@@ -59,4 +59,3 @@ export const updateUser = async (userId: string, userData: User): Promise<string
     throw error; 
   }
 };
-
