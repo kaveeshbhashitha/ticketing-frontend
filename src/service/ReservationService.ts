@@ -25,3 +25,11 @@ export const deleteReservation = async (id: string) => {
     const response = await axios.delete(`${API_URL}/deleteReservation/${id}`);
     return response.data;
 };
+
+export function updateStatus(reservationId: string) {
+    return axios.post(`${API_URL}/cancelReservation`, null, {
+      params: {
+        reservationId,
+      },
+    });
+  }
