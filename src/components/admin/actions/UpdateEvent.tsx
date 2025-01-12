@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllOtherEventDataForFrontEndWithoutSort, getEventById, addEvent } from "../../../service/EventService";
+import { getAllOtherEventDataForFrontEndWithoutSort, getEventById, updateEvent } from "../../../service/EventService";
 import { Event } from "../../../interfaces/Event";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/HomeSpeecker.css";
@@ -56,9 +56,9 @@ const UpdateEvent: React.FC = () => {
     formData.set("description", selectedEvent.description);
 
     try {
-      await addEvent(formData);
+      await updateEvent(selectedEvent.eventId,formData); // Use updateEvent to update the event
       alert("Event updated successfully!");
-      navigate(0); // Refresh the page
+      navigate(0); // Refresh the page to reflect the updated event
     } catch (error) {
       console.error("Error updating event:", error);
       alert("Failed to update event.");
