@@ -117,7 +117,7 @@ const Profile: React.FC = () => {
 
         <div className="content-wrapper">
           <div className="container-xxl flex-grow-1 container-p-y">
-            <h4 className="fw-bold py-3 my-1">
+            <h4 className="fw-bold py-3 my-1 mx-4">
               <span className="text-muted fw-light">User /</span> Admin Home
             </h4>
             <div className="container mt-3">
@@ -250,8 +250,19 @@ const Profile: React.FC = () => {
                         <div className="d-flex flex-column align-items-center text-center">
                           <div className="mt-3">
                             <h6 className="text-danger">
-                                Since you are admin, make your to pass your authorization to corresponding person before you delete your account
-                                <a onClick={() => alert("You can contact your head or manger to more information..!")} className="b-none bg-none"><i className="fa-solid fa-arrow-up-right-from-square text-primary mx-2"></i></a>
+                              Since you are admin, make your to pass your
+                              authorization to corresponding person before you
+                              delete your account
+                              <a
+                                onClick={() =>
+                                  alert(
+                                    "You can contact your head or manger to more information..!"
+                                  )
+                                }
+                                className="b-none bg-none"
+                              >
+                                <i className="fa-solid fa-arrow-up-right-from-square text-primary mx-2"></i>
+                              </a>
                             </h6>
                           </div>
                         </div>

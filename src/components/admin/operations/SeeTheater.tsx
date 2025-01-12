@@ -4,6 +4,8 @@ import { Event } from "../../../interfaces/Event";
 
 const SeeTheater: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -12,6 +14,7 @@ const SeeTheater: React.FC = () => {
         const eventList = await getAllTheater();
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
+          setFilteredEvents(eventList); 
           setError(""); 
         } else {
           setError("No events found to display.");
@@ -23,19 +26,33 @@ const SeeTheater: React.FC = () => {
     };
 
     fetchEvents();
-}, []);
+  }, []);
 
-  const handleDelete = async (id: string) => { 
-        try { 
-            const confirmRespond = confirm("Are you sure to delete this record?"); 
-            if(confirmRespond){
-              await deleteEvent(id); 
-              setEvents((prev) => prev.filter((event) => event.eventId !== id)); 
-            }
-        } catch (error) { 
-            console.error('Failed to delete employee:', error); 
-        } 
-    };
+  const handleDelete = async (id: string) => {
+    try {
+      const confirmRespond = confirm("Are you sure to delete this record?");
+      if (confirmRespond) {
+        await deleteEvent(id);
+        setEvents((prev) => prev.filter((event) => event.eventId !== id));
+        setFilteredEvents((prev) => prev.filter((event) => event.eventId !== id));
+      }
+    } catch (error) {
+      console.error("Failed to delete event:", error);
+    }
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+
+    const lowerCaseQuery = query.toLowerCase();
+    const filtered = events.filter(
+      (event) =>
+        event.eventName.toLowerCase().includes(lowerCaseQuery) ||
+        event.eventVenue.toLowerCase().includes(lowerCaseQuery)
+    );
+
+    setFilteredEvents(filtered);
+  };
 
   return (
     <div>
@@ -44,9 +61,21 @@ const SeeTheater: React.FC = () => {
           {error} <i className="fa-solid fa-circle-exclamation pt-1"></i>
         </div>
       )}
+
       <div className="table-container">
         <h5>Drama and Theater</h5>
-        {events.length > 0 ? (
+
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by Event Name or Venue"
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+        </div>
+
+        {filteredEvents.length > 0 ? (
           <table className="table table-bordered">
             <thead>
               <tr>
@@ -64,9 +93,11 @@ const SeeTheater: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {events.map((event) => (
+              {filteredEvents.map((event) => (
                 <tr key={event.eventId}>
-                  <td><abbr title={event.eventId}>#</abbr></td>
+                  <td>
+                    <abbr title={event.eventId}>#</abbr>
+                  </td>
                   <td>{event.eventVenue}</td>
                   <td>{event.eventName}</td>
                   <td>{event.eventDate}</td>
@@ -76,8 +107,11 @@ const SeeTheater: React.FC = () => {
                   <td>{event.duration}</td>
                   <td>{event.eventOrganizer}</td>
                   <td className="text-center">
-                    <button onClick={() => handleDelete(event.eventId)} className="btn btn-outline-secondary btn-sm">
-                        <i className="fa-solid fa-trash"></i>
+                    <button
+                      onClick={() => handleDelete(event.eventId)}
+                      className="btn btn-outline-secondary btn-sm"
+                    >
+                      <i className="fa-solid fa-trash"></i>
                     </button>
                   </td>
                   {event.imageData && (
@@ -94,8 +128,7 @@ const SeeTheater: React.FC = () => {
             </tbody>
           </table>
         ) : (
-          <div className="" role="alert">
-          </div>
+          <div className="alert alert-warning" role="alert">No events to display.</div>
         )}
       </div>
     </div>
