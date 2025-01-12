@@ -3,6 +3,7 @@ import SideBar from './../layout/SideBar';
 import '../../../styles/adminEvents.css';
 import Footer from '../../layout/Footer';
 import DeleteEvent from './DeleteEvent';
+import UpdateEvent from './UpdateEvent';
 
 const UpdateAndDeleteEvent: React.FC = () => {
   const [visibleDiv, setVisibleDiv] = useState<number>(1);
@@ -28,7 +29,7 @@ const UpdateAndDeleteEvent: React.FC = () => {
               </div>
 
               <div className={visibleDiv === 1 ? 'visible' : 'hidden'}>
-             {/* <Update/>*/}
+              <UpdateEvent/>
               </div>
 
               <div className={visibleDiv === 2 ? 'visible' : 'hidden'}>
