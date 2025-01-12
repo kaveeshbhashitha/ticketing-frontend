@@ -21,6 +21,7 @@ import UserProfile from "./components/web/UserProfile";
 import ContactUs from "./components/web/ContactUs";
 import ForgotPassword from "./components/web/auth/ForgotPassword";
 import UpdatePassword from "./components/web/auth/UpdatePassword";
+import Profile from "./components/admin/Profile";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/contact" element={<ContactUs/>}/>
           <Route path="/forgotPassword" element={<ForgotPassword/>}/>
           <Route path="/updatePassword/:userEmail" element={<UpdatePassword/>}/>
+          <Route path="/adminProfile" element={<Profile/>}/>
         </Routes>
       </Router>
     </div>
