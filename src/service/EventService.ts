@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getReservationsByUserId } from "./ReservationService";
 
 const API_URL = "http://localhost:8080/events";
 
@@ -8,6 +9,12 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
       "Content-Type": "multipart/form-data",
     },
   });
+  return response.data;
+};
+
+export const getEventById = async (eventId: string | undefined) => {
+  const response = await axios.get(`${API_URL}/getEvent/${eventId}`);
+  //console.log(`${API_URL}/getEvent/${eventId}`);
   return response.data;
 };
 
@@ -159,3 +166,27 @@ export const getEventsInThisYear = async () => {
 
   return filteredEvents;
 };
+
+export async function getEventsByUserId(userId: string) {
+  try {
+    const reservations = await getReservationsByUserId(userId);
+
+    if (!Array.isArray(reservations)) {
+      throw new Error("Invalid reservations data returned.");
+    }
+
+    const eventIds = reservations
+      .map((res) => res.eventId)
+      .filter((eventId) => !!eventId);
+
+    const eventPromises = eventIds.map((eventId) => getEventById(eventId));
+    const events = await Promise.all(eventPromises);
+
+    //console.log("All fetched events:", events);
+    return events;
+  } catch (error) {
+    console.error("Error fetching events by userId:", error);
+    throw error;
+  }
+}
+

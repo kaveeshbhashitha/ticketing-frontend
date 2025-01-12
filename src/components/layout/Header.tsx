@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../service/AuthService";
 
 const Header: React.FC = () => {
@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     if (user) {
         setClassName('block buy-tickets');
         setSigned('none buy-tickets');
-        console.log(user);
+        //console.log(user);
     } else {
         setSigned('blcok buy-tickets');
         setClassName('none buy-tickets');
@@ -42,15 +42,11 @@ const handleLogout = async () => {
 
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
-                  <li className="menu-active"><a href="#intro">Home</a></li>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#speakers">Updates</a></li>
-                  <li><a href="#schedule">Schedule</a></li>
-                  <li><a href="AllEvents">AllEvents</a></li>
-                  <li><a href="#hotels">Hotels</a></li>
-                  <li><a href="#gallery">Gallery</a></li>
-                  <li><a href="#sponsors">Sponsors</a></li>
-                  <li><a href="#contact">Contact</a></li>
+                  <li><NavLink to="/" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Home</NavLink></li>
+                  <li><NavLink to="/AllEvents" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Events</NavLink></li>
+                  <li><NavLink to="/myTickets" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>My Tickets</NavLink></li>
+                  <li><NavLink to="/userProfile" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Profile</NavLink></li>
+                  <li><NavLink to="/contact" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Contact Us</NavLink></li>
                   <li className={signed}><a href="/login">Sign In</a></li>
                   <li className={className}><a onClick={handleLogout}>Logout</a></li>
                 </ul>

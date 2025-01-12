@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
                     <div className="row">
                         <div className="col-lg-3 col-md-6 footer-info">
                             <img src="img/logo.png" alt="TheEvenet" />
-                            <p>In alias aperiam. Placeat tempore facere. Officiis voluptate ipsam vel eveniet est dolor et totam porro. Perspiciatis ad omnis fugit molestiae recusandae possimus. Aut consectetur id quis. In inventore consequatur ad voluptate cupiditate debitis accusamus repellat cumque.</p>
+                            <p className="text-justify"><i>"The Event" is your go-to platform for seamless ticket booking across a wide range of events. Whether you're looking for sports, theater, outdoor adventures, or conferences, we make it easy to secure your spot at the best events. Enjoy hassle-free bookings and discover exciting experiences all in one place.</i></p>
                         </div>
 
                         <div className="col-lg-3 col-md-6 footer-links">
@@ -37,19 +37,19 @@ const Footer: React.FC = () => {
                         <div className="col-lg-3 col-md-6 footer-contact">
                             <h4>Contact Us</h4>
                             <p>
-                                A108 Adam Street <br />
-                                New York, NY 535022<br />
-                                United States <br />
-                                <strong>Phone:</strong> +1 5589 55488 55<br />
-                                <strong>Email:</strong> info@example.com<br />
+                                No 100, Sebestian Lane<br/>
+                                Colombo 7<br/>
+                                Sri Lanaka<br/><br/>
+                                <strong>Phone:</strong> +94 123 233 444<br />
+                                <strong>Email:</strong> contact@theevenet.com<br />
                             </p>
 
                             <div className="social-links">
-                            <a href="#" className="twitter"><i className="fa fa-twitter"></i></a>
-                            <a href="#" className="facebook"><i className="fa fa-facebook"></i></a>
-                            <a href="#" className="instagram"><i className="fa fa-instagram"></i></a>
-                            <a href="#" className="google-plus"><i className="fa fa-google-plus"></i></a>
-                            <a href="#" className="linkedin"><i className="fa fa-linkedin"></i></a>
+                            <a href="#" className="twitter"><i className="fa-brands fa-x-twitter"></i></a>
+                            <a href="#" className="facebook"><i className="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" className="instagram"><i className="fa-brands fa-instagram"></i></a>
+                            <a href="#" className="google-plus"><i className="fa-brands fa-whatsapp"></i></a>
+                            <a href="#" className="linkedin"><i className="fa-brands fa-linkedin-in"></i></a>
                             </div>
 
                         </div>

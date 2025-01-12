@@ -1,18 +1,17 @@
 import React from "react";
 import Footer from "../../layout/Footer";
-import HomeIntro from "../HomeIntro";
 import Chatbot from "../../chatbot/Chatbot";
-import SportEventHeader from "./SportEventHeader";
 import EventAbout from "./EventAbout";
 import EventDisplaySports from "./EventDisplaySports";
+import EventHeader from "./EventHeader";
 
 const AllEvents: React.FC = () => {
 
   return (
     <body>
         <div>
-            <SportEventHeader/>
-            <HomeIntro />
+            <EventHeader/>
+            {/* <HomeIntro /> */}
             <EventAbout />
             <EventDisplaySports />
             <Chatbot />

@@ -33,6 +33,10 @@ a:focus {
   text-decoration: none;
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .visible{
   display: block;
 }
@@ -330,8 +334,150 @@ h6 {
   width: 100%;
 }
 
+.nav-menu .NavLink {
+  padding: 8px;
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(202, 206, 221, 0.8);
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  outline: none;
+  position: relative; /* Ensure `:before` works properly */
+}
+
+.nav-menu .menu-active,
+.nav-menu .NavLink:hover {
+  color: #fff;
+}
+
+.nav-menu > li {
+  margin-left: 8px;
+}
+
+.sizeofcardelement{
+  padding: 20px;
+}
+
+.form-control-cardnum{
+  width: 80%;
+  border: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+}
+.form-control-date{
+  width: 40%;
+  border-top: 0;
+  border-left: 1px solid rgb(169, 169, 169);
+  border-bottom: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 0 0 0 5px;
+}
+.form-control-cvc{
+  width: 40%;
+  border-top: 0;
+  border-left: 1px solid rgb(169, 169, 169);
+  border-bottom: 1px solid rgb(169, 169, 169);
+  border-right: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 0 0 5px 0;
+}
+.emailinput{
+  width: 80%;
+  border: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+.form-control-name{
+  width: 80%;
+  border: 1px solid rgb(169, 169, 169);
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.pay-button{
+  width: 80%;
+  background-color: #3B71CA;
+  color: white;
+  border: none;
+  border-radius: 0 0 5px 5px;
+  padding: 10px;
+}
+
+.marginright{
+  margin-right: 105px;
+}
+
+.nav-menu > li > .NavLink:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #f82249;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out 0s;
+}
+.width-70{
+  width: 80%;
+  padding: 15px 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+.nav-menu .NavLink:hover:before,
+.nav-menu li:hover > .NavLink:before,
+.nav-menu .menu-active:before {
+  visibility: visible;
+  width: 100%;
+}
+
 .menu-link:hover{
   cursor: pointer;
+  color: #8d8d8d;
+}
+
+.ticket-input{
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  margin: 10px 0;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+}
+
+.ticket-input-1{
+  width: 95%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  margin: 10px 0;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+}
+
+.buttonforres{
+  width: 80%;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.ticketcountbutton{
+  background-color: #f82249;
+  color: white;
+  border: none;
+}
+
+.ticketcountbutton-outline{
+  color: #f82249;
+  border: solid 1px #f82249;
+  background-color: transparent;
 }
 
 .nav-menu li.buy-tickets a {
@@ -346,6 +492,12 @@ h6 {
   margin-top: 2px;
   line-height: 1;
   font-size: 13px;
+}
+.selection-image{
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  max-height: 400px;
 }
 
 .nav-menu li.buy-tickets a:hover {

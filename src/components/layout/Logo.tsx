@@ -9,7 +9,7 @@ const Logo: React.FC<LogoProps> = ({ height = "auto", width = "auto" }) => {
   return (
     <div>
       <div id="logo" className="pull-left">
-        <a href="#intro" className="scrollto">
+        <a href="/" className="scrollto">
           <img 
             src="/img/logo.png" 
             alt="Title" 
