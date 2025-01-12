@@ -55,6 +55,21 @@ export const deleteEvent = async (id: string) => {
   return response.data;
 };
 
+export const updateEvent = async (eventId: string, updatedEventData: FormData) => {
+  try {
+    const response = await axios.put(`${API_URL}/update/${eventId}`, updatedEventData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating event:", error);
+    throw error;
+  }
+};
+
+
 export const getAllEvents = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   return response.data;
