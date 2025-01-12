@@ -60,7 +60,6 @@ const Reservation: React.FC = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!event) return <div>No event data available.</div>;
-
   // Conditional rendering based on eventType
   return (
     <body>

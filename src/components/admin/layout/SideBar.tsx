@@ -10,14 +10,24 @@ const SideBar: React.FC = () => {
     try {
       const response = await logout();
       if (response) {
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('role');
-        navigate('/login');
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("role");
+        navigate("/login");
       }
     } catch (error) {
       console.error(error);
     }
-};
+  };
+
+  const handleNavigation = (e: React.MouseEvent, path: string) => {
+    e.preventDefault(); // Prevent default navigation behavior
+    const confirmAction = window.confirm(
+      "Are you sure you want to leave this page?"
+    );
+    if (confirmAction) {
+      navigate(path); // Navigate if the user confirms
+    }
+  };
 
   return (
     <div>
@@ -61,15 +71,16 @@ const SideBar: React.FC = () => {
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
+              onClick={(e) => handleNavigation(e, "/")}
             >
               <i className="menu-icon tf-icons bx bx-home"></i>
-              <div data-i18n="Analytics">Home Page</div>
+              Home Page
             </NavLink>
           </li>
 
           <li className="menu-item">
             <NavLink
-              to="/adminHome"
+              to="/adminProfile"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
@@ -131,6 +142,17 @@ const SideBar: React.FC = () => {
           </li>
           <li className="menu-item">
             <NavLink
+              to="/UpdateAndDeleteEvent"
+              className={({ isActive }) =>
+                isActive ? "menu-link active" : "menu-link"
+              }
+            >
+              <i className="menu-icon tf-icons bx bx-collection"></i>
+              <div data-i18n="Analytics">Update And Delete</div>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
               to="/seeEvents"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
@@ -140,8 +162,7 @@ const SideBar: React.FC = () => {
               <div data-i18n="Analytics">See All Events</div>
             </NavLink>
           </li>
-          
-        
+
           <li className="menu-header small text-uppercase">
             <span className="menu-header-text">Actions</span>
           </li>

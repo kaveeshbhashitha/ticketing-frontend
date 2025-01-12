@@ -19,7 +19,14 @@ import MyTickets from "./components/web/MyTickets";
 import AdminReservation from "./components/admin/actions/Reservation";
 import UserProfile from "./components/web/UserProfile";
 import ContactUs from "./components/web/ContactUs";
-
+import ForgotPassword from "./components/web/auth/ForgotPassword";
+import UpdatePassword from "./components/web/auth/UpdatePassword";
+import Profile from "./components/admin/Profile";
+import AdminPayment from "./components/admin/actions/AdminPayment";
+import Notification from "./components/admin/actions/Notifications";
+import UpdateAndDelete from "./components/admin/actions/UpdateAndDelete";
+import DeleteEvent from "./components/admin/actions/DeleteEvent";
+import UpdateEvent from "./components/admin/actions/UpdateEvent";
 function App() {
   return (
     <div>
@@ -45,6 +52,16 @@ function App() {
           <Route path="/userReservations" element={<AdminReservation/>}/>
           <Route path="/userProfile" element={<UserProfile/>}/>
           <Route path="/contact" element={<ContactUs/>}/>
+          <Route path="/forgotPassword" element={<ForgotPassword/>}/>
+          <Route path="/updatePassword/:userEmail" element={<UpdatePassword/>}/>
+          <Route path="/adminProfile" element={<Profile/>}/>
+          <Route path="/adminPayment" element={<AdminPayment/>}/>
+          <Route path="/notification" element={<Notification/>}/>
+          <Route path="/UpdateAndDeleteEvent" element={<UpdateAndDelete/>}/>
+          <Route path="/DeleteEvent" element={<DeleteEvent/>}/>
+          <Route path="/UpdateEvent" element={<UpdateEvent/>}/>
+
+
         </Routes>
       </Router>
     </div>

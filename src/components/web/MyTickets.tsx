@@ -187,12 +187,11 @@ const MyTickets: React.FC = () => {
                             <td>Rs.{totalCharge}.00</td>
                             <td>{event.eventOrganizer}</td>
                             <td className="text-center">
-                              <button
+                              <a className="btn btn-outline-dark btn-sm"
                                 onClick={() => handleDelete(event.eventId)}
-                                className="btn btn-outline-secondary btn-sm"
                               >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
+                                <i className="fa-solid fa-ban"></i>
+                              </a>
                             </td>
                             {event.imageData && (
                               <td className="center-column">
