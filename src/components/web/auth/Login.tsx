@@ -86,7 +86,7 @@ const Login: React.FC = () => {
 
             {/* Remember Me and Forgot Password */}
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <a href="#" className="text-decoration-none small" style={{color:"#f82249"}}>
+              <a href="/forgotPassword" className="text-decoration-none small" style={{color:"#f82249"}}>
                 Forgot Password?
               </a>
             </div>

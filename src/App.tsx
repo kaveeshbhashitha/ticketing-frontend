@@ -19,6 +19,8 @@ import MyTickets from "./components/web/MyTickets";
 import AdminReservation from "./components/admin/actions/Reservation";
 import UserProfile from "./components/web/UserProfile";
 import ContactUs from "./components/web/ContactUs";
+import ForgotPassword from "./components/web/auth/ForgotPassword";
+import UpdatePassword from "./components/web/auth/UpdatePassword";
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
           <Route path="/userReservations" element={<AdminReservation/>}/>
           <Route path="/userProfile" element={<UserProfile/>}/>
           <Route path="/contact" element={<ContactUs/>}/>
+          <Route path="/forgotPassword" element={<ForgotPassword/>}/>
+          <Route path="/updatePassword/:userEmail" element={<UpdatePassword/>}/>
         </Routes>
       </Router>
     </div>

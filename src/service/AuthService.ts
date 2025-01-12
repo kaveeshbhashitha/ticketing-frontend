@@ -38,6 +38,18 @@ export function register(firstName: string, lastName: string, userEmail: string,
 export const logout = async () => {
   return await axios.post(`${API_URL}/logout`);
 };
-  
+
+export function passwordRecovery(userEmail: string) {
+  return axios.post(`${API_URL}/send-code`, { userEmail, });
+}
+
+export function updatePassword(userEmail: string, newPassword: string) {
+  return axios.post(`${API_URL}/update-password`, null, {
+    params: {
+      userEmail,
+      newPassword,
+    },
+  });
+}
 
 
