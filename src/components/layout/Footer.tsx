@@ -16,21 +16,21 @@ const Footer: React.FC = () => {
                             <h4>Useful Links</h4>
                             <ul>
                             <li><i className="fa fa-angle-right"></i> <a href="#">Home</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">About us</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Services</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">My Tickets</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">Profile</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">Contact Us</a></li>
                             </ul>
                         </div>
 
                         <div className="col-lg-3 col-md-6 footer-links">
-                            <h4>Useful Links</h4>
+                            <h4>Events Categories</h4>
                             <ul>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Home</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">About us</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Services</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">All</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">General Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">Sport Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">Theater Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="#">Other Events</a></li>
                             </ul>
                         </div>
 
@@ -59,9 +59,6 @@ const Footer: React.FC = () => {
                 <div className="container">
                     <div className="copyright">
                         &copy; Copyright <strong>TheEvent</strong>. All Rights Reserved
-                    </div>
-                    <div className="credits">
-                        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                     </div>
                 </div>
         </footer>

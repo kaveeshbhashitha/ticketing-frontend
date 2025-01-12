@@ -6,57 +6,37 @@ const HomePlaces: React.FC = () => {
       <section id="hotels" className="section-with-bg wow fadeInUp">
         <div className="container">
             <div className="section-header">
-                <h2>Hotels</h2>
-                <p>Her are some nearby hotels</p>
+                <h2>Explore Our Event Categories</h2>
+                <p>Find Every event you want.</p>
             </div>
             <div className="row">
                 <div className="col-lg-4 col-md-6">
                     <div className="hotel">
                         <div className="hotel-img">
-                        <img src="img/hotels/1.jpg" alt="Hotel 1" className="img-fluid" />
+                        <img src="img/venue-gallery/7.jpg" alt="Musical" className="img-fluid" />
                         </div>
-                        <h3><a href="#">Hotel 1</a></h3>
-                        <div className="stars">
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        </div>
-                        <p>0.4 Mile from the Venue</p>
+                        <h3><a href="#">ENTERTAINMENT</a></h3>
+                        <p>Book tickets for captivating dramas and live performance at venues designed to make every moment unforgettable.</p>
                     </div>
                 </div>
 
                 <div className="col-lg-4 col-md-6">
                     <div className="hotel">
                         <div className="hotel-img">
-                        <img src="img/hotels/2.jpg" alt="Hotel 2" className="img-fluid" />
+                        <img src="img\venue-gallery\stadium1.jpg" alt="Conference" className="img-fluid" />
                         </div>
-                        <h3><a href="#">Hotel 2</a></h3>
-                        <div className="stars">
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star-half-full"></i>
-                        </div>
-                        <p>0.5 Mile from the Venue</p>
+                        <h3><a href="#">SPORTS</a></h3>
+                        <p>Secure your spot at thrilling sports events and tournaments, hosted in popular arenas for an unmatched experience.</p>
                     </div>
                 </div>
 
                 <div className="col-lg-4 col-md-6">
                     <div className="hotel">
                         <div className="hotel-img">
-                        <img src="img/hotels/3.jpg" alt="Hotel 3" className="img-fluid" />
+                        <img src="img/venue-gallery/bmich.jpg" alt="Hotel 3" className="img-fluid" />
                         </div>
-                        <h3><a href="#">Hotel 3</a></h3>
-                        <div className="stars">
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        </div>
-                        <p>0.6 Mile from the Venue</p>
+                        <h3><a href="#">MEETINGS & CONVENTIONS</a></h3>
+                        <p>Reserve your place at professional conventions, seminars, and cooperate events held in state-of-the-art venues.</p>
                     </div>
                 </div>
             </div>
