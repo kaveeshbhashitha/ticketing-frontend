@@ -1,0 +1,82 @@
+.visible {
+    display: block;
+  }
+  
+.hidden {
+    display: none;
+}
+
+
+.buytickets2{
+  width: 100%;
+  height: auto;
+  padding: 8px 5px;
+  text-align: center;
+  background-color: #ff0101;
+  color: white;
+  border-radius: 0 0 8px 8px;
+  border: none;
+}
+
+.buytickets2:hover{
+  background-color: #b10000;
+  color: white;
+}
+
+.buybtn{
+  display: flex;
+  justify-content: center;
+}
+.textforimg span{
+  color: rgb(93, 93, 93);
+}
+
+.event-container{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.image-box{
+  padding: 8px;
+  border: solid 0.1px rgb(229, 229, 229);
+  width: 110%;
+  max-width: 298px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.event-title{
+  font-size: 30px;
+}
+
+.event-title span{
+  color: #135bf2;
+}
+.rightgap{
+  margin-right: 5px;
+}
+.d-none{
+  display: none;
+}
+hr {
+  border: none;      
+  height: 1px;        
+  background-color:black;  
+  margin: 20px 0;        
+  opacity: 0.2;          
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.6cm;
+  margin-top: 1cm;
+  margin-left: 1.5cm;
+  margin-right: 1.5cm;
+  margin-bottom: 1cm;
+}
+.event-container1{
+  display: flex;
+  flex-wrap: wrap;
+}

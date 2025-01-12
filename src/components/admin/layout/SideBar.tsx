@@ -142,6 +142,17 @@ const SideBar: React.FC = () => {
           </li>
           <li className="menu-item">
             <NavLink
+              to="/UpdateAndDeleteEvent"
+              className={({ isActive }) =>
+                isActive ? "menu-link active" : "menu-link"
+              }
+            >
+              <i className="menu-icon tf-icons bx bx-collection"></i>
+              <div data-i18n="Analytics">Update And Delete</div>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
               to="/seeEvents"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
