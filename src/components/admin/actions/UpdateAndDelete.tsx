@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SideBar from './../layout/SideBar';
 import '../../../styles/adminEvents.css';
 import Footer from '../../layout/Footer';
+import DeleteEvent from './DeleteEvent';
 
 const UpdateAndDeleteEvent: React.FC = () => {
   const [visibleDiv, setVisibleDiv] = useState<number>(1);
@@ -31,7 +32,7 @@ const UpdateAndDeleteEvent: React.FC = () => {
               </div>
 
               <div className={visibleDiv === 2 ? 'visible' : 'hidden'}>
-              { /* <Delete />*/}
+              <DeleteEvent />
               </div>
             </div>
             <div className="content-backdrop fade"></div>

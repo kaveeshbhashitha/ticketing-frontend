@@ -25,6 +25,7 @@ import Profile from "./components/admin/Profile";
 import AdminPayment from "./components/admin/actions/AdminPayment";
 import Notification from "./components/admin/actions/Notifications";
 import UpdateAndDelete from "./components/admin/actions/UpdateAndDelete";
+import DeleteEvent from "./components/admin/actions/DeleteEvent";
 function App() {
   return (
     <div>
@@ -56,6 +57,7 @@ function App() {
           <Route path="/adminPayment" element={<AdminPayment/>}/>
           <Route path="/notification" element={<Notification/>}/>
           <Route path="/UpdateAndDeleteEvent" element={<UpdateAndDelete/>}/>
+          <Route path="/DeleteEvent" element={<DeleteEvent/>}/>
 
         </Routes>
       </Router>
