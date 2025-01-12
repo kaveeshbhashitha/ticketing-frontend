@@ -4,7 +4,7 @@ import axios from "axios";
 const HomeContactUs: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    toEmail: "",
     subject: "",
     body: "",
   });
@@ -35,7 +35,7 @@ const HomeContactUs: React.FC = () => {
           error: false,
           message: "Your message has been sent. Thank you!",
         });
-        setFormData({ name: "", email: "", subject: "", body: "" });
+        setFormData({ name: "", toEmail: "", subject: "", body: "" });
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -104,11 +104,11 @@ const HomeContactUs: React.FC = () => {
                 <div className="form-group col-md-6">
                   <input
                     type="email"
-                    name="email"
+                    name="toEmail"
                     className="form-control"
                     id="email"
                     placeholder="Your Email"
-                    value={formData.email}
+                    value={formData.toEmail}
                     onChange={handleInputChange}
                     required
                   />
