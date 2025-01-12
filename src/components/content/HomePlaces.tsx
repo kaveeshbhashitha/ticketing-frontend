@@ -13,16 +13,9 @@ const HomePlaces: React.FC = () => {
                 <div className="col-lg-4 col-md-6">
                     <div className="hotel">
                         <div className="hotel-img">
-                        <img src="img/hotels/1.jpg" alt="Hotel 1" className="img-fluid" />
+                        <img src="img/venue-gallery/7.jpg" alt="Musical" className="img-fluid" />
                         </div>
-                        <h3><a href="#">Hotel 1</a></h3>
-                        <div className="stars">
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        </div>
+                        <h3><a href="#">ENTERTAINMENT</a></h3>
                         <p>0.4 Mile from the Venue</p>
                     </div>
                 </div>
@@ -30,16 +23,9 @@ const HomePlaces: React.FC = () => {
                 <div className="col-lg-4 col-md-6">
                     <div className="hotel">
                         <div className="hotel-img">
-                        <img src="img/hotels/2.jpg" alt="Hotel 2" className="img-fluid" />
+                        <img src="img\venue-gallery\stadium1.jpg" alt="Conference" className="img-fluid" />
                         </div>
-                        <h3><a href="#">Hotel 2</a></h3>
-                        <div className="stars">
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star-half-full"></i>
-                        </div>
+                        <h3><a href="#">SPORTS</a></h3>
                         <p>0.5 Mile from the Venue</p>
                     </div>
                 </div>
@@ -47,15 +33,9 @@ const HomePlaces: React.FC = () => {
                 <div className="col-lg-4 col-md-6">
                     <div className="hotel">
                         <div className="hotel-img">
-                        <img src="img/hotels/3.jpg" alt="Hotel 3" className="img-fluid" />
+                        <img src="img/venue-gallery/bmich.jpg" alt="Hotel 3" className="img-fluid" />
                         </div>
-                        <h3><a href="#">Hotel 3</a></h3>
-                        <div className="stars">
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        </div>
+                        <h3><a href="#">MEETINGS & CONVENTIONS</a></h3>
                         <p>0.6 Mile from the Venue</p>
                     </div>
                 </div>
