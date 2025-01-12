@@ -23,17 +23,19 @@ const HomeContactUs: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus({ success: false, error: false, message: "" });
-
+  
+    console.log("Submitting form with data:", formData); 
+  
     try {
       const response = await axios.post("http://localhost:8080/notification/addNotification", formData);
-
+      console.log("Response:", response); 
       if (response.status === 200) {
         setFormStatus({
           success: true,
           error: false,
           message: "Your message has been sent. Thank you!",
         });
-        setFormData({ name: "", email: "", subject: "", body: "" }); // Reset form
+        setFormData({ name: "", email: "", subject: "", body: "" });
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -44,6 +46,7 @@ const HomeContactUs: React.FC = () => {
       });
     }
   };
+  
 
   return (
     <div>
@@ -70,10 +73,18 @@ const HomeContactUs: React.FC = () => {
                 <p><a href="mailto:info@example.com">info@example.com</a></p>
               </div>
             </div>
+
+            <div className="col-md-4">
+              <div className="contact-email">
+                <i className="ion-ios-email-outline"></i>
+                <h3>Mobile</h3>
+                <p><a href="/">+94 713 114 251</a>{" | "}<a href="/">+94 112 114 251</a></p>
+              </div>
+            </div>
           </div>
 
           <div className="form">
-            {formStatus.success && <div className="alert alert-success">{formStatus.message}</div>}
+            {formStatus.success && <div className="alert alert-primary">{formStatus.message}</div>}
             {formStatus.error && <div className="alert alert-danger">{formStatus.message}</div>}
 
             <form onSubmit={handleSubmit} className="contactForm">
