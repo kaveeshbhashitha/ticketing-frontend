@@ -15,22 +15,22 @@ const Footer: React.FC = () => {
                         <div className="col-lg-3 col-md-6 footer-links">
                             <h4>Useful Links</h4>
                             <ul>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Home</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">My Tickets</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Profile</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Contact Us</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/">Home</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/AllEvents">Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/myTickets">My Tickets</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/userProfile">Profile</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/contact">Contact Us</a></li>
                             </ul>
                         </div>
 
                         <div className="col-lg-3 col-md-6 footer-links">
                             <h4>Events Categories</h4>
                             <ul>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">All</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">General Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Sport Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Theater Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="#">Other Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/AllEvents">All</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/GeneralEvent">General Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/SportEvent">Sport Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/TheaterEvent">Theater Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <a href="/OtherEvent">Other Events</a></li>
                             </ul>
                         </div>
 
