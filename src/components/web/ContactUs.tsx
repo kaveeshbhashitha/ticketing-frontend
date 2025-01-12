@@ -1,7 +1,6 @@
 import React from 'react';
 import HomeQandA from '../content/HomeQandA';
 import HomeNewsLetter from '../content/HomeNewsLetter';
-import HomePackages from '../content/HomePackages';
 import HomeContactUs from '../content/HomeContactUs';
 import Chatbot from '../chatbot/Chatbot';
 import Footer from '../layout/Footer';
@@ -19,7 +18,6 @@ const ContactUs: React.FC = () => {
               <HomeAbout />
               <HomeQandA />
               <HomeNewsLetter />
-              <HomePackages />
               <HomeContactUs />
               <Chatbot />
               <Footer />
