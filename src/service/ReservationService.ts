@@ -24,4 +24,4 @@ export async function getAllReservations() {
 export const deleteReservation = async (id: string) => {
     const response = await axios.delete(`${API_URL}/deleteReservation/${id}`);
     return response.data;
-  };
+};

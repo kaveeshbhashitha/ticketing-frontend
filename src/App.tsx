@@ -23,6 +23,7 @@ import ForgotPassword from "./components/web/auth/ForgotPassword";
 import UpdatePassword from "./components/web/auth/UpdatePassword";
 import Profile from "./components/admin/Profile";
 import AdminPayment from "./components/admin/actions/AdminPayment";
+import Notification from "./components/admin/actions/Notifications";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/updatePassword/:userEmail" element={<UpdatePassword/>}/>
           <Route path="/adminProfile" element={<Profile/>}/>
           <Route path="/adminPayment" element={<AdminPayment/>}/>
+          <Route path="/notification" element={<Notification/>}/>
         </Routes>
       </Router>
     </div>
