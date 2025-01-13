@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/user";
+const API_URL = "https://ticketing-backend.railway.internal:8080/user";
 
 export function login(userEmail:string, password:string) {
   return axios

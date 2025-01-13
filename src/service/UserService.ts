@@ -2,7 +2,7 @@ import axios from "axios";
 import { User } from "../interfaces/User";
 import { Response } from "../interfaces/Response";
 
-const API_URL = "http://localhost:8080/user";
+const API_URL = "https://ticketing-backend.railway.internal:8080/user";
 
 
 export const login = async (user: { userEmail: string; password: string; }) => { 

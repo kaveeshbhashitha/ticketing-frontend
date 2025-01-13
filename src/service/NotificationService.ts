@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/notification";
+const API_URL = "https://ticketing-backend.railway.internal:8080/notification";
 
 export async function getAllNotification() {
     const response = await axios.get(`${API_URL}/getAllNotification`);
