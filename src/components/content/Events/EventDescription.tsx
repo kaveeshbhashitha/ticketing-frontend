@@ -47,16 +47,16 @@ const EventDescription: React.FC = () => {
   }
 
   return (
-    <body>
+    <body className="bg-dark text-white">
     <div>
       <Header/><br /><br />
-    <section id="event-description" className="container py-5">
+    <section id="event-description" className=" container py-5">
       <div className="row">
         <div className="col-md-6">
           <img
             src={`data:${event.contentType};base64,${event.imageData}`}
             alt={event.eventName}
-            className="img-fluid rounded"
+            className="img-fluid rounded w-75 "
           />
         </div>
         <div className="col-md-6">

@@ -14,10 +14,7 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
 
 export const getEventById = async (eventId: string | undefined) => {
   const response = await axios.get(`${API_URL}/getEvent/${eventId}`);
-  const filteredEvents = response.data.filter(
-    (event: {status:string }) =>event.status !== "Cancelled"
-  );
-  return filteredEvents;
+  return response.data;
 };
 
 export const getGeneralEvents = async () => {
@@ -67,6 +64,15 @@ export const cancelEvent = async (eventId: string): Promise<void> => {
   }
 };
 
+export const rescheduleEvent = async (eventId: string): Promise<void> => {
+  try {
+    await axios.put(`${API_URL}/reschedule/${eventId}`);
+  } catch (error) {
+    console.error("Error reschedule event:", error);
+    throw error;
+  }
+};
+
 export const updateEvent = async (eventId: string, updatedEventData: FormData) => {
   try {
     const response = await axios.put(`${API_URL}/update/${eventId}`, updatedEventData, {
@@ -86,6 +92,14 @@ export const getAllEvents = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   const filteredEvents = response.data.filter(
     (event: {status:string }) => event.status !== "Cancelled"
+  );
+  return filteredEvents;
+};
+
+export const getAllEventsCancelled = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const filteredEvents = response.data.filter(
+    (event: {status:string }) => event.status == "Cancelled"
   );
   return filteredEvents;
 };
