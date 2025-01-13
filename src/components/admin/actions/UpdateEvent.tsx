@@ -13,7 +13,7 @@ const UpdateEvent: React.FC = () => {
   useAuthCheck(['Admin']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [formData, setFormData] = useState<FormData>(new FormData());
+  const [formData] = useState<FormData>(new FormData());
   const navigate = useNavigate();
 
   useEffect(() => {

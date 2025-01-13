@@ -56,7 +56,7 @@ const EventDescription: React.FC = () => {
           <img
             src={`data:${event.contentType};base64,${event.imageData}`}
             alt={event.eventName}
-            className="img-fluid rounded w-75"
+            className="img-fluid rounded w-75 "
           />
         </div>
         <div className="col-md-6">
