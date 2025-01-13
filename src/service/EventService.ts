@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getReservationsByUserId } from "./ReservationService";
 
 const API_URL = "http://localhost:8080/events";
 
@@ -8,6 +9,12 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
       "Content-Type": "multipart/form-data",
     },
   });
+  return response.data;
+};
+
+export const getEventById = async (eventId: string | undefined) => {
+  const response = await axios.get(`${API_URL}/getEvent/${eventId}`);
+  //console.log(`${API_URL}/getEvent/${eventId}`);
   return response.data;
 };
 
@@ -48,6 +55,21 @@ export const deleteEvent = async (id: string) => {
   return response.data;
 };
 
+export const updateEvent = async (eventId: string, updatedEventData: FormData) => {
+  try {
+    const response = await axios.put(`${API_URL}/update/${eventId}`, updatedEventData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating event:", error);
+    throw error;
+  }
+};
+
+
 export const getAllEvents = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   return response.data;
@@ -69,6 +91,23 @@ export const getAllOtherEventDataForFrontEnd = async () => {
     return dateB.getTime() - dateA.getTime();
   });
   return sortedEvents.slice(0, 6);
+};
+
+export const getAllOtherEventDataForFrontEndWithoutSort = async () => {
+  const response = await axios.get(`${API_URL}/getAll`);
+  const currentDateTime = new Date();
+
+  const filteredEvents = response.data.filter(
+    (event: { eventType: string; eventDate: string; startTime: string }) => {const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= currentDateTime;
+    }
+  );
+  const sortedEvents = filteredEvents.sort((a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
+    const dateA = new Date(`${a.eventDate}T${a.startTime}`);
+    const dateB = new Date(`${b.eventDate}T${b.startTime}`);
+    return dateB.getTime() - dateA.getTime();
+  });
+  return sortedEvents;
 };
 
 
@@ -142,3 +181,27 @@ export const getEventsInThisYear = async () => {
 
   return filteredEvents;
 };
+
+export async function getEventsByUserId(userId: string) {
+  try {
+    const reservations = await getReservationsByUserId(userId);
+
+    if (!Array.isArray(reservations)) {
+      throw new Error("Invalid reservations data returned.");
+    }
+
+    const eventIds = reservations
+      .map((res) => res.eventId)
+      .filter((eventId) => !!eventId);
+
+    const eventPromises = eventIds.map((eventId) => getEventById(eventId));
+    const events = await Promise.all(eventPromises);
+
+    //console.log("All fetched events:", events);
+    return events;
+  } catch (error) {
+    console.error("Error fetching events by userId:", error);
+    throw error;
+  }
+}
+
