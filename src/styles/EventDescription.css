@@ -1,0 +1,32 @@
+#event-description .container {
+    margin-top: 50px;
+  }
+  
+  #event-description .img-fluid {
+    max-height: 400px;
+    object-fit: cover;
+  }
+  
+  #event-description h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  #event-description p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  #event-description .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+  
+  #event-description .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  #event-description .btn-primary {
+    background-color: #007bff;
+  }
+  
