@@ -79,7 +79,7 @@ const EventDisplayAll: React.FC = () => {
             onChange={(e) => setSelectedDate(e.target.value)}
              // Set width to 2cm
           />
-          </div>
+          </div><br />
           
         <div className="row">
           {filteredEvents.map((event) => (

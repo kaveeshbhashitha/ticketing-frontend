@@ -14,14 +14,16 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
 
 export const getEventById = async (eventId: string | undefined) => {
   const response = await axios.get(`${API_URL}/getEvent/${eventId}`);
-  //console.log(`${API_URL}/getEvent/${eventId}`);
-  return response.data;
+  const filteredEvents = response.data.filter(
+    (event: {status:string }) =>event.status !== "Cancelled"
+  );
+  return filteredEvents;
 };
 
 export const getGeneralEvents = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   const filteredEvents = response.data.filter(
-    (event: { eventType: string }) => event.eventType === "generalEvent"
+    (event: { eventType: string ,status:string }) => event.eventType === "generalEvent" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
@@ -29,7 +31,7 @@ export const getGeneralEvents = async () => {
 export const getAllSports = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   const filteredEvents = response.data.filter(
-    (event: { eventType: string }) => event.eventType === "sports"
+    (event: { eventType: string ,status:string }) => event.eventType === "sports" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
@@ -37,7 +39,7 @@ export const getAllSports = async () => {
 export const getAllTheater = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   const filteredEvents = response.data.filter(
-    (event: { eventType: string }) => event.eventType === "theater"
+    (event: { eventType: string ,status:string}) => event.eventType === "theater" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
@@ -45,7 +47,7 @@ export const getAllTheater = async () => {
 export const getAllOtherEvents = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
   const filteredEvents = response.data.filter(
-    (event: { eventType: string }) => event.eventType === "otherEvent"
+    (event: { eventType: string ,status:string }) => event.eventType === "otherEvent" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
@@ -58,7 +60,7 @@ export const deleteEvent = async (id: string) => {
 export const cancelEvent = async (eventId: string): Promise<void> => {
   try {
     // Assuming the API endpoint is 'DELETE /api/events/{eventId}'
-    await axios.put(`${API_URL}/delete/${eventId}`);
+    await axios.put(`${API_URL}/cancel/${eventId}`);
   } catch (error) {
     console.error("Error canceling event:", error);
     throw error;
@@ -82,7 +84,10 @@ export const updateEvent = async (eventId: string, updatedEventData: FormData) =
 
 export const getAllEvents = async () => {
   const response = await axios.get(`${API_URL}/getAll`);
-  return response.data;
+  const filteredEvents = response.data.filter(
+    (event: {status:string }) => event.status !== "Cancelled"
+  );
+  return filteredEvents;
 };
 
 //filter events for front page user interactions
@@ -91,8 +96,9 @@ export const getAllOtherEventDataForFrontEnd = async () => {
   const currentDateTime = new Date();
 
   const filteredEvents = response.data.filter(
-    (event: { eventType: string; eventDate: string; startTime: string }) => {const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
-      return eventDateTime >= currentDateTime;
+    (event: { eventType: string; eventDate: string; startTime: string ,status:string  }) => {
+      const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= currentDateTime && event.status !== "Cancelled";
     }
   );
   const sortedEvents = filteredEvents.sort((a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
@@ -108,8 +114,8 @@ export const getAllOtherEventDataForFrontEndWithoutSort = async () => {
   const currentDateTime = new Date();
 
   const filteredEvents = response.data.filter(
-    (event: { eventType: string; eventDate: string; startTime: string }) => {const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
-      return eventDateTime >= currentDateTime;
+    (event: { eventType: string; eventDate: string; startTime: string ,status:string }) => {const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime >= currentDateTime && event.status !== "Cancelled";
     }
   );
   const sortedEvents = filteredEvents.sort((a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
