@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { getAllOtherEventDataForFrontEndWithoutSort, getEventById, updateEvent } from "../../../service/EventService";
+import {
+  getAllOtherEventDataForFrontEndWithoutSort,
+  getEventById,
+  updateEvent,
+} from "../../../service/EventService";
 import { Event } from "../../../interfaces/Event";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/HomeSpeecker.css";
+import useAuthCheck from "../../../useAuthCheck";
 
 const UpdateEvent: React.FC = () => {
+  useAuthCheck(['Admin']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData, setFormData] = useState<FormData>(new FormData());
@@ -32,7 +38,9 @@ const UpdateEvent: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setSelectedEvent((prev) => (prev ? { ...prev, [name]: value } : null));
   };
@@ -56,7 +64,7 @@ const UpdateEvent: React.FC = () => {
     formData.set("description", selectedEvent.description);
 
     try {
-      await updateEvent(selectedEvent.eventId,formData); // Use updateEvent to update the event
+      await updateEvent(selectedEvent.eventId, formData);
       alert("Event updated successfully!");
       navigate(0); // Refresh the page to reflect the updated event
     } catch (error) {

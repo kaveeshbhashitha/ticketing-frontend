@@ -14,6 +14,7 @@
     "@stripe/stripe-js": "^5.5.0",
     "axios": "^1.7.9",
     "chart.js": "^4.4.7",
+    "cors": "^2.8.5",
     "moment": "^2.30.1",
     "owl.carousel": "^2.3.4",
     "react": "^18.3.1",
