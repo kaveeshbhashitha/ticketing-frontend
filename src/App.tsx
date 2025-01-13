@@ -27,6 +27,7 @@ import Notification from "./components/admin/actions/Notifications";
 import UpdateAndDelete from "./components/admin/actions/UpdateAndDelete";
 import DeleteEvent from "./components/admin/actions/DeleteEvent";
 import UpdateEvent from "./components/admin/actions/UpdateEvent";
+import AdminHome from "./components/admin/auth/AdminHome";
 function App() {
   return (
     <div>
@@ -60,6 +61,7 @@ function App() {
           <Route path="/UpdateAndDeleteEvent" element={<UpdateAndDelete/>}/>
           <Route path="/DeleteEvent" element={<DeleteEvent/>}/>
           <Route path="/UpdateEvent" element={<UpdateEvent/>}/>
+          <Route path="/AdminHome" element={<AdminHome/>}/>
 
 
         </Routes>
