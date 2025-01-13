@@ -27,7 +27,7 @@ const EventCancellation: React.FC = () => {
       // Call the API to cancel the event (implement this logic in the backend)
       // Assuming the API endpoint is 'cancelEvent' and it requires the event ID
       await rescheduleEvent(eventId); // Make sure to implement this function in your service
-      setMessage(`Event with ID ${eventId} has been canceled.`);
+      setMessage(`Event with ID ${eventId} has been rescheduled.`);
       // Optionally, remove the event from the list to reflect the cancellation
       setEvents(events.filter((event) => event.eventId !== eventId));
     } catch (error) {
@@ -45,7 +45,7 @@ const EventCancellation: React.FC = () => {
           <div className="content-wrapper">
             <div className="container-xxl flex-grow-1 container-p-y">
               <h4 className="fw-bold py-3 my-1">
-                <span className="text-muted fw-light">Events /</span> Cancel Event
+                <span className="text-muted fw-light">Events /</span> Reschedule Event
               </h4>
 
               {message && <div className="alert alert-info">{message}</div>}
@@ -57,7 +57,7 @@ const EventCancellation: React.FC = () => {
                       <h5>{event.eventName}</h5>
                       <p>{event.eventDate} - {event.eventVenue}</p>
                     </div>
-                    <button className="btn btn-danger" onClick={() => handleCancelEvent(event.eventId)}>
+                    <button className="btn btn-success" onClick={() => handleCancelEvent(event.eventId)}>
                       Reschedule
                     </button>
                   </div>

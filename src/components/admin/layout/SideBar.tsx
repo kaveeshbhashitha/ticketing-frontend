@@ -147,7 +147,7 @@ const SideBar: React.FC = () => {
                 isActive ? "menu-link active" : "menu-link"
               }
             >
-              <i className="menu-icon tf-icons bx bx-collection"></i>
+              <i className="menu-icon tf-icons bx bx-edit-alt"></i>
               <div data-i18n="Analytics">Update And Delete</div>
             </NavLink>
           </li>
@@ -195,7 +195,7 @@ const SideBar: React.FC = () => {
                 isActive ? "menu-link active" : "menu-link"
               }
             >
-              <i className="menu-icon tf-icons bx bx-file"></i>
+              <i className="menu-icon tf-icons bx bx-redo"></i>
               <div data-i18n="Analytics">Reschedule</div>
             </NavLink>
           </li>
