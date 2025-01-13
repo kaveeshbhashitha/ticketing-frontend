@@ -11,7 +11,7 @@ const faqData = [
     id: "faq2",
     question: "How can I access my tickets after purchase?",
     answer:
-      "Once you complete your purchase, you will receive a confirmation email. You can also log in to your account on our website to view and download your tickets at any time before the event.",
+      "Once you complete your purchase, you will receive a confirmation email. You can also log in to your account on our website to view your tickets at any time before the event.",
   },
   {
     id: "faq3",
