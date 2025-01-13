@@ -37,7 +37,7 @@ const SideBar: React.FC = () => {
         style={{ height: "100%" }}
       >
         <div className="app-brand demo">
-          <NavLink to="/" className="app-brand-link">
+          <NavLink to="/AdminHome" className="app-brand-link">
             <span className="app-brand-logo demo"></span>
             <Logo height="45px" width="190px" />
           </NavLink>
@@ -67,11 +67,11 @@ const SideBar: React.FC = () => {
 
           <li className="menu-item">
             <NavLink
-              to="/"
+              to="/AdminHome"
               className={({ isActive }) =>
                 isActive ? "menu-link active" : "menu-link"
               }
-              onClick={(e) => handleNavigation(e, "/")}
+              onClick={(e) => handleNavigation(e, "/AdminHome")}
             >
               <i className="menu-icon tf-icons bx bx-home"></i>
               Home Page
