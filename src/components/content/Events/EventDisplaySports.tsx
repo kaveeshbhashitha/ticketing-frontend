@@ -8,6 +8,7 @@ const EventDisplaySport: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -28,16 +29,30 @@ const EventDisplaySport: React.FC = () => {
     fetchEvents();
   }, []);
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const date = event.target.value;
-    setSelectedDate(date);
-
-    if (date) {
-      const filtered = events.filter((event) => event.eventDate === date);
+  // Handle date filter
+  useEffect(() => {
+    if (selectedDate) {
+      const filtered = events.filter((event) => event.eventDate === selectedDate);
       setFilteredEvents(filtered);
     } else {
       setFilteredEvents(events); // Reset to all events when no date is selected
     }
+  }, [selectedDate, events]);
+
+  // Handle search button click
+  const handleSearch = () => {
+    const query = searchQuery.toLowerCase();
+    const filtered = events.filter(
+      (event) =>
+        event.eventName.toLowerCase().includes(query) ||
+        event.eventVenue.toLowerCase().includes(query)
+    );
+    setFilteredEvents(filtered);
+  };
+
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const date = event.target.value;
+    setSelectedDate(date);
   };
 
   return (
@@ -48,16 +63,28 @@ const EventDisplaySport: React.FC = () => {
           <p>Here are some of our Sport Events</p>
         </div>
 
-        {/* Date filter */}
-        <div className="filter d-flex justify-content-end">
+        {/* Search bar and date filter */}
+        <div className="search-bar d-flex align-items-center mt-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by event name or venue"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ width: "7cm" }} // Set width to 7cm
+          />
+          <button className="btn btn-primary ms-2" onClick={handleSearch}>
+            Search
+          </button>
           <input
             type="date"
-            className="form-control w-auto"
+            className="form-control w-auto ml-auto"
             id="eventDate"
             value={selectedDate}
             onChange={handleDateChange}
+            style={{ marginLeft: "5cm" }} // Set margin to align right
           />
-        </div>
+        </div> <br />
 
         <div className="row">
           {filteredEvents.map((event) => (
