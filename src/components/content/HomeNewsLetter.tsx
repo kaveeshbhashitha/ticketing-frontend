@@ -7,7 +7,7 @@ const HomeNewsLetter: React.FC = () => {
             <div className="container wow fadeInUp">
                 <div className="section-header">
                 <h2>Newsletter</h2>
-                <p>Rerum numquam illum recusandae quia mollitia consequatur.</p>
+                <p>Subscribe to our newsletter and stay ahead with the latest updates!</p>
                 </div>
 
                 <form method="POST" action="#">
