@@ -54,7 +54,7 @@ const HomeContactUs: React.FC = () => {
         <div className="container">
           <div className="section-header">
             <h2>Contact Us</h2>
-            <p>Nihil officia ut sint molestiae tenetur.</p>
+            <p>Get in touch with us for any inquiries or support!</p>
           </div>
 
           <div className="row contact-info">
@@ -62,7 +62,7 @@ const HomeContactUs: React.FC = () => {
               <div className="contact-address">
                 <i className="ion-ios-location-outline"></i>
                 <h3>Address</h3>
-                <address>A108 Adam Street, NY 535022, USA</address>
+                <address>No 100, Sebestian Lane, Colombo 7, Sri Lanaka</address>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ const HomeContactUs: React.FC = () => {
               <div className="contact-email">
                 <i className="ion-ios-email-outline"></i>
                 <h3>Email</h3>
-                <p><a href="mailto:info@example.com">info@example.com</a></p>
+                <p><a href="mailto:info@example.com">contact@theevenet.com</a></p>
               </div>
             </div>
 
@@ -78,7 +78,7 @@ const HomeContactUs: React.FC = () => {
               <div className="contact-email">
                 <i className="ion-ios-email-outline"></i>
                 <h3>Mobile</h3>
-                <p><a href="/">+94 713 114 251</a>{" | "}<a href="/">+94 112 114 251</a></p>
+                <p><a href="/">+94 123 233 444</a>{" | "}<a href="/">+94 112 114 251</a></p>
               </div>
             </div>
           </div>
