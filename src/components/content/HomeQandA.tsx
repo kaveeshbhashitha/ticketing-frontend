@@ -3,40 +3,40 @@ import React from "react";
 const faqData = [
   {
     id: "faq1",
-    question: "Non consectetur a erat nam at lectus urna duis?",
+    question: "How do I purchase tickets on your website?",
     answer:
-      "Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.",
+      "To purchase tickets, simply browse the event categories (sports, theater, outdoor activities, or conventions) on our homepage. Select the event you want to attend and then select the number of tickets. After that, proceed to checkout to complete your purchase.",
   },
   {
     id: "faq2",
-    question: "Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?",
+    question: "How can I access my tickets after purchase?",
     answer:
-      "Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.",
+      "Once you complete your purchase, you will receive a confirmation email. You can also log in to your account on our website to view and download your tickets at any time before the event.",
   },
   {
     id: "faq3",
-    question: "Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?",
+    question: "Is my personal information safe when I buy tickets?",
     answer:
-      "Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis.",
+      "Yes, your personal and payment information is fully secure. We use industry-standard encryption methods and comply with all relevant privacy regulations to ensure your data is protected at all times.",
   },
   {
     id: "faq4",
-    question: "Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?",
+    question: "What forms of payment do you accept?",
     answer:
-      "Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.",
+      "We accept a variety of payment methods, including online payment options such as credit cards (Visa, MasterCard), debit cards . We ensure that all payment methods are safe and reliable.",
   },
   {
     id: "faq5",
-    question: "Tempus quam pellentesque nec nam aliquam sem et tortor consequat?",
+    question: "Can I cancel my ticket after purchasing?",
     answer:
-      "Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.",
+      "Yes, you can cancel your purchased tickets under My Tickets section.",
   },
   {
     id: "faq6",
     question:
-      "Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor?",
+      "Is there a mobile app to buy tickets?",
     answer:
-      "Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.",
+      "We currently do not have a dedicated mobile app, but our website is fully optimized for mobile devices. You can easily browse, select, and purchase tickets directly from your smartphone or tablet.",
   },
 ];
 
