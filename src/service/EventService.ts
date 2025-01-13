@@ -14,10 +14,7 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
 
 export const getEventById = async (eventId: string | undefined) => {
   const response = await axios.get(`${API_URL}/getEvent/${eventId}`);
-  const filteredEvents = response.data.filter(
-    (event: {status:string }) =>event.status !== "Cancelled"
-  );
-  return filteredEvents;
+  return response.data;
 };
 
 export const getGeneralEvents = async () => {
