@@ -15,7 +15,7 @@ const Notification: React.FC = () => {
         const notificationList = await getAllNotification();
         if (notificationList && notificationList.length > 0) {
           setNotifications(notificationList);
-          setFilteredNotifications(notificationList); // Initialize both states with full list
+          setFilteredNotifications(notificationList); 
           setError("");
         } else {
           setError("No notifications found to display.");
