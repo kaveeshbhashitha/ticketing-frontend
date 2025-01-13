@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 const EventDisplaySport: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -13,7 +15,7 @@ const EventDisplaySport: React.FC = () => {
         const eventList = await getAllSports();
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
-          console.error("");
+          setFilteredEvents(eventList); // Initialize filtered events with all events
         } else {
           console.error("No events found to display.");
         }
@@ -25,6 +27,19 @@ const EventDisplaySport: React.FC = () => {
 
     fetchEvents();
   }, []);
+
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const date = event.target.value;
+    setSelectedDate(date);
+
+    if (date) {
+      const filtered = events.filter((event) => event.eventDate === date);
+      setFilteredEvents(filtered);
+    } else {
+      setFilteredEvents(events); // Reset to all events when no date is selected
+    }
+  };
+
   return (
     <section id="speakers" className="wow fadeInUp">
       <div className="container">
@@ -33,8 +48,19 @@ const EventDisplaySport: React.FC = () => {
           <p>Here are some of our Sport Events</p>
         </div>
 
+        {/* Date filter */}
+        <div className="filter d-flex justify-content-end">
+          <input
+            type="date"
+            className="form-control w-auto"
+            id="eventDate"
+            value={selectedDate}
+            onChange={handleDateChange}
+          />
+        </div>
+
         <div className="row">
-          {events.map((event) => (
+          {filteredEvents.map((event) => (
             <div className="col-lg-4 col-md-6" key={event.eventId}>
               <div className="speaker">
                 <img
@@ -84,4 +110,5 @@ const EventDisplaySport: React.FC = () => {
     </section>
   );
 };
+
 export default EventDisplaySport;
