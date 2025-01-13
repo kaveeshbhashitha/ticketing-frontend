@@ -29,6 +29,7 @@ import DeleteEvent from "./components/admin/actions/DeleteEvent";
 import UpdateEvent from "./components/admin/actions/UpdateEvent";
 import AdminHome from "./components/admin/auth/AdminHome";
 import EventDescription from "./components/content/Events/EventDescription";
+import EventCancellation from "./components/admin/operations/EventCancellation";
 function App() {
   return (
     <div>
@@ -64,6 +65,7 @@ function App() {
           <Route path="/UpdateEvent" element={<UpdateEvent/>}/>
           <Route path="/AdminHome" element={<AdminHome/>}/>
           <Route path="/event/:eventId" element={<EventDescription />} />
+          <Route path="/cancellation" element={<EventCancellation />} />
 
 
         </Routes>

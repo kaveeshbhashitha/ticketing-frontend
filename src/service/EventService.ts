@@ -55,6 +55,16 @@ export const deleteEvent = async (id: string) => {
   return response.data;
 };
 
+export const cancelEvent = async (eventId: string): Promise<void> => {
+  try {
+    // Assuming the API endpoint is 'DELETE /api/events/{eventId}'
+    await axios.delete(`${API_URL}/delete/${eventId}`);
+  } catch (error) {
+    console.error("Error canceling event:", error);
+    throw error;
+  }
+};
+
 export const updateEvent = async (eventId: string, updatedEventData: FormData) => {
   try {
     const response = await axios.put(`${API_URL}/update/${eventId}`, updatedEventData, {
