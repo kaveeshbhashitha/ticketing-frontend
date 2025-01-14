@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://ticketing-backend.railway.internal:8080/reservation";
+const API_URL = "https://ticketing-backend-production-088a.up.railway.app/reservation";
 
 export function addReservation(userId: string, eventId: string, numOfTickets: number, totalCharge: number, perTicketCharge: number) {
     return axios.post(`${API_URL}/addReservation`, { userId, eventId, numOfTickets, totalCharge, perTicketCharge });

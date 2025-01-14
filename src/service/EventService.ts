@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getReservationsByUserId } from "./ReservationService";
 
-const API_URL = "https://ticketing-backend.railway.internal/events";
+const API_URL = "https://ticketing-backend-production-088a.up.railway.app/events";
 
 export const addEvent = async (formData: FormData): Promise<unknown> => {
   const response = await axios.post(`${API_URL}/addEvent`, formData, {
