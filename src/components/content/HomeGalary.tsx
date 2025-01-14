@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 const HomeGallery: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
+  const [loading, setLoading] = React.useState(true);
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -26,6 +28,39 @@ const HomeGallery: React.FC = () => {
 
     fetchEvents();
   }, []);
+  
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = events.map((event) =>
+        new Promise((resolve, reject) => {
+          const img = new Image();
+          if (event.imageData) {
+            img.src = event.imageData; // Replace with the actual image field
+          } else {
+            reject(new Error("Image data is undefined"));
+          }
+          img.onload = resolve;
+          img.onerror = reject;
+        })
+      );
+
+      try {
+        await Promise.all(imagePromises);
+        setLoading(false); // All images are loaded
+      } catch (error) {
+        console.error("Error loading images:", error);
+        setLoading(false); // Allow the page to render even if some images fail
+      }
+    };
+
+    preloadImages();
+  }, [events]);
+
+  if (loading) {
+    return <div>Loading events...</div>; // Display a loading indicator
+  }
+
 
   const carouselOptions = {
     loop: true,
@@ -42,7 +77,6 @@ const HomeGallery: React.FC = () => {
     },
   };
 
-  const [loading, setLoading] = React.useState(true);
 
   return (
     <section id="gallery" className="wow fadeInUp">
@@ -54,7 +88,6 @@ const HomeGallery: React.FC = () => {
       </div>
 
       <OwlCarousel className="gallery-carousel" {...carouselOptions}>
-      {loading && <div className="spinner">Loading...</div>}
         {events.map((event) => (
           <div className="item" key={event.eventId}>
             <Link
@@ -66,7 +99,7 @@ const HomeGallery: React.FC = () => {
                 src={`data:${event.contentType};base64,${event.imageData}`}
                 alt={event.eventName}
                 style={{ width: "460px", height: "300px" }}
-                onLoad={() => setLoading(false)}
+                
               />
             </Link>
           </div>
