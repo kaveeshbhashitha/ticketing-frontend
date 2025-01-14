@@ -8,25 +8,24 @@ import { Link } from "react-router-dom";
 
 const HomeGallery: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
-    
-      useEffect(() => {
-        const fetchEvents = async () => {
-          try {
-            const eventList = await getAllEvents();
-            if (eventList && eventList.length > 0) {
-              setEvents(eventList);
-              console.log("Events found:", events); 
-            } else {
-              console.error("No events found to display.");
-            }
-          } catch (error) {
-            console.error("Error fetching event data.");
-            console.error("Failed to fetch events:", error);
-          }
-        };
-    
-        fetchEvents();
-      }, []);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const eventList = await getAllEvents();
+        if (eventList && eventList.length > 0) {
+          setEvents(eventList);
+          console.log("Events found:", eventList); // Log eventList directly
+        } else {
+          console.error("No events found to display.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const carouselOptions = {
     loop: true,
@@ -38,8 +37,8 @@ const HomeGallery: React.FC = () => {
     autoplayHoverPause: true,
     responsive: {
       0: { items: 1 },
-      600: { items: 2 }, 
-      1000: { items: 3 }, 
+      600: { items: 2 },
+      1000: { items: 3 },
     },
   };
 
@@ -52,18 +51,19 @@ const HomeGallery: React.FC = () => {
         </div>
       </div>
 
-      <OwlCarousel
-        className="gallery-carousel"
-        {...carouselOptions} // Use carouselOptions for flexibility
-      >
-        {events.map((image, index) => (
-          <div className="item" key={index}>
-            <Link to
-              ={`/event/${image.eventId}`}
+      <OwlCarousel className="gallery-carousel" {...carouselOptions}>
+        {events.map((event) => (
+          <div className="item" key={event.eventId}>
+            <Link
+              to={`/event/${event.eventId}`}
               className="venobox"
               data-gall="gallery-carousel"
             >
-              <img src={`data:${image.contentType};base64,${image.imageData}`} alt={image.eventName} style={{width:'460px', height:'300px'}}/>
+              <img
+                src={`data:${event.contentType};base64,${event.imageData}`}
+                alt={event.eventName}
+                style={{ width: "460px", height: "300px" }}
+              />
             </Link>
           </div>
         ))}
