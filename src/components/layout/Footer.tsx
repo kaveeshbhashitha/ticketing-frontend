@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3 col-md-6 footer-info">
-                            <img src="img/logo.png" alt="TheEvenet" />
+                            <img src="/img/logo.png" alt="TheEvenet" />
                             <p className="text-justify"><i>"The Event" is your go-to platform for seamless ticket booking across a wide range of events. Whether you're looking for sports, theater, outdoor adventures, or conferences, we make it easy to secure your spot at the best events. Enjoy hassle-free bookings and discover exciting experiences all in one place.</i></p>
                         </div>
 
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
         </footer>
-        <a href="#" className="back-to-top"><i className="fa fa-angle-up"></i></a>
+        <Link to="#" className="back-to-top"><i className="fa fa-angle-up"></i></Link>
     </div>
   );
 };

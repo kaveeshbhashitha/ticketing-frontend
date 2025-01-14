@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../../layout/Logo";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../../service/AuthService";
 
 const EventHeader: React.FC = () => {
@@ -49,8 +49,8 @@ const handleLogout = async () => {
                   <li><NavLink to="/TheaterEvent" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Theater Events</NavLink></li>
                   <li><NavLink to="/OtherEvent" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Other Events</NavLink></li>
 
-                  <li className={signed}><a href="/login">Sign In</a></li>
-                  <li className={className}><a onClick={handleLogout}>Logout</a></li>
+                  <li className={signed}><Link to={"/login"}>Sign In</Link></li>
+                  <li className={className}><Link to="#" onClick={handleLogout}>Logout</Link></li>
                 </ul>
             </nav>
         </div>

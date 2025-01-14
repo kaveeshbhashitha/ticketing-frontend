@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../../layout/Logo";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../service/AuthService";
 
 const EventHeader: React.FC = () => {
@@ -47,8 +47,8 @@ const handleLogout = async () => {
                   <li><a href="/SportEvent">Sport Events</a></li>
                   <li><a href="/TheaterEvent">Theater Events</a></li>
                   <li><a href="/OtherEvent">Other Events</a></li>
-                  <li className={signed}><a href="/login">Sign In</a></li>
-                  <li className={className}><a onClick={handleLogout}>Logout</a></li>
+                  <li className={signed}><Link to={"/login"}>Sign In</Link></li>
+                  <li className={className}><Link to="#" onClick={handleLogout}>Logout</Link></li>
                 </ul>
             </nav>
         </div>
