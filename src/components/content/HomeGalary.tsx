@@ -8,8 +8,7 @@ import { Link } from "react-router-dom";
 
 const HomeGallery: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
-
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -28,7 +27,6 @@ const HomeGallery: React.FC = () => {
 
     fetchEvents();
   }, []);
-  
 
   useEffect(() => {
     const preloadImages = async () => {
@@ -36,7 +34,7 @@ const HomeGallery: React.FC = () => {
         new Promise((resolve, reject) => {
           const img = new Image();
           if (event.imageData) {
-            img.src = event.imageData; // Replace with the actual image field
+            img.src = `data:${event.contentType};base64,${event.imageData}`; // Use the actual image source
           } else {
             reject(new Error("Image data is undefined"));
           }
@@ -54,13 +52,14 @@ const HomeGallery: React.FC = () => {
       }
     };
 
-    preloadImages();
+    if (events.length > 0) {
+      preloadImages();
+    }
   }, [events]);
 
   if (loading) {
-    return <div>Loading events...</div>; // Display a loading indicator
+    return <div>Loading events...</div>; // Display a loading indicator while images are loading
   }
-
 
   const carouselOptions = {
     loop: true,
@@ -76,7 +75,6 @@ const HomeGallery: React.FC = () => {
       1000: { items: 3 },
     },
   };
-
 
   return (
     <section id="gallery" className="wow fadeInUp">
@@ -99,7 +97,6 @@ const HomeGallery: React.FC = () => {
                 src={`data:${event.contentType};base64,${event.imageData}`}
                 alt={event.eventName}
                 style={{ width: "460px", height: "300px" }}
-                
               />
             </Link>
           </div>
