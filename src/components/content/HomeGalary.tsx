@@ -4,6 +4,7 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { getAllEvents } from "../../service/EventService";
 import { Event } from "../../interfaces/Event";
+import { Link } from "react-router-dom";
 
 const HomeGallery: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -57,13 +58,13 @@ const HomeGallery: React.FC = () => {
       >
         {events.map((image, index) => (
           <div className="item" key={index}>
-            <a
-              href={'/images/gallery/' + image}
+            <Link to
+              ={'/images/gallery/' + image}
               className="venobox"
               data-gall="gallery-carousel"
             >
               <img src={`data:${image.contentType};base64,${image.imageData}`} alt={image.eventName} style={{width:'460px', height:'300px'}}/>
-            </a>
+            </Link>
           </div>
         ))}
       </OwlCarousel>

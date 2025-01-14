@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 const Footer: React.FC = () => {
@@ -16,22 +17,22 @@ const Footer: React.FC = () => {
                         <div className="col-lg-3 col-md-6 footer-links">
                             <h4>Useful Links</h4>
                             <ul>
-                            <li><i className="fa fa-angle-right"></i> <a href="/">Home</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/AllEvents">Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/myTickets">My Tickets</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/userProfile">Profile</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/contact">Contact Us</a></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/">Home</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/AllEvents">Events</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/myTickets">My Tickets</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/userProfile">Profile</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/contact">Contact Us</Link></li>
                             </ul>
                         </div>
 
                         <div className="col-lg-3 col-md-6 footer-links">
                             <h4>Events Categories</h4>
                             <ul>
-                            <li><i className="fa fa-angle-right"></i> <a href="/AllEvents">All</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/GeneralEvent">General Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/SportEvent">Sport Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/TheaterEvent">Theater Events</a></li>
-                            <li><i className="fa fa-angle-right"></i> <a href="/OtherEvent">Other Events</a></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/AllEvents">All</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/GeneralEvent">General Events</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/SportEvent">Sport Events</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/TheaterEvent">Theater Events</Link></li>
+                            <li><i className="fa fa-angle-right"></i> <Link to="/OtherEvent">Other Events</Link></li>
                             </ul>
                         </div>
 
@@ -46,11 +47,11 @@ const Footer: React.FC = () => {
                             </p>
 
                             <div className="social-links">
-                            <a href="#" className="twitter"><i className="fa-brands fa-x-twitter"></i></a>
-                            <a href="#" className="facebook"><i className="fa-brands fa-facebook-f"></i></a>
-                            <a href="#" className="instagram"><i className="fa-brands fa-instagram"></i></a>
-                            <a href="#" className="google-plus"><i className="fa-brands fa-whatsapp"></i></a>
-                            <a href="#" className="linkedin"><i className="fa-brands fa-linkedin-in"></i></a>
+                            <Link to="#" className="twitter"><i className="fa-brands fa-x-twitter"></i></Link>
+                            <Link to="#" className="facebook"><i className="fa-brands fa-facebook-f"></i></Link>
+                            <Link to="#" className="instagram"><i className="fa-brands fa-instagram"></i></Link>
+                            <Link to="#" className="google-plus"><i className="fa-brands fa-whatsapp"></i></Link>
+                            <Link to="#" className="linkedin"><i className="fa-brands fa-linkedin-in"></i></Link>
                             </div>
 
                         </div>

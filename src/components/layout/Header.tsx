@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../service/AuthService";
 
 const Header: React.FC = () => {
@@ -47,8 +47,8 @@ const handleLogout = async () => {
                   <li><NavLink to="/myTickets" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>My Tickets</NavLink></li>
                   <li><NavLink to="/userProfile" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Profile</NavLink></li>
                   <li><NavLink to="/contact" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Contact Us</NavLink></li>
-                  <li className={signed}><a href="/login">Sign In</a></li>
-                  <li className={className}><a onClick={handleLogout}>Logout</a></li>
+                  <li className={signed}><Link to={"/login"}>Sign In</Link></li>
+                  <li className={className}><button onClick={handleLogout} className="logout-button">Logout</button></li>
                 </ul>
             </nav>
         </div>
