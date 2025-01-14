@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../../layout/Logo";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { logout } from "../../../service/AuthService";
 
 const EventHeader: React.FC = () => {
