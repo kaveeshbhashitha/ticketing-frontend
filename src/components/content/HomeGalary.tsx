@@ -15,7 +15,7 @@ const HomeGallery: React.FC = () => {
             const eventList = await getAllEvents();
             if (eventList && eventList.length > 0) {
               setEvents(eventList);
-              console.error(""); 
+              console.log("Events found:", events); 
             } else {
               console.error("No events found to display.");
             }
