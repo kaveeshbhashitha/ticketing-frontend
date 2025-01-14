@@ -42,6 +42,8 @@ const HomeGallery: React.FC = () => {
     },
   };
 
+  const [loading, setLoading] = React.useState(true);
+
   return (
     <section id="gallery" className="wow fadeInUp">
       <div className="container">
@@ -52,6 +54,7 @@ const HomeGallery: React.FC = () => {
       </div>
 
       <OwlCarousel className="gallery-carousel" {...carouselOptions}>
+      {loading && <div className="spinner">Loading...</div>}
         {events.map((event) => (
           <div className="item" key={event.eventId}>
             <Link
@@ -63,6 +66,7 @@ const HomeGallery: React.FC = () => {
                 src={`data:${event.contentType};base64,${event.imageData}`}
                 alt={event.eventName}
                 style={{ width: "460px", height: "300px" }}
+                onLoad={() => setLoading(false)}
               />
             </Link>
           </div>
