@@ -59,7 +59,7 @@ const HomeGallery: React.FC = () => {
         {events.map((image, index) => (
           <div className="item" key={index}>
             <Link to
-              ={'/images/gallery/' + image}
+              ={`/event/${image.eventId}`}
               className="venobox"
               data-gall="gallery-carousel"
             >
