@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { getAllEvents } from "../../service/EventService";
+import { getAllOtherEventDataForFrontEndWithoutSort } from "../../service/EventService";
 import { Event } from "../../interfaces/Event";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const HomeGallery: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventList = await getAllEvents();
+        const eventList = await getAllOtherEventDataForFrontEndWithoutSort();
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
           console.log("Events found:", eventList); // Log eventList directly
