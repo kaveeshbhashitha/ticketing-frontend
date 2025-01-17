@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../service/AuthService";
 import Chatbot from "../../chatbot/Chatbot";
 
@@ -104,9 +104,9 @@ const Login: React.FC = () => {
         <div className="card-footer text-center">
           <p className="mb-0">
             Don’t have an account?{" "}
-            <a href="/register" className="text-decoration-none" style={{color:"#f82249"}}>
+            <Link to="/register" className="text-decoration-none" style={{color:"#f82249"}}>
               Sign Up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

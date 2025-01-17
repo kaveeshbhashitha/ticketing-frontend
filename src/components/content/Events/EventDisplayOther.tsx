@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 const EventDisplayOther: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -13,7 +16,7 @@ const EventDisplayOther: React.FC = () => {
         const eventList = await getAllOtherEvents();
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
-          console.error("");
+          setFilteredEvents(eventList); // Initialize filtered events with all events
         } else {
           console.error("No events found to display.");
         }
@@ -25,6 +28,33 @@ const EventDisplayOther: React.FC = () => {
 
     fetchEvents();
   }, []);
+
+  // Handle date filter
+  useEffect(() => {
+    if (selectedDate) {
+      const filtered = events.filter((event) => event.eventDate === selectedDate);
+      setFilteredEvents(filtered);
+    } else {
+      setFilteredEvents(events); // Reset to all events when no date is selected
+    }
+  }, [selectedDate, events]);
+
+  // Handle search button click
+  const handleSearch = () => {
+    const query = searchQuery.toLowerCase();
+    const filtered = events.filter(
+      (event) =>
+        event.eventName.toLowerCase().includes(query) ||
+        event.eventVenue.toLowerCase().includes(query)
+    );
+    setFilteredEvents(filtered);
+  };
+
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const date = event.target.value;
+    setSelectedDate(date);
+  };
+
   return (
     <section id="speakers" className="wow fadeInUp">
       <div className="container">
@@ -33,8 +63,31 @@ const EventDisplayOther: React.FC = () => {
           <p>Here are some of our Other Events</p>
         </div>
 
+        {/* Search bar and date filter */}
+        <div className="search-bar d-flex align-items-center mt-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by event name or venue"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ width: "7cm" }} // Set width to 7cm
+          />
+          <button className="btn btn-primary ms-2" onClick={handleSearch}>
+            Search
+          </button>
+          <input
+            type="date"
+            className="form-control w-auto ml-auto"
+            id="eventDate"
+            value={selectedDate}
+            onChange={handleDateChange}
+            style={{ marginLeft: "5cm" }} // Set margin to align right
+          />
+        </div><br />
+
         <div className="row">
-          {events.map((event) => (
+          {filteredEvents.map((event) => (
             <div className="col-lg-4 col-md-6" key={event.eventId}>
               <div className="speaker">
                 <img
@@ -45,7 +98,6 @@ const EventDisplayOther: React.FC = () => {
                 />
                 <div className="details">
                   <h3>
-                    {/* Use Link component to navigate to the event description page */}
                     <Link
                       to={`/event/${event.eventId}`}
                       title={event.eventName}
@@ -84,4 +136,5 @@ const EventDisplayOther: React.FC = () => {
     </section>
   );
 };
+
 export default EventDisplayOther;
