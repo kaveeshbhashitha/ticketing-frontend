@@ -112,12 +112,8 @@ const Checkout: React.FC = () => {
                     userEmail={userData.userEmail}
                     amount={reservationData.totalCharge}
                     numOfTickets={reservationData.numOfTickets}
-                    perTicketCharge={reservationData.perTicketCharge} 
-                    paymentId={""} 
-                    paymentDate={""} 
-                    paymentTime={""} 
-                    refundStatus={""} 
-                    checkAccept={false}                  />
+                    perTicketCharge={reservationData.perTicketCharge}
+                  />
                 </Elements>
               )}
             </div>

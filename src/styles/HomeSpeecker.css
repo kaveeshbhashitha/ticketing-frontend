@@ -25,22 +25,3 @@
   .test{
     color: white;
   }
-  /* Position the date filter at the top right corner */
-.date-filter {
-  position: fixed;
-  top: 3cm;
-  right: 20px;
-  background-color: #fff;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  z-index: 1000; /* Ensure it's on top of other elements */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 200px; /* Adjust width as needed */
-}
-
-/* Optional: Style the input field */
-.date-filter input {
-  width: 100%;
-  margin-top: 10px;
-}

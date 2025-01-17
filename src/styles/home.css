@@ -427,7 +427,7 @@
 }
 .event-container{
   margin: 1cm 3cm;
-  display:flex;
+  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -454,7 +454,7 @@
   margin-right: 5px;
 }
 .d-none{
-  display:none;
+  display: none;
 }
 hr {
   border: none;       

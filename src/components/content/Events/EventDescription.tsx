@@ -3,10 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import { getEventById } from "../../../service/EventService";
 import { Event } from "../../../interfaces/Event";
 import "../../../styles/EventDescription.css"; 
-import Header from "../../layout/Header";
-import Chatbot from "../../chatbot/Chatbot";
-import FooterEvent from "../../layout/FooterEvent";
-
 
 const EventDescription: React.FC = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -47,16 +43,13 @@ const EventDescription: React.FC = () => {
   }
 
   return (
-    <body className="bg-dark text-white">
-    <div>
-      <Header/><br /><br />
-    <section id="event-description" className=" container py-5">
+    <section id="event-description" className="container py-5">
       <div className="row">
         <div className="col-md-6">
           <img
             src={`data:${event.contentType};base64,${event.imageData}`}
             alt={event.eventName}
-            className="img-fluid rounded w-75 "
+            className="img-fluid rounded"
           />
         </div>
         <div className="col-md-6">
@@ -77,10 +70,6 @@ const EventDescription: React.FC = () => {
         </div>
       </div>
     </section>
-    <Chatbot />
-    <FooterEvent />
-    </div>
-    </body>
   );
 };
 

@@ -11,27 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { CheckoutFormProps } from "../../interfaces/CheckoutFormProps";
 import { cardBrandIcons } from "../../data/CardData";
 
-// API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/payment";
-const API_URL_2 = "http://localhost:8080/payment"; // Replace with your second API URL
-
-// Helper function to handle fallback
-const requestWithFallback = async (
-  requestFunc: (apiUrl: string) => Promise<any>
-): Promise<any> => {
-  try {
-    return await requestFunc(API_URL_1);
-  } catch (error) {
-    console.error(`API 1 failed: ${error instanceof Error ? error.message : "Unknown error"}`);
-    try {
-      return await requestFunc(API_URL_2);
-    } catch (fallbackError) {
-      console.error(`API 2 also failed: ${fallbackError instanceof Error ? fallbackError.message : "Unknown error"}`);
-      throw new Error("Both API URLs failed.");
-    }
-  }
-};
-
 // Function to send data to backend
 const insertPaymentData = async (paymentDetails: {
   userId: string;
@@ -39,9 +18,16 @@ const insertPaymentData = async (paymentDetails: {
   userEmail: string;
   amount: number;
 }) => {
-  return await requestWithFallback((apiUrl) =>
-    axios.post(`${apiUrl}/process`, paymentDetails)
-  );
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/payment/process",
+      paymentDetails
+    );
+    return response;
+  } catch (error) {
+    console.error("Error inserting payment data:", error);
+    throw new Error("Failed to insert payment data");
+  }
 };
 
 const Payment: React.FC<CheckoutFormProps> = ({
@@ -59,7 +45,6 @@ const Payment: React.FC<CheckoutFormProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [cardBrand, setCardBrand] = useState<string | null>(null);
-
   const handlePayment = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -76,7 +61,7 @@ const Payment: React.FC<CheckoutFormProps> = ({
     setIsProcessing(true);
 
     try {
-      // Prepare payment details
+      // Send only necessary data to the backend
       const paymentDetails = {
         userId,
         reservationId,
@@ -87,7 +72,7 @@ const Payment: React.FC<CheckoutFormProps> = ({
       // Call function to insert payment details into the backend
       await insertPaymentData(paymentDetails);
 
-      // Navigate to another page after successful payment
+      // After inserting into backend, navigate to another page (example: tickets page)
       alert("Payment data saved successfully!");
       navigate("/myTickets");
     } catch (error) {

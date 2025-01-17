@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { register } from "../../../service/AuthService";
 import Chatbot from "../../chatbot/Chatbot";
 
@@ -138,13 +138,13 @@ const Register: React.FC = () => {
             </div>
 
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <Link to
-                ="#"
+              <a
+                href="#"
                 className="text-decoration-none small"
                 style={{ color: "#f82249" }}
               >
                 Forgot Password?
-              </Link>
+              </a>
             </div>
 
             {message && <div className={message.class}>{message.text}</div>}
@@ -160,17 +160,17 @@ const Register: React.FC = () => {
             </div>
           </form>
         </div>
-        <Link to="/" className="text-center text-secondary"><span>Back to Home</span></Link>
+        <a href="/" className="text-center text-secondary"><span>Back to Home</span></a>
         <div className="card-footer text-center">
           <p className="mb-0">
             Already have an account?{" "}
-            <Link to
-              ="/login"
+            <a
+              href="/login"
               className="text-decoration-none"
               style={{ color: "#f82249" }}
             >
               Sign In
-            </Link>
+            </a>
           </p>
         </div>
       </div>

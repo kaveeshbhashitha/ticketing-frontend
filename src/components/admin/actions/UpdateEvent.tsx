@@ -13,7 +13,7 @@ const UpdateEvent: React.FC = () => {
   useAuthCheck(['Admin']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [formData] = useState<FormData>(new FormData());
+  const [formData, setFormData] = useState<FormData>(new FormData());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const UpdateEvent: React.FC = () => {
     try {
       await updateEvent(selectedEvent.eventId, formData);
       alert("Event updated successfully!");
-      navigate("/UpdateAndDeleteEvent"); // Refresh the page to reflect the updated event
+      navigate(0); // Refresh the page to reflect the updated event
     } catch (error) {
       console.error("Error updating event:", error);
       alert("Failed to update event.");
