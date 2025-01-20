@@ -26,7 +26,7 @@ const Register: React.FC = () => {
           lastName,
           userEmail,
           password
-        );
+        ) as { data: string };
 
         if (response.data === "User already registered as a user") {
           setMessage({ text: response.data, class: "alert alert-danger" });

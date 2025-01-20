@@ -13,7 +13,7 @@ const Login: React.FC = () => {
       e.preventDefault();
       
       try {
-        const response = await login(userEmail, password);
+        const response = await login(userEmail, password) as { token: string; email: string; role: string };
         if (response.token && response.email) {
           sessionStorage.setItem('user', userEmail);
           sessionStorage.setItem('role', response.role);
