@@ -32,7 +32,9 @@ const EventDisplayOther: React.FC = () => {
   // Handle date filter
   useEffect(() => {
     if (selectedDate) {
-      const filtered = events.filter((event) => event.eventDate === selectedDate);
+      const filtered = events.filter(
+        (event) => event.eventDate === selectedDate
+      );
       setFilteredEvents(filtered);
     } else {
       setFilteredEvents(events); // Reset to all events when no date is selected
@@ -84,7 +86,8 @@ const EventDisplayOther: React.FC = () => {
             onChange={handleDateChange}
             style={{ marginLeft: "5cm" }} // Set margin to align right
           />
-        </div><br />
+        </div>
+        <br />
 
         <div className="row">
           {filteredEvents.map((event) => (
@@ -119,6 +122,14 @@ const EventDisplayOther: React.FC = () => {
                   <br />
                   <span className="test">
                     {event.oneTicketPrice}.00 LKR upwards
+                  </span><br />
+                  <span className="test">
+                    <Link
+                      to={`/AllEventsVideo/${event.eventId}`}
+                      className="event-link"
+                    >
+                      ----{">"}Video{"<"}----
+                    </Link>
                   </span>
                   <div className="social">
                     <Link to={`/reservation/${event.eventId}`}>
