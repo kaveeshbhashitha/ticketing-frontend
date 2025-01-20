@@ -26,7 +26,7 @@ const ForgotPassword:React.FC = () => {
         }
 
         try {
-            const response = await passwordRecovery(userEmail);
+            const response = await passwordRecovery(userEmail) as { status: number, data: number };
 
             setRes(response.status);
             setCode(response.data);
