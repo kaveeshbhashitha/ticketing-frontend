@@ -43,7 +43,6 @@ const HeaderDasboard: React.FC = () => {
               <li><Link to="/Cancellation">Cancellation</Link></li>
               <li><Link to="/reschedule">Reschedule</Link></li>
               <li><Link to="/adminPayment">Payments</Link></li>
-              <li><Link to="/reschedule">Reschedule</Link></li>
             </ul>
           </nav>
         </div>
