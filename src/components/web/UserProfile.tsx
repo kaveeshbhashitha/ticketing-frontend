@@ -46,7 +46,7 @@ const UserProfile: React.FC = () => {
       setFormData(data);
       setUserData(data);
       setEvents(event);
-      //console.log(events);
+      //console.log(data);
 
     } catch {
       setError("Failed to fetch user data. Please try again later.");

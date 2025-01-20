@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getReservationsByUserId } from "./ReservationService";
 
-const API_URL = "http://localhost:8080/events";
+const API_URL = "http://localhost:8080/api/events";
 
 export const addEvent = async (formData: FormData): Promise<unknown> => {
   const response = await axios.post(`${API_URL}/addEvent`, formData, {
@@ -14,10 +14,10 @@ export const addEvent = async (formData: FormData): Promise<unknown> => {
 
 export const getEventById = async (eventId: string | undefined) => {
   const response = await axios.get(`${API_URL}/getEvent/${eventId}`);
-  const filteredEvents = response.data.filter(
-    (event: {status:string }) =>event.status !== "Cancelled"
-  );
-  return filteredEvents;
+  // const filteredEvents = response.data.filter(
+  //   (event: {status:string }) =>event.status !== "Cancelled"
+  // );
+  return response.data;
 };
 
 export const getGeneralEvents = async () => {

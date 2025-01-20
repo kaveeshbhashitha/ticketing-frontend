@@ -1,10 +1,10 @@
 import React from "react";
 import SideBar from "../layout/SideBar";
 import NewEvent from "../operations/NewEvent";
-import useAuthCheck from "../../../useAuthCheck";
+// import useAuthCheck from "../../../useAuthCheck";
 
 const AddEvent: React.FC = () => {
-  useAuthCheck(['Admin']);
+  // useAuthCheck(['Admin']);
 
   return (
     <div>
