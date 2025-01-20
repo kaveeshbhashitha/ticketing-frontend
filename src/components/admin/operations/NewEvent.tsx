@@ -1,5 +1,6 @@
 import React, { useState} from "react";
 import { addEvent } from "../../../service/EventService";
+import { useNavigate } from "react-router-dom";
 
 const NewEvent: React.FC = () => {
 
@@ -29,6 +30,7 @@ const [eventType, setEventType] = useState<string>("select");
 const [eventIsFor, setEventIsFor] = useState<string>("");
 const [successMessege, setSuccessMessege] = useState<string>("");
 const [errorMessege, setErrorMessege] = useState<string>("");
+const navigate = useNavigate();
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -89,7 +91,8 @@ const handleSubmit = async (e: React.FormEvent) => {
         const response = await addEvent(formData);
         setSuccessMessege("Data inserted successfully!");
         setErrorMessege("");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        navigate('/dashboard');
+        // window.scrollTo({ top: 0, behavior: "smooth" });
         console.log(response);
     } catch (error) {
         const msg = "An error occurred! Insertion not successful" + error;
