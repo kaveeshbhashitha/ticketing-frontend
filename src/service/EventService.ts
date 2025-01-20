@@ -6,10 +6,12 @@ const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/even
 const API_URL_2 = "http://localhost:8080/events";  // Replace with the second API URL
 
 // Helper function to attempt requests on both APIs
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const requestWithFallback = async (requestFunc: { (apiUrl: any): Promise<any> }) => {
   try {
     return await requestFunc(API_URL_1);  // Try the first API URL
   } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     console.error(`API 1 failed, trying API 2: ${(error as any).message}`);
     return await requestFunc(API_URL_2);  // Fallback to the second API URL
   }

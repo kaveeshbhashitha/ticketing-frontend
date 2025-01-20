@@ -1,8 +1,8 @@
 import React, { useState} from "react";
 import { addEvent } from "../../../service/EventService";
+import { useNavigate } from "react-router-dom";
 
 const NewEvent: React.FC = () => {
-  const [visibleDiv, setVisibleDiv] = useState(1);
 
   const [event, setEvent] = useState({
     eventName: "",
@@ -30,6 +30,7 @@ const [eventType, setEventType] = useState<string>("select");
 const [eventIsFor, setEventIsFor] = useState<string>("");
 const [successMessege, setSuccessMessege] = useState<string>("");
 const [errorMessege, setErrorMessege] = useState<string>("");
+const navigate = useNavigate();
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -90,7 +91,8 @@ const handleSubmit = async (e: React.FormEvent) => {
         const response = await addEvent(formData);
         setSuccessMessege("Data inserted successfully!");
         setErrorMessege("");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        navigate('/dashboard');
+        // window.scrollTo({ top: 0, behavior: "smooth" });
         console.log(response);
     } catch (error) {
         const msg = "An error occurred! Insertion not successful" + error;
@@ -185,28 +187,19 @@ return (
                           </select>
                       </div>
                   </div>
-                  <div className="row">
+                  {/* <div className="row">
                       <div className="mb-3 col-md-6">
                           <label htmlFor="eventName" className="form-label"> Limit of Participation <span className="text-danger">*</span></label>
                           <input className="form-control" type="text" name="maxPerson" value={event.maxPerson} onChange={handleChange}/>
                       </div>
-                      <div className="mb-3 col-md-6">
-                          <label htmlFor="eventName" className="form-label"> Select to More Forward <span className="text-danger">*</span></label>
-                          <div className="button-container mb-4 mt-2">
-                              <button className='btn btn-outline-dark mx-2 btn-sm' onClick={() => setVisibleDiv(1)}>General Event</button>
-                              <button className='btn btn-outline-dark mx-2 btn-sm' onClick={() => setVisibleDiv(2)}>Sports and Match</button>
-                              <button className='btn btn-outline-dark mx-2 btn-sm' onClick={() => setVisibleDiv(3)}>Theater and Movie</button>
-                          </div>
-                      </div>
-                  </div>
-
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div className={visibleDiv === 2 ? "visible" : "hidden"}>
+        {eventType === "sports" && (
+        <div className="">
           <div className="row">
             <div className="col-md-12">
               <div className="card mb-4">
@@ -232,8 +225,9 @@ return (
             </div>
           </div>
         </div>
-
-        <div className={visibleDiv === 3 ? "visible" : "hidden"}>
+        )}
+        {eventType === "theater" && (
+        <div className="">
           <div className="row">
             <div className="col-md-12">
               <div className="card mb-4">
@@ -278,7 +272,7 @@ return (
             </div>
           </div>
         </div>
-
+        )}
         <div className="card mb-4">
             <div className="card-body">
                 <div id="formAccountSettings">

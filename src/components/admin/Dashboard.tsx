@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "./layout/SideBar";
 import CongratulationsCard from "./layout/CongratulationsCard";
-import useAuthCheck from "../../useAuthCheck";
+// import useAuthCheck from "../../useAuthCheck";
 import { getUserByEmail } from "../../service/UserService";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../service/AuthService";
@@ -13,7 +13,7 @@ interface User {
 }
 
 const Dashboard: React.FC = () => {
-  useAuthCheck(['Admin']);
+  // useAuthCheck(['Admin']);
 
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string>("");
