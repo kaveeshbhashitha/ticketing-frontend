@@ -1,8 +1,12 @@
 import React, { useState} from "react";
 import { addEvent } from "../../../service/EventService";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const NewEvent: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<{ id: { videoId: string }; snippet: { title: string } }[]>([]);
+  
 
   const [event, setEvent] = useState({
     eventName: "",
@@ -23,6 +27,7 @@ const NewEvent: React.FC = () => {
     theaterTime1: "",
     theaterTime2: "",
     theaterIsFor: "",
+    videoId: "",
 });
 
 const [file, setFile] = useState<File | null>(null);
@@ -58,7 +63,9 @@ const isFormValid = () => {
     "numOfTickets",
     "oneTicketPrice",
     "eventIsFor",
-    "maxPerson",
+    "videoId",
+    
+    
   ];
 
   for (const field of requiredFields) {
@@ -69,6 +76,23 @@ const isFormValid = () => {
   return true; 
 };
 
+const handleSearch = async () => {
+  try {
+    const API_KEY = "AIzaSyCbT-UdwjhpmyfcxZdTGZWhdh9VYDXZ18o"; // Replace with your YouTube API key
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&type=video&key=${API_KEY}`
+    );
+    setSearchResults(response.data.items);
+  } catch (error) {
+    console.error("Error fetching YouTube videos:", error);
+  }
+};
+
+
+const handleSelectVideo = (videoId: string) => {
+  setEvent({ ...event, videoId });
+};
+
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -77,7 +101,8 @@ const handleSubmit = async (e: React.FormEvent) => {
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
     } else {
-        setErrorMessege(""); 
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setSuccessMessege("New event added successfully!");
     }
 
     const formData = new FormData();
@@ -273,6 +298,57 @@ return (
           </div>
         </div>
         )}
+         <div className="row">
+      <div className="mb-3 col-md-6">
+        <label htmlFor="searchQuery" className="form-label">
+          Search YouTube Videos
+        </label>
+        <input
+          className="form-control"
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button className="btn btn-primary mt-2" onClick={handleSearch}>
+          Search
+        </button>
+      </div>
+
+      <div className="mb-3 col-md-6">
+        <label htmlFor="eventName" className="form-label">
+          Upload Video <span className="text-danger">*</span>
+        </label>
+        <input
+          className="form-control"
+          type="text"
+          name="videoId"
+          value={event.videoId}
+          onChange={handleFileChange}
+          required
+        />
+      </div>
+
+      <div className="col-md-12">
+        <h5>Search Results</h5>
+        <ul className="list-group">
+          {searchResults.map((video) => (
+            <li
+              key={video.id.videoId}
+              className="list-group-item d-flex justify-content-between align-items-center"
+            >
+              <span>{video.snippet.title}</span>
+              <button
+                className="btn btn-sm btn-success"
+                onClick={() => handleSelectVideo(video.id.videoId)}
+              >
+                Select
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
         <div className="card mb-4">
             <div className="card-body">
                 <div id="formAccountSettings">
@@ -288,8 +364,10 @@ return (
             </div>
         </div>
 
+       
+
         <div className="mt-2">
-            <button type="submit" className="btn btn-primary me-2">
+            <button type="submit" className="btn btn-primary me-2" name="submit">
             Save changes
             </button>
             <button type="reset" className="btn btn-outline-secondary">
