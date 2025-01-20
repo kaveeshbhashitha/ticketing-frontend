@@ -32,7 +32,9 @@ const EventDisplaySport: React.FC = () => {
   // Handle date filter
   useEffect(() => {
     if (selectedDate) {
-      const filtered = events.filter((event) => event.eventDate === selectedDate);
+      const filtered = events.filter(
+        (event) => event.eventDate === selectedDate
+      );
       setFilteredEvents(filtered);
     } else {
       setFilteredEvents(events); // Reset to all events when no date is selected
@@ -62,7 +64,6 @@ const EventDisplaySport: React.FC = () => {
           <h2>Sport Events</h2>
           <p>Here are some of our Sport Events</p>
         </div>
-
         {/* Search bar and date filter */}
         <div className="search-bar d-flex align-items-center mt-3">
           <input
@@ -84,8 +85,8 @@ const EventDisplaySport: React.FC = () => {
             onChange={handleDateChange}
             style={{ marginLeft: "5cm" }} // Set margin to align right
           />
-        </div> <br />
-
+        </div>{" "}
+        <br />
         <div className="row">
           {filteredEvents.map((event) => (
             <div className="col-lg-4 col-md-6" key={event.eventId}>
@@ -120,6 +121,14 @@ const EventDisplaySport: React.FC = () => {
                   <br />
                   <span className="test">
                     {event.oneTicketPrice}.00 LKR upwards
+                  </span><br />
+                  <span className="test">
+                    <Link
+                      to={`/AllEventsVideo/${event.eventId}`}
+                      className="event-link"
+                    >
+                      ----{">"}Video{"<"}----
+                    </Link>
                   </span>
                   <div className="social">
                     <Link to={`/reservation/${event.eventId}`}>

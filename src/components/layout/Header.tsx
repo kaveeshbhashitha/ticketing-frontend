@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { logout } from "../../service/AuthService";
 
 const Header: React.FC = () => {
@@ -42,13 +42,13 @@ const handleLogout = async () => {
 
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
-                  <li><NavLink to="/" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Home</NavLink></li>
-                  <li><NavLink to="/AllEvents" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Events</NavLink></li>
-                  <li><NavLink to="/myTickets" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>My Tickets</NavLink></li>
-                  <li><NavLink to="/userProfile" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Profile</NavLink></li>
-                  <li><NavLink to="/contact" className={({ isActive }) => (isActive ? "NavLink menu-active" : "NavLink")}>Contact Us</NavLink></li>
-                  <li className={signed}><a href="/login">Sign In</a></li>
-                  <li className={className}><a onClick={handleLogout}>Logout</a></li>
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/AllEvents">Events</Link></li>
+                  <li><Link to="/myTickets">My Tickets</Link></li>
+                  <li><Link to="/userProfile">Profile</Link></li>
+                  <li><Link to="/contact">Contact Us</Link></li>
+                  <li className={signed}><Link to="/login">Sign In</Link></li>
+                  <li className={className}><Link to="#" onClick={handleLogout}>Logout</Link></li>
                 </ul>
             </nav>
         </div>

@@ -5,7 +5,7 @@ import Footer from "../layout/Footer";
 import Chatbot from "../chatbot/Chatbot";
 import useAuthCheck from "../../useAuthCheck";
 import { User } from "../../interfaces/User";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteUser, getUserByEmail, updateUser } from "../../service/UserService";
 import { logout } from "../../service/AuthService";
 import { Event } from "../../interfaces/Event";
@@ -146,7 +146,7 @@ const UserProfile: React.FC = () => {
                         alt="Event"
                         className="tableimg"
                       /> <span className="mx-3">{event.eventType}</span></h6>
-                      <span className="text-secondary"><a href={`http://localhost:5173/AllEvents`}>Go to event</a></span>
+                      <span className="text-secondary"> <Link to={`/event/${event.eventId}`} className="mx-2">Go to event</Link></span>
                     </li>
                     ))}
                   </ul>

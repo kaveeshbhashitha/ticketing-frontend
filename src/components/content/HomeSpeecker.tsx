@@ -46,7 +46,10 @@ const HomeSpeecker: React.FC = () => {
                 <div className="details">
                   <h3>
                     {/* Use Link component to navigate to the event description page */}
-                    <Link to={`/event/${event.eventId}`} title={event.eventName}>
+                    <Link
+                      to={`/event/${event.eventId}`}
+                      title={event.eventName}
+                    >
                       {event.eventName.length > 20
                         ? `${event.eventName.substring(0, 26)}...`
                         : event.eventName}
@@ -62,7 +65,17 @@ const HomeSpeecker: React.FC = () => {
                     {event.eventVenue}
                   </span>
                   <br />
-                  <span className="test">{event.oneTicketPrice}.00 LKR upwards</span>
+                  <span className="test">
+                    {event.oneTicketPrice}.00 LKR upwards
+                  </span><br />
+                  <span className="test">
+                    <Link
+                      to={`/AllEventsVideo/${event.eventId}`}
+                      className="event-link"
+                    >
+                      ----{">"}Video{"<"}----
+                    </Link>
+                  </span>
                   <div className="social">
                     <Link to={`/reservation/${event.eventId}`}>
                       <i className="fa-solid fa-cart-shopping py-2">

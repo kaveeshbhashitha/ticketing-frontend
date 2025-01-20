@@ -83,7 +83,7 @@ const EventDisplayAll: React.FC = () => {
           
         <div className="row">
           {filteredEvents.map((event) => (
-            <div className="col-lg-4 col-md-6" key={event.eventId}>
+         <div className="col-lg-4 col-md-6" key={event.eventId}>
               <div className="speaker">
                 <img
                   src={`data:${event.contentType};base64,${event.imageData}`}
@@ -111,6 +111,9 @@ const EventDisplayAll: React.FC = () => {
                   <br />
                   <span className="test">
                     {event.oneTicketPrice}.00 LKR upwards
+                  </span><br />
+                  <span className="test">
+                  <Link to={`/AllEventsVideo/${event.eventId}`} className="event-link">----{">"}Video{"<"}----</Link>
                   </span>
                   <div className="social">
                     <Link to={`/reservation/${event.eventId}`}>

@@ -30,6 +30,8 @@ import UpdateEvent from "./components/admin/actions/UpdateEvent";
 import AdminHome from "./components/admin/auth/AdminHome";
 import EventDescription from "./components/content/Events/EventDescription";
 import EventCancellation from "./components/admin/operations/EventCancellation";
+import EventReschedule from "./components/admin/operations/EventReschedule";
+import AllEventsVideo from "./components/content/Events/AllEventsVideo";
 function App() {
   return (
     <div>
@@ -66,6 +68,8 @@ function App() {
           <Route path="/AdminHome" element={<AdminHome/>}/>
           <Route path="/event/:eventId" element={<EventDescription />} />
           <Route path="/cancellation" element={<EventCancellation />} />
+          <Route path="/reschedule" element={<EventReschedule />} />
+          <Route path="/AllEventsVideo/:eventId" element={<AllEventsVideo />} />
 
 
         </Routes>

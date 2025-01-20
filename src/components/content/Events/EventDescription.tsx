@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { getEventById } from "../../../service/EventService";
 import { Event } from "../../../interfaces/Event";
 import "../../../styles/EventDescription.css"; 
@@ -13,6 +13,11 @@ const EventDescription: React.FC = () => {
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);  // Goes back to the previous page
+  };
+
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -47,16 +52,16 @@ const EventDescription: React.FC = () => {
   }
 
   return (
-    <body>
+    <body className="bg-dark text-white">
     <div>
       <Header/><br /><br />
-    <section id="event-description" className="container py-5">
+    <section id="event-description" className=" container py-5">
       <div className="row">
         <div className="col-md-6">
           <img
             src={`data:${event.contentType};base64,${event.imageData}`}
             alt={event.eventName}
-            className="img-fluid rounded"
+            className="img-fluid rounded w-75 "
           />
         </div>
         <div className="col-md-6">
@@ -67,9 +72,9 @@ const EventDescription: React.FC = () => {
           <p><strong>Price:</strong> {event.oneTicketPrice}.00 LKR</p>
           <p><strong>Description:</strong> {event.description}</p>
           <div className="d-flex justify-content-start">
-            <Link to="/" className="btn btn-secondary me-3">
+            <button onClick={handleGoBack} className="btn btn-secondary me-3">
               Back to Events
-            </Link>
+            </button>
             <Link to={`/reservation/${event.eventId}`} className="btn btn-primary">
               Buy Tickets
             </Link>

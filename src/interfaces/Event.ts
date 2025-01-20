@@ -10,6 +10,7 @@ export interface Event {
   oneTicketPrice: number;
   eventType: string;
   eventIsFor: string;
+  videoId: string;
   numOfTickets: number;
   teamOne: string;
   teamTwo: string;
