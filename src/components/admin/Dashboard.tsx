@@ -5,6 +5,8 @@ import useAuthCheck from "../../useAuthCheck";
 import { getUserByEmail } from "../../service/UserService";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../service/AuthService";
+import HeaderDasboard from "../layout/HeaderDashboard";
+import Footer from "../layout/Footer";
 
 interface User {
   userEmail: string;
@@ -63,6 +65,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
+      <HeaderDasboard/>
     <div className="layout-wrapper layout-content-navbar">
       <div className="layout-container">
         <SideBar />
@@ -577,6 +580,7 @@ const Dashboard: React.FC = () => {
       </div>
       <div className="layout-overlay layout-menu-toggle"></div>
     </div>
+    <Footer/>
     </div>
   );
 };
