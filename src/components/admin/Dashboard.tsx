@@ -9,6 +9,7 @@ import HeaderDasboard from "../layout/HeaderDashboard";
 import Footer from "../layout/Footer";
 
 
+
 interface User {
   userEmail: string;
   firstName: string;
@@ -66,7 +67,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-     <HeaderDasboard/>
+     <HeaderDasboard />
     <div className="layout-wrapper layout-content-navbar">
       <div className="layout-container">
         <SideBar />
