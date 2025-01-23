@@ -37,11 +37,12 @@ const HeaderDasboard: React.FC = () => {
           border: 'none',  // No border
           width: '40px',  // You can adjust the size if needed
           height: '40px',  // You can adjust the size if needed
-          cursor: 'pointer',  // Make it clickable
+          cursor: 'pointer',
+          // Make it clickable
         }}
         onClick={handleRefresh}
       >
-       The Event
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Event
       </button>
 
       <button
@@ -61,8 +62,8 @@ const HeaderDasboard: React.FC = () => {
           <nav id="nav-menu-container">
             {/* Mobile-only menu */}
             <ul className="nav-menu d-block d-lg-none">
-             <li><Link to="/">Home</Link></li>
               <li><Link to="/dashboard">Dashboard</Link></li>
+              <li><Link to="/">Home</Link></li>
               <li><Link to="/adminProfile">Administration</Link></li>
               <li><Link to="/seeUsers">Customers</Link></li>
               <li><Link to="/notification">Notifications</Link></li>
