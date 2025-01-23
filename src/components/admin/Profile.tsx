@@ -9,6 +9,8 @@ import {
 } from "../../service/UserService";
 import { logout } from "../../service/AuthService";
 import SideBar from "./layout/SideBar";
+import ComponentDasboard from "../layout/ComponetDashboard";
+import Footer from "../layout/Footer";
 
 const Profile: React.FC = () => {
   useAuthCheck(["User", "Admin"]);
@@ -111,7 +113,8 @@ const Profile: React.FC = () => {
   if (loading) return <p>Loading user data...</p>;
 
   return (
-    <div className="layout-wrapper layout-content-navbar">
+    <><div className="layout-wrapper layout-content-navbar">
+      <ComponentDasboard />
       <div className="layout-container">
         <SideBar />
 
@@ -131,8 +134,7 @@ const Profile: React.FC = () => {
                             src="https://bootdey.com/img/Content/avatar/avatar7.png"
                             alt="Admin"
                             className="rounded-circle"
-                            width="150"
-                          />
+                            width="150" />
                           <div className="mt-3">
                             <h4>{`${userData?.firstName} ${userData?.lastName}`}</h4>
                             <p className="text-muted font-size-sm mt-1">{`${userData?.userEmail} | ${userData?.userRole}`}</p>
@@ -159,8 +161,7 @@ const Profile: React.FC = () => {
                             name="firstName"
                             value={formData?.firstName}
                             onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
+                            disabled={!isEditing} />
                         </div>
                         <hr />
                         <div className="row">
@@ -172,8 +173,7 @@ const Profile: React.FC = () => {
                             name="lastName"
                             value={formData.lastName}
                             onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
+                            disabled={!isEditing} />
                         </div>
                         <hr />
                         <div className="row">
@@ -185,8 +185,7 @@ const Profile: React.FC = () => {
                             name="userEmail"
                             value={formData.userEmail}
                             onChange={handleInputChange}
-                            disabled={!isEditing}
-                          />
+                            disabled={!isEditing} />
                         </div>
                         <hr />
                         <div className="row">
@@ -197,8 +196,7 @@ const Profile: React.FC = () => {
                             className="col-sm-9 text-secondary border-0"
                             name="userRole"
                             value={formData.userRole}
-                            disabled
-                          />
+                            disabled />
                         </div>
                         <hr />
                         <div className="row">
@@ -207,11 +205,8 @@ const Profile: React.FC = () => {
                           </div>
                           <input
                             className="col-sm-9 text-secondary border-0"
-                            value={`You have registered on: ${
-                              userData?.dateRegistered ?? ""
-                            } and at: ${userData?.timeRegistered ?? ""}`}
-                            disabled
-                          />
+                            value={`You have registered on: ${userData?.dateRegistered ?? ""} and at: ${userData?.timeRegistered ?? ""}`}
+                            disabled />
                         </div>
                         <hr />
                         <div className="row">
@@ -254,11 +249,9 @@ const Profile: React.FC = () => {
                               authorization to corresponding person before you
                               delete your account
                               <a
-                                onClick={() =>
-                                  alert(
-                                    "You can contact your head or manger to more information..!"
-                                  )
-                                }
+                                onClick={() => alert(
+                                  "You can contact your head or manger to more information..!"
+                                )}
                                 className="b-none bg-none"
                               >
                                 <i className="fa-solid fa-arrow-up-right-from-square text-primary mx-2"></i>
@@ -275,7 +268,8 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div><Footer /></>
+    
   );
 };
 

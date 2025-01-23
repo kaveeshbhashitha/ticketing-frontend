@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const HeaderDasboard: React.FC = () => {
+const ComponentDasboard: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);  // State to track scrolling
   const navigate = useNavigate();
 
@@ -21,10 +21,8 @@ const HeaderDasboard: React.FC = () => {
     };
   }, [navigate]);
 
-  // Function to reload the page
-  const handleRefresh = () => {
-    window.location.reload();
-  };
+
+ 
 
   return (
     <div>
@@ -37,9 +35,10 @@ const HeaderDasboard: React.FC = () => {
           border: 'none',  // No border
           width: '40px',  // You can adjust the size if needed
           height: '40px',  // You can adjust the size if needed
-          cursor: 'pointer',  // Make it clickable
+          cursor: 'pointer',
+            // Make it clickable
         }}
-        onClick={handleRefresh}
+        onClick={()=>navigate('/dashboard')}
       >
        The Event
       </button>
@@ -59,9 +58,9 @@ const HeaderDasboard: React.FC = () => {
       <header id="header" className={scrolled ? 'scrolled' : ''}>
         <div className="container">
           <nav id="nav-menu-container">
-            {/* Mobile-only menu */}
-            <ul className="nav-menu d-block d-lg-none">
-             <li><Link to="/">Home</Link></li>
+            {/* Mobile-only menu */}<br/>
+            <ul className="nav-menu d-block d-lg-none"><br />
+              <li><Link to="/">Home</Link></li>
               <li><Link to="/dashboard">Dashboard</Link></li>
               <li><Link to="/adminProfile">Administration</Link></li>
               <li><Link to="/seeUsers">Customers</Link></li>
@@ -82,4 +81,4 @@ const HeaderDasboard: React.FC = () => {
   );
 };
 
-export default HeaderDasboard;
+export default ComponentDasboard;
