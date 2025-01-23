@@ -25,6 +25,9 @@ const HeaderDasboard: React.FC = () => {
 
   return (
     <div>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
       <header id="header" className={scrolled ? 'scrolled' : ''}>
         <div className="container">
           <nav id="nav-menu-container">

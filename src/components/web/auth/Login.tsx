@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../service/AuthService";
 import Chatbot from "../../chatbot/Chatbot";
@@ -10,9 +10,20 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   // State for draggable box position
-  const [position, setPosition] = useState({ x: 40, y: 130 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+
+  // Adjust starting position based on screen size
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      // Mobile view start position
+      setPosition({ x: 0, y: 160 });
+    } else {
+      // Desktop view start position
+      setPosition({ x: 40, y: 130 });
+    }
+  }, []);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,7 +49,7 @@ const Login: React.FC = () => {
     }
   };
 
-  // Drag event handlers
+  // Drag event handlers for desktop
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
     setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
@@ -57,6 +68,27 @@ const Login: React.FC = () => {
     setIsDragging(false);
   };
 
+  // Drag event handlers for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setIsDragging(true);
+    setStartPos({ x: touch.clientX - position.x, y: touch.clientY - position.y });
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (isDragging) {
+      const touch = e.touches[0];
+      setPosition({
+        x: touch.clientX - startPos.x,
+        y: touch.clientY - startPos.y,
+      });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   return (
     <div
       className="d-flex align-items-center justify-content-center vh-100 bg-dark"
@@ -68,6 +100,8 @@ const Login: React.FC = () => {
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <div
         className="container"
@@ -78,6 +112,7 @@ const Login: React.FC = () => {
           cursor: isDragging ? "grabbing" : "grab",
         }}
         onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
       >
         <div className="row justify-content-center">
           <div
