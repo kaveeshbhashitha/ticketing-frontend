@@ -9,6 +9,11 @@ const Login: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const navigate = useNavigate();
 
+  // State for draggable box position
+  const [position, setPosition] = useState({ x: 40, y: 130 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -33,6 +38,25 @@ const Login: React.FC = () => {
     }
   };
 
+  // Drag event handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isDragging) {
+      setPosition({
+        x: e.clientX - startPos.x,
+        y: e.clientY - startPos.y,
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
   return (
     <div
       className="d-flex align-items-center justify-content-center vh-100 bg-dark"
@@ -42,8 +66,19 @@ const Login: React.FC = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
     >
-      <div className="container">
+      <div
+        className="container"
+        style={{
+          position: "absolute",
+          left: `${position.x}px`,
+          top: `${position.y}px`,
+          cursor: isDragging ? "grabbing" : "grab",
+        }}
+        onMouseDown={handleMouseDown}
+      >
         <div className="row justify-content-center">
           <div
             className="col-12 col-sm-10 col-md-8 col-lg-6"
