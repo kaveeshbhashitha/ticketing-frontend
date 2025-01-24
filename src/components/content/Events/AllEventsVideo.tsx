@@ -15,6 +15,8 @@ const AllEventsVideo: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  
+
   const handleGoBack = () => {
     navigate(-1);  // Goes back to the previous page
   };
@@ -70,8 +72,8 @@ const AllEventsVideo: React.FC = () => {
             className="rounded"
           ></iframe>
         </div>
-      <button onClick={() => window.location.href = "/AllEvents"} className="btn btn-secondary me-3 btn-lg">Back</button>&nbsp;&nbsp;&nbsp;
-      <button onClick={handleGoBack} className="btn btn-primary btn-lg">Buy Tickets</button >
+      <button onClick={handleGoBack} className="btn btn-secondary me-3 btn-lg">Back</button>&nbsp;&nbsp;&nbsp;
+      <button onClick={() => window.location.href = `/reservation/${event.eventId}`} className="btn btn-primary btn-lg">Buy Tickets</button >
     </div><br />
             <Chatbot />
             <Footer />

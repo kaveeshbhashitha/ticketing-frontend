@@ -39,7 +39,7 @@ const UpdatePassword:React.FC = () => {
       
         try {
           // Call the API to update the password
-          const response = await updatePassword(userEmail, newPassword);
+          const response = await updatePassword(userEmail, newPassword) as { status: number };
       
           if (response.status === 200) {
             setStatus('Password updated successfully! You can now log in with your new password.');

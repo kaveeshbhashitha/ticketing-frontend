@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import SideBar from "../layout/SideBar"; // Sidebar component import
 import { cancelEvent, getAllEvents } from "../../../service/EventService"; // Make sure to implement this service
 import { Event } from "../../../interfaces/Event"; // Assuming you have an Event interface
+import Footer from "../../layout/Footer";
+import ComponentDasboard from "../../layout/ComponetDashboard";
 
 const EventCancellation: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [message, setMessage] = useState<string>("");
+
+
 
   useEffect(() => {
     // Fetch all events when the component mounts
@@ -38,6 +42,7 @@ const EventCancellation: React.FC = () => {
 
   return (
     <div>
+      <ComponentDasboard />
       <div className="layout-wrapper layout-content-navbar">
         <div className="layout-container">
           <SideBar /> {/* Add the Sidebar component */}
@@ -68,6 +73,7 @@ const EventCancellation: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

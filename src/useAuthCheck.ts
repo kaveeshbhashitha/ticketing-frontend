@@ -6,7 +6,7 @@ function useAuthCheck(allowedRoles: string[]) {
   const location = useLocation();
 
   useEffect(() => {
-    const user = sessionStorage.getItem('user');
+    const user = sessionStorage.getItem('userEmail');
     const role = sessionStorage.getItem('role');
 
     if (!user) {

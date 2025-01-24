@@ -6,9 +6,10 @@ import {
   deleteReservation,
   getAllReservations,
 } from "../../../service/ReservationService";
+import ComponentDasboard from "../../layout/ComponetDashboard";
 
 const Reservation: React.FC = () => {
-  useAuthCheck(["Admin"]);
+  useAuthCheck(['ADMIN']);
   const [reservations, setReservationData] = useState<Reservation[]>([]);
   const [filteredReservations, setFilteredReservations] = useState<
     Reservation[]
@@ -85,7 +86,9 @@ const Reservation: React.FC = () => {
 
   return (
     <div className="layout-wrapper layout-content-navbar">
+       <ComponentDasboard/>
       <div className="layout-container">
+       
         <SideBar />
 
         <div className="content-wrapper">

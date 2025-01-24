@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NotificationInt } from "../../../interfaces/NotificationInt";
 import SideBar from "../layout/SideBar";
 import { deleteNotification, getAllNotification } from "../../../service/NotificationService";
+import ComponentDasboard from "../../layout/ComponetDashboard";
 
 const Notification: React.FC = () => {
   const [notifications, setNotifications] = useState<NotificationInt[]>([]);
@@ -64,6 +65,7 @@ const Notification: React.FC = () => {
   return (
     <div>
       <div className="layout-wrapper layout-content-navbar">
+        <ComponentDasboard/>
         <div className="layout-container">
           <SideBar />
           <div className="content-wrapper">

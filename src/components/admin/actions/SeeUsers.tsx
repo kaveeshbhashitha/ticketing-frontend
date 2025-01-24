@@ -3,9 +3,11 @@ import SideBar from "../layout/SideBar";
 import { deleteUser, getAllUsers } from "../../../service/UserService";
 import useAuthCheck from "../../../useAuthCheck";
 import { User } from "../../../interfaces/User";
+import ComponentDasboard from "../../layout/ComponetDashboard";
+import Footer from "../../layout/Footer";
 
 const SeeUsers: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -72,7 +74,8 @@ const SeeUsers: React.FC = () => {
   };
 
   return (
-    <div className="layout-wrapper layout-content-navbar">
+    <><div className="layout-wrapper layout-content-navbar">
+      <ComponentDasboard />
       <div className="layout-container">
         <SideBar />
 
@@ -98,21 +101,18 @@ const SeeUsers: React.FC = () => {
                       className="form-control w-50 me-2"
                       placeholder="Search by name..."
                       value={searchQuery}
-                      onChange={(e) => handleSearch(e.target.value)}
-                    />
+                      onChange={(e) => handleSearch(e.target.value)} />
                     <div className="d-flex align-items-center">
                       <input
                         type="date"
                         className="form-control me-2"
                         value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                      />
+                        onChange={(e) => setStartDate(e.target.value)} />
                       <input
                         type="date"
                         className="form-control me-2"
                         value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                      />
+                        onChange={(e) => setEndDate(e.target.value)} />
                       <button className="btn btn-primary" onClick={handleDateFilter}>
                         Filter
                       </button>
@@ -167,7 +167,7 @@ const SeeUsers: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div><Footer /></>
   );
 };
 

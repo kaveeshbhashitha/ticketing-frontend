@@ -2,13 +2,16 @@ import React from "react";
 import SideBar from "../layout/SideBar";
 import NewEvent from "../operations/NewEvent";
 import useAuthCheck from "../../../useAuthCheck";
+import ComponentDasboard from "../../layout/ComponetDashboard";
+import Footer from "../../layout/Footer";
 
 const AddEvent: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
 
   return (
     <div>
       <div className="layout-wrapper layout-content-navbar">
+        <ComponentDasboard/>
             <div className="layout-container">
                 <SideBar />
 
@@ -19,7 +22,7 @@ const AddEvent: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div><Footer/>
     </div>
   );
 };
