@@ -41,7 +41,7 @@ const UserProfile: React.FC = () => {
       if (!userEmail) throw new Error("User email not found");
 
       const data = await getUserByEmail(userEmail);
-      const event = await getEventsByUserId(data.userId);
+      const event: Event[] = await getEventsByUserId(data.userId) as Event[];
 
       setFormData(data);
       setUserData(data);

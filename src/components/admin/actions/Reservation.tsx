@@ -8,7 +8,7 @@ import {
 } from "../../../service/ReservationService";
 
 const Reservation: React.FC = () => {
-  useAuthCheck(["Admin"]);
+  useAuthCheck(['ADMIN']);
   const [reservations, setReservationData] = useState<Reservation[]>([]);
   const [filteredReservations, setFilteredReservations] = useState<
     Reservation[]

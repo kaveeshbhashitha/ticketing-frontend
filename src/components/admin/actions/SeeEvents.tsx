@@ -7,7 +7,7 @@ import SeeOtherEvents from "../operations/SeeOtherEvents";
 import useAuthCheck from "../../../useAuthCheck";
 
 const SeeEvents: React.FC = () => {
-    useAuthCheck(['Admin']);
+    useAuthCheck(['ADMIN']);
     const [visibleDiv, setVisibleDiv] = useState(1);
   return (
     <div>

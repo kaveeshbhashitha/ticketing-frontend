@@ -10,7 +10,7 @@ import "../../../styles/HomeSpeecker.css";
 import useAuthCheck from "../../../useAuthCheck";
 
 const UpdateEvent: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData] = useState<FormData>(new FormData());
@@ -32,7 +32,7 @@ const UpdateEvent: React.FC = () => {
   const handleEditClick = async (eventId: string) => {
     try {
       const event = await getEventById(eventId);
-      setSelectedEvent(event);
+      setSelectedEvent(event as Event);
     } catch (error) {
       console.error("Error fetching event details:", error);
     }

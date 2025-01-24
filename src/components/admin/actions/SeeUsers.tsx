@@ -5,7 +5,7 @@ import useAuthCheck from "../../../useAuthCheck";
 import { User } from "../../../interfaces/User";
 
 const SeeUsers: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

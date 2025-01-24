@@ -28,10 +28,12 @@ const Register: React.FC = () => {
           password
         );
 
-        if (response.data === "User already registered as a user") {
-          setMessage({ text: response.data, class: "alert alert-danger" });
-        } else if (response.data === "User registered successfully") {
-          setMessage({ text: response.data, class: "alert alert-success" });
+        const responseData = response as { data: string };
+
+        if (responseData.data === "User already registered as a user") {
+          setMessage({ text: responseData.data, class: "alert alert-danger" });
+        } else if (responseData.data === "User registered successfully") {
+          setMessage({ text: responseData.data, class: "alert alert-success" });
           navigate("/login");
         } else {
           setMessage({

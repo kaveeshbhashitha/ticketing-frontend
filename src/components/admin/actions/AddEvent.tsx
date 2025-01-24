@@ -4,7 +4,7 @@ import NewEvent from "../operations/NewEvent";
 import useAuthCheck from "../../../useAuthCheck";
 
 const AddEvent: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
 
   return (
     <div>
