@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SideBar from "../layout/SideBar"; // Sidebar component import
 import { rescheduleEvent, getAllEventsCancelled } from "../../../service/EventService"; // Make sure to implement this service
 import { Event } from "../../../interfaces/Event"; // Assuming you have an Event interface
+import ComponentDasboard from "../../layout/ComponetDashboard";
+import Footer from "../../layout/Footer";
 
 const EventCancellation: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -38,6 +40,7 @@ const EventCancellation: React.FC = () => {
 
   return (
     <div>
+      <ComponentDasboard/>
       <div className="layout-wrapper layout-content-navbar">
         <div className="layout-container">
           <SideBar /> {/* Add the Sidebar component */}
@@ -68,6 +71,7 @@ const EventCancellation: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

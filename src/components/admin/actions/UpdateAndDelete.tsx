@@ -4,6 +4,7 @@ import '../../../styles/adminEvents.css';
 import Footer from '../../layout/Footer';
 import DeleteEvent from './DeleteEvent';
 import UpdateEvent from './UpdateEvent';
+import ComponentDasboard from '../../layout/ComponetDashboard';
 
 const UpdateAndDeleteEvent: React.FC = () => {
   const [visibleDiv, setVisibleDiv] = useState<number>(1);
@@ -11,6 +12,7 @@ const UpdateAndDeleteEvent: React.FC = () => {
   return (
     <div>
       <div className="layout-wrapper layout-content-navbar">
+      <ComponentDasboard/>
         <div className="layout-container">
           <SideBar />
 

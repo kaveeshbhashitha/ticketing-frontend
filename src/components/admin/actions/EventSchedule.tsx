@@ -1,12 +1,15 @@
 import React from "react";
 import SideBar from "../layout/SideBar";
 import EventCalendar from "../operations/EventCalender";
+import ComponentDasboard from "../../layout/ComponetDashboard";
+import Footer from "../../layout/Footer";
 
 const EventSchedule: React.FC = () => {
   return (
     <div>
         <div>
             <div className="layout-wrapper layout-content-navbar">
+                <ComponentDasboard/>
                 <div className="layout-container">
                     <SideBar />
 
@@ -20,7 +23,7 @@ const EventSchedule: React.FC = () => {
                         <div className="content-backdrop fade"></div>
                     </div>
                 </div>
-            </div>
+            </div><Footer></Footer>
         </div>
     </div>
   );

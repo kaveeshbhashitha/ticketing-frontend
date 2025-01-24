@@ -3,6 +3,8 @@ import SideBar from "../layout/SideBar";
 import useAuthCheck from "../../../useAuthCheck";
 import { deletePayment, getAllPayment } from "../../../service/PaymentService";
 import { CheckoutFormProps } from "../../../interfaces/CheckoutFormProps";
+import ComponentDasboard from "../../layout/ComponetDashboard";
+import Footer from "../../layout/Footer";
 
 const AdminPayment: React.FC = () => {
 
@@ -82,6 +84,7 @@ const AdminPayment: React.FC = () => {
 
   return (
     <div className="layout-wrapper layout-content-navbar">
+      <ComponentDasboard/>
     <div className="layout-container">
       <SideBar />
 
@@ -188,7 +191,7 @@ const AdminPayment: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div><Footer/>
   </div>
   );
 };

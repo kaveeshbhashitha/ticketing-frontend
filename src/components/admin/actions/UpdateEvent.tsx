@@ -8,12 +8,15 @@ import { Event } from "../../../interfaces/Event";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/HomeSpeecker.css";
 import useAuthCheck from "../../../useAuthCheck";
+import axios from "axios";
 
 const UpdateEvent: React.FC = () => {
-  useAuthCheck(['ADMIN']);
+  useAuthCheck(['Admin']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData] = useState<FormData>(new FormData());
+  const [youtubeSearchQuery, setYoutubeSearchQuery] = useState<string>("");
+  const [videoId, setVideoId] = useState<string | null>(null); // Store the selected video ID
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,8 +41,12 @@ const UpdateEvent: React.FC = () => {
     }
   };
 
+  
+
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setSelectedEvent((prev) => (prev ? { ...prev, [name]: value } : null));
@@ -62,14 +69,59 @@ const UpdateEvent: React.FC = () => {
     formData.set("eventVenue", selectedEvent.eventVenue);
     formData.set("oneTicketPrice", selectedEvent.oneTicketPrice.toString());
     formData.set("description", selectedEvent.description);
+    formData.set("videoId", selectedEvent.videoId);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    try {
+      await updateEvent(selectedEvent.eventId, formData);
+      navigate("/UpdateAndDeleteEvent");
+    } catch (error) {
+      console.error("Error updating event:", error);
+      alert("Failed to update event.");
+    }
+    
+
+    // If a videoId is selected, include it in the form data
+    if (videoId) {
+      selectedEvent.videoId = videoId;
+      formData.set("videoId", selectedEvent.videoId);
+    }
 
     try {
       await updateEvent(selectedEvent.eventId, formData);
       alert("Event updated successfully!");
-      navigate("/UpdateAndDeleteEvent"); // Refresh the page to reflect the updated event
+      navigate("/dashboard"); // Refresh the page to reflect the updated event
     } catch (error) {
       console.error("Error updating event:", error);
       alert("Failed to update event.");
+    }
+  };
+
+  const handleYoutubeSearch = async () => {
+    if (!youtubeSearchQuery) return;
+
+    try {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/search`,
+        {
+          params: {
+            part: "snippet",
+            q: youtubeSearchQuery,
+            type: "video",
+            key: "AIzaSyCbT-UdwjhpmyfcxZdTGZWhdh9VYDXZ18o", // Replace with your YouTube API key
+          },
+        }
+      );
+      const video = response.data.items[0];
+      if (video) {
+        setVideoId(video.id.videoId);
+        alert(`Found video: ${video.snippet.title}`);
+      } else {
+        alert("No video found.");
+      }
+    } catch (error) {
+      console.error("Error searching YouTube:", error);
+      alert("Failed to search YouTube.");
     }
   };
 
@@ -104,7 +156,9 @@ const UpdateEvent: React.FC = () => {
             </div>
           ))}
         </div>
-        <br /><br /><br />
+        <br />
+        <br />
+        <br />
 
         {selectedEvent && (
           <div className="update-form">
@@ -180,6 +234,49 @@ const UpdateEvent: React.FC = () => {
                 />
               </div>
               <div className="form-group">
+                <label>YouTube Video Search</label>
+                <input
+                  type="text"
+                  value={youtubeSearchQuery}
+                  onChange={(e) => setYoutubeSearchQuery(e.target.value)}
+                  className="form-control"
+                  placeholder="Search for a YouTube video"
+                />
+                <button
+                  type="button"
+                  onClick={handleYoutubeSearch}
+                  className="btn btn-info"
+                >
+                  Search Video
+                </button>
+              </div>
+              {videoId && (
+                <div className="form-group">
+                  <label>Selected Video</label>
+                  <p>Video ID: {videoId}</p>
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    title="YouTube video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              )}
+
+              <div className="form-group">
+                <label>Video Id</label>
+                <input
+                  name="videoId"
+                  value={videoId || ""}
+                  onChange={handleInputChange}
+                  className="form-control"
+                />
+              </div>
+
+              <div className="form-group">
                 <label>Event Image</label>
                 <input
                   type="file"
@@ -187,6 +284,7 @@ const UpdateEvent: React.FC = () => {
                   className="form-control"
                 />
               </div>
+
               <button
                 type="button"
                 onClick={handleUpdate}

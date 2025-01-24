@@ -26,7 +26,7 @@ const Register: React.FC = () => {
           lastName,
           userEmail,
           password
-        );
+        ) as { data: string };
 
         const responseData = response as { data: string };
 

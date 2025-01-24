@@ -5,6 +5,8 @@ import SeeAllSports from "../operations/SeeAllSports";
 import SeeTheater from "../operations/SeeTheater";
 import SeeOtherEvents from "../operations/SeeOtherEvents";
 import useAuthCheck from "../../../useAuthCheck";
+import ComponentDasboard from "../../layout/ComponetDashboard";
+import Footer from "../../layout/Footer";
 
 const SeeEvents: React.FC = () => {
     useAuthCheck(['ADMIN']);
@@ -12,6 +14,7 @@ const SeeEvents: React.FC = () => {
   return (
     <div>
         <div className="layout-wrapper layout-content-navbar">
+            <ComponentDasboard/>
             <div className="layout-container">
                 <SideBar />
 
@@ -42,7 +45,7 @@ const SeeEvents: React.FC = () => {
                     <div className="content-backdrop fade"></div>
                 </div>
             </div>
-        </div>
+        </div><Footer/>
     </div>
   );
 };
