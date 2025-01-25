@@ -11,7 +11,7 @@ import useAuthCheck from "../../../useAuthCheck";
 import axios from "axios";
 
 const UpdateEvent: React.FC = () => {
-  useAuthCheck(["Admin"]);
+  useAuthCheck(['Admin']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData] = useState<FormData>(new FormData());
@@ -35,8 +35,7 @@ const UpdateEvent: React.FC = () => {
   const handleEditClick = async (eventId: string) => {
     try {
       const event = await getEventById(eventId);
-      setSelectedEvent(event);
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      setSelectedEvent(event as Event);
     } catch (error) {
       console.error("Error fetching event details:", error);
     }

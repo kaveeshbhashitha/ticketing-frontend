@@ -9,7 +9,7 @@ import ComponentDasboard from "../../layout/ComponetDashboard";
 import Footer from "../../layout/Footer";
 
 const SeeEvents: React.FC = () => {
-    useAuthCheck(['Admin']);
+    useAuthCheck(['ADMIN']);
     const [visibleDiv, setVisibleDiv] = useState(1);
   return (
     <div>

@@ -7,7 +7,7 @@ import ComponentDasboard from "../../layout/ComponetDashboard";
 import Footer from "../../layout/Footer";
 
 const SeeUsers: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

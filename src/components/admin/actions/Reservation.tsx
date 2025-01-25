@@ -9,7 +9,7 @@ import {
 import ComponentDasboard from "../../layout/ComponetDashboard";
 
 const Reservation: React.FC = () => {
-  useAuthCheck(["Admin"]);
+  useAuthCheck(['ADMIN']);
   const [reservations, setReservationData] = useState<Reservation[]>([]);
   const [filteredReservations, setFilteredReservations] = useState<
     Reservation[]

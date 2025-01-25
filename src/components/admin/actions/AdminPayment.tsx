@@ -8,7 +8,7 @@ import Footer from "../../layout/Footer";
 
 const AdminPayment: React.FC = () => {
 
-    useAuthCheck(["Admin"]);
+  useAuthCheck(['ADMIN']);
     const [payments, setPayments] = useState<CheckoutFormProps[]>([]);
     const [filteredReservations, setFilteredReservations] = useState<CheckoutFormProps[] >([]);
     const [loading, setLoading] = useState<boolean>(true);
