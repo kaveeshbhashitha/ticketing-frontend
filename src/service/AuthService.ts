@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Two API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/user";
+const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/user";
 const API_URL_2 = "http://localhost:8080/api/user"; 
 
 // Helper function to attempt requests on both APIs

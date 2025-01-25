@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 // Two API URLs for fallback
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/payment";
+const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/payment";
 const API_URL_2 = "http://localhost:8080/api/payment";
 const token = sessionStorage.getItem("token");
 

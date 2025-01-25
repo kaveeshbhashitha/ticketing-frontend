@@ -17,7 +17,7 @@ interface User {
 }
 
 const Dashboard: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
 
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string>("");

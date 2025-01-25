@@ -26,6 +26,7 @@ const handleLogout = async () => {
       if (response) {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('role');
+        sessionStorage.removeItem('token');
         navigate('/login');
       }
     } catch (error) {
