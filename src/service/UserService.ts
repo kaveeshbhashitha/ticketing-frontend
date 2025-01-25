@@ -21,36 +21,28 @@ const requestWithFallback = async (requestFunc: { (apiUrl: any): Promise<AxiosRe
 
 export const getAllUsers = async () => { 
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/allUsers`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   })); 
   return response.data; 
 };
 
 export const deleteUser = async (id: string) => { 
   const response = await requestWithFallback((apiUrl) => axios.delete(`${apiUrl}/delete/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   })); 
   return response.data; 
 };
 
 export const getUserByEmail = async (userEmail: string) => { 
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getUserByEmail/${userEmail}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   })); 
   return response.data; 
 };
 
 export const getUserById = async (userId: string) => { 
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getUserById/${userId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   })); 
   return response.data; 
 };
@@ -63,9 +55,7 @@ export const getLoggedUserEmail = async () => {
 export const getUserId = async () => {
   const userEmail = sessionStorage.getItem('user');
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getUserByEmail/${userEmail}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   })); 
   return response.data.userId;
 }
@@ -73,9 +63,7 @@ export const getUserId = async () => {
 export const updateUser = async (userId: string, userData: User): Promise<string> => {
   try {
     const response = await requestWithFallback((apiUrl) => axios.put(`${apiUrl}/updateUser/${userId}`, userData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     }));
     if (response.status === 200) {
       return response.data.userId;

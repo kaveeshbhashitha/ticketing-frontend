@@ -5,9 +5,11 @@ import Footer from '../../layout/Footer';
 import DeleteEvent from './DeleteEvent';
 import UpdateEvent from './UpdateEvent';
 import ComponentDasboard from '../../layout/ComponetDashboard';
+import useAuthCheck from '../../../useAuthCheck';
 
 const UpdateAndDeleteEvent: React.FC = () => {
   const [visibleDiv, setVisibleDiv] = useState<number>(1);
+  useAuthCheck(["USER", "ADMIN"]);
 
   return (
     <div>

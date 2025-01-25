@@ -21,45 +21,36 @@ export function addReservation(userId: string, eventId: string, numOfTickets: nu
   return requestWithFallback((apiUrl) => axios.post(`${apiUrl}/addReservation`, 
     { userId, eventId, numOfTickets, totalCharge, perTicketCharge },
     {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+     headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      }
+    )
   );
 }
 
 export async function getReservationsByUserId(userId: string) {
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getReservationByUserId/${userId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   }));
   return response.data;
 }
 
 export async function getReservationById(reservationId: string) {
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getReservationById/${reservationId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   }));
   return response.data;
 }
 
 export async function getAllReservations() {
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAllReservations`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   }));
   return response.data;
 }
 
 export const deleteReservation = async (id: string) => {
   const response = await requestWithFallback((apiUrl) => axios.delete(`${apiUrl}/deleteReservation/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   }));
   return response.data;
 };
@@ -69,9 +60,7 @@ export function updateStatus(reservationId: string) {
     params: {
       reservationId,
     },
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   }));
 }
 

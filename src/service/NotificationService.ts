@@ -18,18 +18,14 @@ const requestWithFallback = async (requestFunc: { (apiUrl: any): Promise<AxiosRe
 
 export async function getAllNotification() {
   const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAllNotification`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   }));
   return response.data;
 }
 
 export const deleteNotification = async (id: string) => {
   const response = await requestWithFallback((apiUrl) => axios.delete(`${apiUrl}/deleteNotification/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   }));
   return response.data;
 };
