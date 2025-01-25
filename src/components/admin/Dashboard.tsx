@@ -66,9 +66,8 @@ const Dashboard: React.FC = () => {
 
 
   return (
-    <div>
-     <HeaderDasboard />
-    <div className="layout-wrapper layout-content-navbar">
+    
+     <><HeaderDasboard /><div className="layout-wrapper layout-content-navbar">
       <div className="layout-container">
         <SideBar />
         <div className="layout-page">
@@ -90,8 +89,7 @@ const Dashboard: React.FC = () => {
                     type="text"
                     className="form-control border-0 shadow-none"
                     placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                    aria-label="Search..." />
                 </div>
               </div>
 
@@ -99,24 +97,24 @@ const Dashboard: React.FC = () => {
                 <li className="nav-item lh-1 me-3">
                   <a
                     className="github-button" onClick={handleLogout}>
-                      <span className="fw-semibold d-block">
-                        <abbr title="Click here to logout">
-                          <div>
-                            {error && <p>{error}</p>}
-                            {user && (
-                              <div>
-                                {user.firstName.toUpperCase()}{" "}
-                                {user.lastName.toUpperCase()}
-                              </div>
-                            )}
-                          </div>
-                        </abbr>
-                      </span>
+                    <span className="fw-semibold d-block">
+                      <abbr title="Click here to logout">
+                        <div>
+                          {error && <p>{error}</p>}
+                          {user && (
+                            <div>
+                              {user.firstName.toUpperCase()}{" "}
+                              {user.lastName.toUpperCase()}
+                            </div>
+                          )}
+                        </div>
+                      </abbr>
+                    </span>
                   </a>
                 </li>
                 <li className="nav-item navbar-dropdown dropdown-user dropdown">
                   <a className="nav-link dropdown-toggle hide-arrow" href="/" data-bs-toggle="dropdown">
-                   
+
                   </a>
                   <ul className="dropdown-menu dropdown-menu-end">
                     <li>
@@ -180,7 +178,7 @@ const Dashboard: React.FC = () => {
                     <div className="d-flex align-items-end row">
                       <div className="col-sm-7">
                         <div className="card-body">
-                        <CongratulationsCard/>
+                          <CongratulationsCard />
                         </div>
                       </div>
                       <div className="col-sm-5 text-center text-sm-left">
@@ -190,8 +188,7 @@ const Dashboard: React.FC = () => {
                             height="140"
                             alt="View Badge User"
                             data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                            data-app-light-img="illustrations/man-with-laptop-light.png"
-                          />
+                            data-app-light-img="illustrations/man-with-laptop-light.png" />
                         </div>
                       </div>
                     </div>
@@ -207,8 +204,7 @@ const Dashboard: React.FC = () => {
                               <img
                                 src="../assets/img/icons/unicons/chart-success.png"
                                 alt="chart success"
-                                className="rounded"
-                              />
+                                className="rounded" />
                             </div>
                             <div className="dropdown">
                               <button
@@ -241,8 +237,7 @@ const Dashboard: React.FC = () => {
                               <img
                                 src="../assets/img/icons/unicons/wallet-info.png"
                                 alt="Credit Card"
-                                className="rounded"
-                              />
+                                className="rounded" />
                             </div>
                             <div className="dropdown">
                               <button
@@ -274,7 +269,7 @@ const Dashboard: React.FC = () => {
                     <div className="row row-bordered g-0">
                       <div className="col-md-8">
                         <h5 className="card-header">Total Income</h5>
-                        DailyIncomeChart 
+                        DailyIncomeChart
                       </div>
                       <div className="col-md-4">
                         <div className="card-body">
@@ -324,7 +319,7 @@ const Dashboard: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                
+
                   <div>
                     <div className="row mt-3">
                       <div className="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
@@ -360,8 +355,7 @@ const Dashboard: React.FC = () => {
                               <li className="d-flex mb-4 pb-1">
                                 <div className="avatar flex-shrink-0 me-3">
                                   <span className="avatar-initial rounded bg-label-primary"
-                                    ><i className="bx bx-mobile-alt"></i
-                                  ></span>
+                                  ><i className="bx bx-mobile-alt"></i></span>
                                 </div>
                                 <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                   <div className="me-2">
@@ -404,8 +398,7 @@ const Dashboard: React.FC = () => {
                               <li className="d-flex">
                                 <div className="avatar flex-shrink-0 me-3">
                                   <span className="avatar-initial rounded bg-label-secondary"
-                                    ><i className="bx bx-football"></i
-                                  ></span>
+                                  ><i className="bx bx-football"></i></span>
                                 </div>
                                 <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                   <div className="me-2">
@@ -555,7 +548,7 @@ const Dashboard: React.FC = () => {
                               </div>
                               <div className="mt-sm-auto">
                                 <small className="text-success text-nowrap fw-semibold"
-                                  ><i className="bx bx-chevron-up"></i> 68.2%</small>
+                                ><i className="bx bx-chevron-up"></i> 68.2%</small>
                                 <h5 className="mt-2">Number of Reservations: 00 totalReservations</h5>
                               </div>
                             </div>
@@ -571,7 +564,7 @@ const Dashboard: React.FC = () => {
             <footer className="content-footer footer bg-footer-theme">
               <div className="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                 <div className="mb-2 mb-md-0">
-                  
+
                 </div>
               </div>
             </footer>
@@ -581,9 +574,8 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <div className="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <Footer/>
-    </div>
+    </div><Footer /></>
+    
   );
 };
 export default Dashboard;

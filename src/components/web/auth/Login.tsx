@@ -38,6 +38,7 @@ const Login: React.FC = () => {
         console.log(userEmail, response.role, response.token);
 
         if (response.role === "Admin") {
+          console.log(response.role)
           navigate('/dashboard');
         } else {
           navigate('/');
