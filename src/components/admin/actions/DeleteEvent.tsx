@@ -5,6 +5,7 @@ import "../../../styles/HomeSpeecker.css";
 
 const DeleteEvent: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  
 
   useEffect(() => {
     const fetchEvents = async () => {

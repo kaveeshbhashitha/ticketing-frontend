@@ -11,7 +11,7 @@ import useAuthCheck from "../../../useAuthCheck";
 import axios from "axios";
 
 const UpdateEvent: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData] = useState<FormData>(new FormData());
