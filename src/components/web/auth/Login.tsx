@@ -35,6 +35,7 @@ const Login: React.FC = () => {
         sessionStorage.setItem('role', response.role);
 
         if (response.role === "Admin") {
+          console.log(response.role)
           navigate('/dashboard');
         } else {
           navigate('/');
