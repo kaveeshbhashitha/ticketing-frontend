@@ -13,7 +13,7 @@ const EventDisplayGeneral: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventList = await getGeneralEvents();
+        const eventList: Event[] = await getGeneralEvents() as Event[];
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
           setFilteredEvents(eventList); // Initialize filtered events with all events

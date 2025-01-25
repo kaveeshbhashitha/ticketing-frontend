@@ -26,7 +26,7 @@ const AllEventsVideo: React.FC = () => {
       try {
         if (eventId) {
           const eventData = await getEventById(eventId);
-          setEvent(eventData);
+          setEvent(eventData as Event);
         } else {
           setError("Invalid event ID.");
         }

@@ -48,7 +48,7 @@ const Checkout: React.FC = () => {
 
   const fetchEventData = async (eventId: string) => {
     const response = await getEventById(eventId);
-    setEventData(response);
+    setEventData(response as Event);
   };
 
   const fetchUserData = async (userId: string) => {
