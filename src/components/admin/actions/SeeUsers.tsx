@@ -4,7 +4,7 @@ import { deleteUser, getAllUsers } from "../../../service/UserService";
 import useAuthCheck from "../../../useAuthCheck";
 import { User } from "../../../interfaces/User";
 import ComponentDasboard from "../../layout/ComponetDashboard";
-import Footer from "../../layout/Footer";
+
 
 const SeeUsers: React.FC = () => {
   useAuthCheck(['ADMIN']);
