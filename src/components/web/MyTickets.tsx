@@ -10,7 +10,7 @@ import { Reservation } from "../../interfaces/Reservation";
 import useAuthCheck from "../../useAuthCheck";
 
 const MyTickets: React.FC = () => {
-  useAuthCheck(["User", "Admin"]);
+  useAuthCheck(["USER", "ADMIN"]);
   const [, setUser] = useState(null);
   const [, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);

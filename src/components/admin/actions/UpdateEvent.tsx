@@ -36,6 +36,7 @@ const UpdateEvent: React.FC = () => {
     try {
       const event = await getEventById(eventId);
       setSelectedEvent(event as Event);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     } catch (error) {
       console.error("Error fetching event details:", error);
     }
@@ -70,6 +71,9 @@ const UpdateEvent: React.FC = () => {
     formData.set("oneTicketPrice", selectedEvent.oneTicketPrice.toString());
     formData.set("description", selectedEvent.description);
     formData.set("videoId", selectedEvent.videoId);
+    if (selectedEvent.imageData) {
+      formData.set("image", selectedEvent.imageData);
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     try {
@@ -93,7 +97,7 @@ const UpdateEvent: React.FC = () => {
       navigate("/dashboard"); // Refresh the page to reflect the updated event
     } catch (error) {
       console.error("Error updating event:", error);
-      alert("Failed to update event.");
+     
     }
   };
 

@@ -167,7 +167,7 @@ const SeeUsers: React.FC = () => {
           </div>
         </div>
       </div>
-    </div><Footer /></>
+    </div></>
   );
 };
 

@@ -12,8 +12,8 @@ import { CheckoutFormProps } from "../../interfaces/CheckoutFormProps";
 import { cardBrandIcons } from "../../data/CardData";
 
 // API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/payment";
-const API_URL_2 = "http://localhost:8080/payment"; // Replace with your second API URL
+const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/payment";
+const API_URL_2 = "http://localhost:8080/api/payment"; // Replace with your second API URL
 
 // Helper function to handle fallback
 const requestWithFallback = async (

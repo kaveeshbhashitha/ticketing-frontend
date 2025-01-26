@@ -21,7 +21,7 @@ const stripePromise = loadStripe(
 );
 
 const Checkout: React.FC = () => {
-  useAuthCheck(["User", "Admin"]);
+  useAuthCheck(["USER", "ADMIN"]);
   const { reservationId } = useParams<{ reservationId: string }>();
   const [reservationData, setReservationData] = useState<Reservation | null>(
     null
