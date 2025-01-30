@@ -3,8 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "homepage": "https://kaveeshbhashitha.github.io/ticketing-frontend",
-  "description": "A ticketing system for event management",
-  "author": "Kaveesh Bhashitha|Pasindu Pramuditha|supun pramudithapasindu48@gmail.com", 
   "type": "module",
   "main": "dist/electron/main.mjs",
   "scripts": {
@@ -79,20 +77,19 @@
     },
     "files": [
       "electron/**/*",
-      "dist/**/*",
-      "dist/assets/img/"
+      "dist/**/*"
     ],
     "win": {
       "target": "nsis",
-     "icon": "maths.ico"
+     "icon": "assets/img/maths.ico"
     },
     "mac": {
       "target": "dmg",
-       "icon": "maths.icns"
+       "icon": "assets/img/maths.icns"
     },
     "linux": {
       "target": "AppImage",
-        "icon": "maths.png"
+        "icon": "assets/img/maths.png"
     },
     "publish": [
       {
