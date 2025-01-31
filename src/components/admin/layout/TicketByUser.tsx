@@ -52,7 +52,7 @@ const TicketsByUser: React.FC = () => {
           userIds.forEach((userId) => {
             getUserById(userId) // Assuming this function fetches user details
               .then((user) => {
-                setUsernames((prev) => new Map(prev).set(userId, user.username)); // Store username in the map
+                setUsernames((prev) => new Map(prev).set(userId, user.firstName+" "+user.lastName)); // Store username in the map
               })
               .catch((error) => {
                 console.error(`Error fetching user info for ${userId}:`, error);
