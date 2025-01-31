@@ -3,10 +3,17 @@ import SideBar from "./layout/SideBar";
 import CongratulationsCard from "./layout/CongratulationsCard";
 import useAuthCheck from "../../useAuthCheck";
 import { getUserByEmail } from "../../service/UserService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../service/AuthService";
 import HeaderDasboard from "../layout/HeaderDashboard";
 import Footer from "../layout/Footer";
+import IncomeChart from "./layout/IncomeChart";
+import TotalIncome from "./layout/TotalIncome";
+import TodayIncome from "./layout/TodayIncome";
+import TotalTicketsSold from "./layout/TotalTicketSold";
+import TodayTicketsSold from "./layout/TodayTicketSold";
+import TicketsByUser from "./layout/TicketByUser";
+import DailyIncomeChart from "./layout/DailyIncome";
 
 
 
@@ -57,6 +64,8 @@ const Dashboard: React.FC = () => {
       if (response) {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('role');
+        sessionStorage.removeItem('token');
+
         navigate('/login');
       }
     } catch (error) {
@@ -95,7 +104,7 @@ const Dashboard: React.FC = () => {
 
               <ul className="navbar-nav flex-row align-items-center ms-auto">
                 <li className="nav-item lh-1 me-3">
-                  <a
+                  <Link to="/login"
                     className="github-button" onClick={handleLogout}>
                     <span className="fw-semibold d-block">
                       <abbr title="Click here to logout">
@@ -110,7 +119,7 @@ const Dashboard: React.FC = () => {
                         </div>
                       </abbr>
                     </span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item navbar-dropdown dropdown-user dropdown">
                   <a className="nav-link dropdown-toggle hide-arrow" href="/" data-bs-toggle="dropdown">
@@ -225,7 +234,7 @@ const Dashboard: React.FC = () => {
                           </div>
                           <span className="fw-semibold d-block mb-1">Total Income</span>
                           <h4 className="card-title mb-2">TotolIncome</h4>
-                          <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i> +72.80%</small>
+                          <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i><TotalIncome/></small>
                         </div>
                       </div>
                     </div>
@@ -258,7 +267,7 @@ const Dashboard: React.FC = () => {
                           </div>
                           <span>Today Income</span>
                           <h4 className="card-title text-nowrap mb-1">TodayIncome</h4>
-                          <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i> +28.42%</small>
+                          <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i><TodayIncome/></small>
                         </div>
                       </div>
                     </div>
@@ -269,7 +278,7 @@ const Dashboard: React.FC = () => {
                     <div className="row row-bordered g-0">
                       <div className="col-md-8">
                         <h5 className="card-header">Total Income</h5>
-                        DailyIncomeChart
+                        <IncomeChart />
                       </div>
                       <div className="col-md-4">
                         <div className="card-body">
@@ -283,12 +292,12 @@ const Dashboard: React.FC = () => {
                                 aria-haspopup="true"
                                 aria-expanded="false"
                               >
-                                2022
+                                2024
                               </button>
                               <div className="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                                <a className="dropdown-item" href="/">2021</a>
-                                <a className="dropdown-item" href="/">2020</a>
-                                <a className="dropdown-item" href="/">2019</a>
+                                <a className="dropdown-item" href="/">2024</a>
+                                <a className="dropdown-item" href="/">2023</a>
+                                <a className="dropdown-item" href="/">2022</a>
                               </div>
                             </div>
                           </div>
@@ -302,8 +311,8 @@ const Dashboard: React.FC = () => {
                               <span className="badge bg-label-primary p-2"><i className="bx bx-dollar text-primary"></i></span>
                             </div>
                             <div className="d-flex flex-column">
-                              <small>2022</small>
-                              <h6 className="mb-0">RS.12000</h6>
+                              <small>2024</small>
+                              <h6 className="mb-0"><TotalIncome/></h6>
                             </div>
                           </div>
                           <div className="d-flex">
@@ -311,8 +320,8 @@ const Dashboard: React.FC = () => {
                               <span className="badge bg-label-info p-2"><i className="bx bx-wallet text-info"></i></span>
                             </div>
                             <div className="d-flex flex-column">
-                              <small>2021</small>
-                              <h6 className="mb-0">RS.25,000</h6>
+                              <small>2025</small>
+                              <h6 className="mb-0">later</h6>
                             </div>
                           </div>
                         </div>
@@ -327,7 +336,9 @@ const Dashboard: React.FC = () => {
                           <div className="card-header d-flex align-items-center justify-content-between pb-0">
                             <div className="card-title mb-0">
                               <h5 className="m-0 me-2">Order Statistics</h5>
-                              <small className="text-muted">RS.42,982 Total Sales</small>
+                              <small className="text-muted">
+                               Rs.{Number(sessionStorage.getItem("totalIncome") || 0) * 1} Total Sales
+                              </small>
                             </div>
                             <div className="dropdown">
                               <button
@@ -359,11 +370,11 @@ const Dashboard: React.FC = () => {
                                 </div>
                                 <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                   <div className="me-2">
-                                    <h6 className="mb-0">Electronic</h6>
-                                    <small className="text-muted">Mobile, Earbuds, TV</small>
+                                    <h6 className="mb-0">General Events</h6>
+                                    <small className="text-muted">Seminar,Hikings,Night Camp</small>
                                   </div>
                                   <div className="user-progress">
-                                    <small className="fw-semibold">82.5k</small>
+                                    <small className="fw-semibold">Rs.{Number(sessionStorage.getItem("totalIncome") || 0) * 0.65}</small>
                                   </div>
                                 </div>
                               </li>
@@ -373,11 +384,11 @@ const Dashboard: React.FC = () => {
                                 </div>
                                 <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                   <div className="me-2">
-                                    <h6 className="mb-0">Fashion</h6>
-                                    <small className="text-muted">T-shirt, Jeans, Shoes</small>
+                                    <h6 className="mb-0">Sport Events</h6>
+                                    <small className="text-muted">Cricket,Football,Hocky</small>
                                   </div>
                                   <div className="user-progress">
-                                    <small className="fw-semibold">23.8k</small>
+                                    <small className="fw-semibold">Rs.{Number(sessionStorage.getItem("totalIncome") || 0) * 0.2}</small>
                                   </div>
                                 </div>
                               </li>
@@ -387,11 +398,11 @@ const Dashboard: React.FC = () => {
                                 </div>
                                 <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                   <div className="me-2">
-                                    <h6 className="mb-0">Decor</h6>
-                                    <small className="text-muted">Fine Art, Dining</small>
+                                    <h6 className="mb-0">Theator Events</h6>
+                                    <small className="text-muted">Maname,Hamlet</small>
                                   </div>
                                   <div className="user-progress">
-                                    <small className="fw-semibold">849k</small>
+                                    <small className="fw-semibold">RS.{Number(sessionStorage.getItem("totalIncome") || 0) * 0.15}</small>
                                   </div>
                                 </div>
                               </li>
@@ -402,11 +413,11 @@ const Dashboard: React.FC = () => {
                                 </div>
                                 <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                   <div className="me-2">
-                                    <h6 className="mb-0">Sports</h6>
-                                    <small className="text-muted">Football, Cricket Kit</small>
+                                    <h6 className="mb-0">Other Events</h6>
+                                    <small className="text-muted">Diving,Nature Events</small>
                                   </div>
                                   <div className="user-progress">
-                                    <small className="fw-semibold">99</small>
+                                    <small className="fw-semibold">RS.{Number(sessionStorage.getItem("totalIncome") || 0) * 0.05}</small>
                                   </div>
                                 </div>
                               </li>
@@ -414,7 +425,7 @@ const Dashboard: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-6 col-lg-4 order-1 mb-4">
+                      <div className="col-md-10 col-lg-8 order-1 mb-4">
                         <div className="card h-100">
                           <div className="card-header">
                             <ul className="nav nav-pills" role="tablist">
@@ -438,38 +449,12 @@ const Dashboard: React.FC = () => {
                                 <button type="button" className="nav-link" role="tab">Profit</button>
                               </li>
                             </ul>
+                            <span className="col-md-10 col-lg-8 order-1 mb-4">  <DailyIncomeChart /></span>
                           </div>
-                          <div className="card-body px-0">
-                            <div className="tab-content p-0">
-                              <div className="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-                                <div className="d-flex p-4 pt-3">
-                                  <div className="avatar flex-shrink-0 me-3">
-                                    <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
-                                  </div>
-                                  <div>
-                                    <small className="text-muted d-block">Total Balance</small>
-                                    <div className="d-flex align-items-center">
-                                      <h6 className="mb-0 me-1">RS.45,910</h6>
-                                      <small className="text-success fw-semibold">
-                                        <i className="bx bx-chevron-up"></i>
-                                        42.9%
-                                      </small>
-                                    </div>
-                                  </div>
-                                </div>
-                                {/* <div id="incomeChart"><BarChart/></div> */}
-                                <div className="d-flex justify-content-center pt-4 gap-2">
-                                  <div className="flex-shrink-0">
-                                    <div id="expensesOfWeek"></div>
-                                  </div>
-                                  <div>
-                                    <p className="mb-n1 mt-1">Expenses This Week</p>
-                                    <small className="text-muted">RS.3900 less than last week</small>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        
+                       
+                      
+                     
                         </div>
                       </div>
                     </div>
@@ -503,7 +488,7 @@ const Dashboard: React.FC = () => {
                           </div>
                           <span className="d-block mb-1">Total Ticket Sales</span>
                           <h3 className="card-title text-nowrap mb-2"> TotalTickets </h3>
-                          <small className="text-danger fw-semibold"><i className="bx bx-down-arrow-alt"></i> -14.82%</small>
+                          <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i><TotalTicketsSold/></small>
                         </div>
                       </div>
                     </div>
@@ -533,7 +518,7 @@ const Dashboard: React.FC = () => {
                           </div>
                           <span className="fw-semibold d-block mb-1">Today Ticket Sales</span>
                           <h3 className="card-title mb-2"> TodayTickets </h3>
-                          <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i> +28.14%</small>
+                          <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i><TodayTicketsSold/></small>
                         </div>
                       </div>
                     </div>
@@ -544,12 +529,12 @@ const Dashboard: React.FC = () => {
                             <div className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                               <div className="card-title">
                                 <h5 className="text-nowrap mb-2">Ticket Reservations</h5>
-                                <span className="badge bg-label-warning rounded-pill">Year 2021</span>
+                                <span className="badge bg-label-warning rounded-pill">Year 2024</span>
                               </div>
                               <div className="mt-sm-auto">
                                 <small className="text-success text-nowrap fw-semibold"
-                                ><i className="bx bx-chevron-up"></i> 68.2%</small>
-                                <h5 className="mt-2">Number of Reservations: 00 totalReservations</h5>
+                                ><i className="bx bx-chevron-up"></i><TicketsByUser/></small>
+                                <h5 className="mt-2"></h5>
                               </div>
                             </div>
                             <div id="profileReportChart"></div>
