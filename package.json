@@ -1,7 +1,7 @@
 {
   "name": "ticketing-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "3.0.0",
   "homepage": "https://github.com/PasinduPramudithaJ/ticketing-frontend",
   "description": "A ticketing system for event management",
   "author": "PasinduPramudithaJ <pramudithapasindu48@gmail.com>",
