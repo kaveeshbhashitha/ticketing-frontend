@@ -8,7 +8,8 @@ import HomeGalary from "../../content/HomeGalary";
 import HomeSponsors from "../../content/HomeSponsers";
 import Chatbot from "../../chatbot/Chatbot";
 import Footer from "../../layout/Footer";
-import AdminHeader from "./AdminHeader";
+// import AdminHeader from "./AdminHeader";
+import Header from "../../layout/Header";
 
 
 const Home: React.FC = () => {
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
   return (
     <body>
         <div>
-            <AdminHeader/>
+            <Header/>
             <HomeIntro />
             <HomeAbout />
             <HomeSpeecker/>

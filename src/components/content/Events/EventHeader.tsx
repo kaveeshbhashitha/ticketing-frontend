@@ -7,6 +7,7 @@ const EventHeader: React.FC = () => {
   const [className, setClassName] = useState('');
   const [signed, setSigned] = useState('');
   const navigate = useNavigate();
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
     const user = sessionStorage.getItem('user');
@@ -44,6 +45,7 @@ const handleLogout = async () => {
             <nav id="nav-menu-container">
                 <ul className="nav-menu">
                   <li><Link to="/">Home</Link></li>
+                  {role == 'ADMIN' ? <li><Link to="/dashboard">Dashboard</Link></li> : <li></li> }
                   <li><Link to="/AllEvents">All Events</Link></li>
                   <li><Link to="/GeneralEvent">General Events</Link></li>
                   <li><Link to="/SportEvent">Sport Events</Link></li>
