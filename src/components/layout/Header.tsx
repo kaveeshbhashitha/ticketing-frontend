@@ -7,9 +7,11 @@ const Header: React.FC = () => {
   const [className, setClassName] = useState('');
   const [signed, setSigned] = useState('');
   const navigate = useNavigate();
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
     const user = sessionStorage.getItem('user');
+
     if (user) {
         setClassName('block buy-tickets');
         setSigned('none buy-tickets');
@@ -45,8 +47,10 @@ const handleLogout = async () => {
                 <ul className="nav-menu">
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/AllEvents">Events</Link></li>
-                  <li><Link to="/myTickets">My Tickets</Link></li>
-                  <li><Link to="/userProfile">Profile</Link></li>
+                  {role == 'ADMIN' ? <li><Link to="/dashboard">Dashboard</Link></li> : <li></li> }
+                  {role == 'ADMIN' ? <li></li> : <li><Link to="/myTickets">My Tickets</Link></li>}
+                  {role == 'ADMIN' ? <li></li> : <li><Link to="/userProfile">Profile</Link></li>}
+                  
                   <li><Link to="/contact">Contact Us</Link></li>
                   <li className={signed}><Link to="/login">Sign In</Link></li>
                   <li className={className}><Link to="#" onClick={handleLogout}>Logout</Link></li>
