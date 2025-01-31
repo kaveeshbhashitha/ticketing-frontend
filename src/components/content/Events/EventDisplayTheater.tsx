@@ -13,7 +13,7 @@ const EventDisplayTheater: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventList = await getAllTheater();
+        const eventList: Event[] = await getAllTheater() as Event[];
         if (eventList && eventList.length > 0) {
           setEvents(eventList);
           setFilteredEvents(eventList); // Initialize filtered events with all events

@@ -6,7 +6,7 @@ import ComponentDasboard from "../../layout/ComponetDashboard";
 import Footer from "../../layout/Footer";
 
 const AddEvent: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
 
   return (
     <div>

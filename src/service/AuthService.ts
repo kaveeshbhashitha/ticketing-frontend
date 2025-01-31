@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Two API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/user";
-const API_URL_2 = "http://localhost:8080/user";  // Replace with the second API URL
+const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/user";
+const API_URL_2 = "http://localhost:8080/api/user"; 
 
 // Helper function to attempt requests on both APIs
 const requestWithFallback = async (requestFunc: { (apiUrl: unknown): Promise<unknown> }) => {
@@ -23,9 +23,6 @@ export function login(userEmail: string, password: string) {
     axios
       .post(`${apiUrl}/login`, { userEmail, password })
       .then((response) => {
-        if (response.data) {
-          localStorage.setItem("user", JSON.stringify(userEmail));
-        }
         return response.data;
       })
   );

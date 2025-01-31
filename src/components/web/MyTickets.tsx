@@ -10,48 +10,39 @@ import { Reservation } from "../../interfaces/Reservation";
 import useAuthCheck from "../../useAuthCheck";
 
 const MyTickets: React.FC = () => {
-  useAuthCheck(["User", "Admin"]);
-  const [, setUser] = useState(null);
-  const [, setEvents] = useState<Event[]>([]);
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  useAuthCheck(["USER", "ADMIN"]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [events, setEvents] = useState<{ [key: string]: Event | null }>({});
   const [filter, setFilter] = useState("upcoming");
   const [errorMessage, setErrorMessage] = useState("");
-
-  // state to store reservations data
-  const [reservations, setReservations] = useState<Reservation[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userId = await getUserId();
-        const userResponse = await getUserById(userId);
-        setUser(userResponse);
+        await getUserById(userId);
 
         const reservationsResponse = await getReservationsByUserId(userId);
-        const eventPromises = reservationsResponse.map(
-          (reservation: { eventId: string }) =>
-            getEventById(reservation.eventId)
-        );
-        const eventsResponse = await Promise.all(eventPromises);
+        setReservations(reservationsResponse);
 
-        if (eventsResponse && eventsResponse.length > 0) {
-          setEvents(eventsResponse);
-          const upcomingEvents = eventsResponse.filter(
-            (event) => new Date(event.eventDate) > new Date()
-          );
-          const pastEvents = eventsResponse.filter(
-            (event) => new Date(event.eventDate) < new Date()
-          );
+        // Fetch event details for each reservation
+        const eventPromises = reservationsResponse.map(async (reservation: Reservation) => {
+          try {
+            const event = await getEventById(reservation.eventId);
+            return { eventId: reservation.eventId, event };
+          } catch (error) {
+            console.error("Error fetching event details for:", reservation.eventId, error);
+            return { eventId: reservation.eventId, event: null };
+          }
+        });
 
-          // Store reservations data separately to later map it to the events
-          setReservations(reservationsResponse);
+        const eventDataArray = await Promise.all(eventPromises);
+        const eventMap = eventDataArray.reduce((acc, { eventId, event }) => {
+          acc[eventId] = event;
+          return acc;
+        }, {} as { [key: string]: Event | null });
 
-          setFilteredEvents(
-            filter === "upcoming" ? upcomingEvents : pastEvents
-          );
-        } else {
-          setErrorMessage("No events found.");
-        }
+        setEvents(eventMap);
       } catch (error) {
         console.error("Error fetching user and events", error);
         setErrorMessage("Failed to load events. Please try again.");
@@ -59,41 +50,24 @@ const MyTickets: React.FC = () => {
     };
 
     fetchData();
-  }, [filter]);
-
-  const handleFilterChange = (newFilter: string) => {
-    setFilter(newFilter);
-  };
+  }, []);
 
   const handleDelete = async (id: string) => {
     try {
-      const confirmRespond = confirm(
-        "Are you sure you want to delete this record?"
-      );
-      if (confirmRespond) {
+      if (confirm("Are you sure you want to delete this reservation?")) {
         await deleteReservation(id);
-        setEvents((prevEvents) =>
-          prevEvents.filter((event) => event.eventId !== id)
-        );
-        setFilteredEvents((prevEvents) =>
-          prevEvents.filter((event) => event.eventId !== id)
-        );
+        setReservations((prev) => prev.filter((res) => res.eventId !== id));
       }
     } catch (error) {
-      console.error("Failed to delete event:", error);
+      console.error("Failed to delete reservation:", error);
     }
   };
 
-  // Helper function to get reservation details
-  const getReservationDetails = (eventId: string) => {
-    const reservation = reservations.find((res) => res.eventId === eventId);
-    return reservation
-      ? {
-          numOfTickets: reservation.numOfTickets,
-          totalCharge: reservation.totalCharge,
-        }
-      : { numOfTickets: 0, totalCharge: 0 };
-  };
+  const filteredReservations = reservations.filter((reservation) => {
+    const event = events[reservation.eventId];
+    if (!event) return false;
+    return filter === "upcoming" ? new Date(event.eventDate) > new Date() : new Date(event.eventDate) < new Date();
+  });
 
   return (
     <div>
@@ -109,31 +83,17 @@ const MyTickets: React.FC = () => {
                 : "You have reached following Events last few weeks"}
             </div>
             <div className="d-flex justify-content-center my-2">
-              <button
-                onClick={() => handleFilterChange("upcoming")}
-                className="btn btn-outline-primary btn-sm mr-2"
-              >
-                Upcoming Events
-              </button>
-              <button
-                onClick={() => handleFilterChange("past")}
-                className="btn btn-outline-primary btn-sm"
-              >
-                Past Events
-              </button>
+              <button onClick={() => setFilter("upcoming")} className="btn btn-outline-primary btn-sm mr-2">Upcoming Events</button>
+              <button onClick={() => setFilter("past")} className="btn btn-outline-primary btn-sm">Past Events</button>
             </div>
           </div>
 
-          {errorMessage && (
-            <div className="alert alert-danger" role="alert">
-              {errorMessage}
-            </div>
-          )}
+          {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
 
           <div className="row">
             <div className="col-lg-12">
               <div className="table-container">
-                {filteredEvents.length > 0 ? (
+                {filteredReservations.length > 0 ? (
                   <table className="table table-bordered">
                     <thead>
                       <tr>
@@ -142,8 +102,7 @@ const MyTickets: React.FC = () => {
                         <th>Event Name</th>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Max</th>
-                        <th>#</th>
+                        <th># Tickets</th>
                         <th>Total</th>
                         <th>Organizer</th>
                         <th>Action</th>
@@ -151,14 +110,12 @@ const MyTickets: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredEvents.map((event) => {
-                        const { numOfTickets, totalCharge } =
-                          getReservationDetails(event.eventId);
+                      {filteredReservations.map((reservation) => {
+                        const event = events[reservation.eventId];
+                        if (!event) return null;
                         return (
-                          <tr key={event.eventId}>
-                            <td>
-                              <abbr title={event.eventId}>#</abbr>
-                            </td>
+                          <tr key={reservation.eventId}>
+                            <td><abbr title={reservation.eventId}>#</abbr></td>
                             <td>{event.eventVenue}</td>
                             <td>
                               <div
@@ -179,38 +136,28 @@ const MyTickets: React.FC = () => {
                                 {event.eventName}
                               </div>
                             </td>
-
                             <td>{event.eventDate}</td>
                             <td>{event.startTime}</td>
-                            <td>{event.numOfTickets}</td>
-                            <td>{numOfTickets}</td>
-                            <td>Rs.{totalCharge}.00</td>
+                            <td>{reservation.numOfTickets}</td>
+                            <td>Rs.{reservation.totalCharge}.00</td>
                             <td>{event.eventOrganizer}</td>
                             <td className="text-center">
-                              <a className="btn btn-outline-dark btn-sm"
-                                onClick={() => handleDelete(event.eventId)}
-                              >
+                              <button className="btn btn-outline-dark btn-sm" onClick={() => handleDelete(reservation.eventId)}>
                                 <i className="fa-solid fa-ban"></i>
-                              </a>
+                              </button>
                             </td>
-                            {event.imageData && (
-                              <td className="center-column">
-                                <img
-                                  src={`data:${event.contentType};base64,${event.imageData}`}
-                                  alt="Event"
-                                  className="tableimg"
-                                />
-                              </td>
-                            )}
+                            <td className="center-column">
+                              {event.imageData && (
+                                <img src={`data:${event.contentType};base64,${event.imageData}`} alt="Event" className="tableimg" />
+                              )}
+                            </td>
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
                 ) : (
-                  <div className="" role="alert">
-                    No events available
-                  </div>
+                  <div role="alert">No reservations available</div>
                 )}
               </div>
             </div>

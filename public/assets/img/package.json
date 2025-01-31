@@ -2,15 +2,14 @@
   "name": "ticketing-frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://github.com/PasinduPramudithaJ/ticketing-frontend",
-  "description": "A ticketing system for event management",
-  "author": "PasinduPramudithaJ <pramudithapasindu48@gmail.com>", 
+  "homepage": "https://kaveeshbhashitha.github.io/ticketing-frontend",
   "type": "module",
   "main": "dist/electron/main.mjs",
   "scripts": {
     "dev": "vite",
     "start": "vite",
     "build": "tsc -b && vite build",
+    "minify": "false",
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
@@ -19,8 +18,8 @@
     "electron:build": "electron-builder build",
     "electron:serve": "electron-builder serve",
     "electron:pack": "electron-builder --dir",
-    "electron:dist": "electron-builder --win",
-    "electron:publish": "electron-builder --win --publish always",
+    "electron:dist": "electron-builder --mac --win --linux",
+    "electron:publish": "electron-builder --mac --win --linux --publish always",
     "electron:clean": "rm -rf dist build",
     "electron:rebuild": "electron-rebuild -f -w @capacitor/android",
     "electron:rebuild:all": "electron-rebuild -f -w @capacitor/android,@capacitor/core,@capacitor/camera,@capacitor-community/http"
@@ -77,29 +76,26 @@
       "output": "dist"
     },
     "files": [
-      "dist/electron/**/*",
-      "dist/**/*",
-      "dist/assets/img/"
+      "electron/**/*",
+      "dist/**/*"
     ],
     "win": {
       "target": "nsis",
-      "icon": "maths.ico"
+     "icon": "assets/img/maths.ico"
     },
     "mac": {
       "target": "dmg",
-      "icon": "maths.icns"
+       "icon": "assets/img/maths.icns"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "maths.png"
+        "icon": "assets/img/maths.png"
     },
     "publish": [
       {
         "provider": "github",
-        "owner": "PasinduPramudithaJ",
-        "repo": "ticketing-frontend",
-        "releaseType": "release",
-        "private": false
+        "owner": "kaveeshbhashitha",
+        "repo": "ticketing-frontend"
       }
     ]
   }

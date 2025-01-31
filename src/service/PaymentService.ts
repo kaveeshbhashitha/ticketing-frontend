@@ -1,8 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 
 // Two API URLs for fallback
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/payment";
-const API_URL_2 = "http://localhost:8080/payment"; // Replace with the second API URL
+const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/payment";
+const API_URL_2 = "http://localhost:8080/api/payment";
+const token = sessionStorage.getItem("token");
 
 // Helper function to attempt requests on both APIs
 const requestWithFallback = async (
@@ -25,16 +26,28 @@ const requestWithFallback = async (
 
 // Payment APIs
 export const makePayment = async (formData: FormData): Promise<string> => {
-  const response = await requestWithFallback((apiUrl) => axios.post(`${apiUrl}/process`, formData));
+  const response = await requestWithFallback((apiUrl) => axios.post(`${apiUrl}/process`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }));
   return response.data;
 };
 
 export async function getAllPayment() {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAllPayment`));
+  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAllPayment`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }));
   return response.data;
 }
 
 export const deletePayment = async (id: string) => {
-  const response = await requestWithFallback((apiUrl) => axios.delete(`${apiUrl}/deletePayment/${id}`));
+  const response = await requestWithFallback((apiUrl) => axios.delete(`${apiUrl}/deletePayment/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }));
   return response.data;
 };

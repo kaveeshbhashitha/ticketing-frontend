@@ -2,8 +2,9 @@ import axios from "axios";
 import { getReservationsByUserId } from "./ReservationService";
 
 // Two API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/events";
-const API_URL_2 = "http://localhost:8080/events";  // Replace with the second API URL
+const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/events";
+const API_URL_2 = "http://localhost:8080/api/events";
+const token = sessionStorage.getItem("token");
 
 // Helper function to attempt requests on both APIs
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,82 +18,131 @@ const requestWithFallback = async (requestFunc: { (apiUrl: any): Promise<any> })
   }
 };
 
+// Function to add an event
 export const addEvent = async (formData: FormData): Promise<unknown> => {
-  const response = await requestWithFallback((apiUrl) => axios.post(`${apiUrl}/addEvent`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  }));
+  const response = await requestWithFallback((apiUrl) =>
+    axios.post(`${apiUrl}/addEvent`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+    })
+  );
   return response.data;
 };
 
-export const getEventById = async (eventId: string | undefined) => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getEvent/${eventId}`));
+// Function to get event by ID
+export const getEventById = async (eventId: string | undefined): Promise<unknown> => {
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getEvent/${eventId}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   return response.data;
 };
 
-export const getGeneralEvents = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+// Function to get general events
+export const getGeneralEvents = async (): Promise<unknown> => {
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`));
   const filteredEvents = response.data.filter(
-    (event: { eventType: string, status: string }) => event.eventType === "generalEvent" && event.status !== "Cancelled"
+    (event: { eventType: string; status: string }) =>
+      event.eventType === "generalEvent" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
 
-export const getAllSports = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+// Function to get sports events
+export const getAllSports = async (): Promise<unknown> => {
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   const filteredEvents = response.data.filter(
-    (event: { eventType: string, status: string }) => event.eventType === "sports" && event.status !== "Cancelled"
+    (event: { eventType: string; status: string }) =>
+      event.eventType === "sports" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
 
-export const getAllTheater = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+// Function to get theater events
+export const getAllTheater = async (): Promise<unknown> => {
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   const filteredEvents = response.data.filter(
-    (event: { eventType: string, status: string }) => event.eventType === "theater" && event.status !== "Cancelled"
+    (event: { eventType: string; status: string }) =>
+      event.eventType === "theater" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
 
+// Function to get all "other" events
 export const getAllOtherEvents = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   const filteredEvents = response.data.filter(
-    (event: { eventType: string, status: string }) => event.eventType === "otherEvent" && event.status !== "Cancelled"
+    (event: { eventType: string; status: string }) =>
+      event.eventType === "otherEvent" && event.status !== "Cancelled"
   );
   return filteredEvents;
 };
 
+// Function to delete an event
 export const deleteEvent = async (id: string) => {
-  const response = await requestWithFallback((apiUrl) => axios.delete(`${apiUrl}/delete/${id}`));
+  const response = await requestWithFallback((apiUrl) =>
+    axios.delete(`${apiUrl}/delete/${id}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   return response.data;
 };
 
+// Function to cancel an event
 export const cancelEvent = async (eventId: string): Promise<void> => {
   try {
-    await requestWithFallback((apiUrl) => axios.put(`${apiUrl}/cancel/${eventId}`));
+    await requestWithFallback((apiUrl) =>
+      axios.put(`${apiUrl}/cancel/${eventId}`, null, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      })
+    );
   } catch (error) {
     console.error("Error canceling event:", error);
     throw error;
   }
 };
 
+// Function to reschedule an event
 export const rescheduleEvent = async (eventId: string): Promise<void> => {
   try {
-    await requestWithFallback((apiUrl) => axios.put(`${apiUrl}/reschedule/${eventId}`));
+    await requestWithFallback((apiUrl) =>
+      axios.put(`${apiUrl}/reschedule/${eventId}`, null, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      })
+    );
   } catch (error) {
     console.error("Error rescheduling event:", error);
     throw error;
   }
 };
 
+// Function to update an event
 export const updateEvent = async (eventId: string, updatedEventData: FormData) => {
   try {
-    const response = await requestWithFallback((apiUrl) => axios.put(`${apiUrl}/update/${eventId}`, updatedEventData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }));
+    const response = await requestWithFallback((apiUrl) =>
+      axios.put(`${apiUrl}/update/${eventId}`, updatedEventData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      })
+    );
     return response.data;
   } catch (error) {
     console.error("Error updating event:", error);
@@ -100,63 +150,103 @@ export const updateEvent = async (eventId: string, updatedEventData: FormData) =
   }
 };
 
+// Function to get all events
 export const getAllEvents = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   const filteredEvents = response.data.filter(
     (event: { status: string }) => event.status !== "Cancelled"
   );
   return filteredEvents;
 };
 
+// Function to get all canceled events
 export const getAllEventsCancelled = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   const filteredEvents = response.data.filter(
     (event: { status: string }) => event.status === "Cancelled"
   );
   return filteredEvents;
 };
 
-// Filter events for front page user interactions
+// Filter and sort events for front-page user interactions
 export const getAllOtherEventDataForFrontEnd = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   const currentDateTime = new Date();
 
   const filteredEvents = response.data.filter(
-    (event: { eventType: string; eventDate: string; startTime: string, status: string }) => {
+    (event: { eventType: string; eventDate: string; startTime: string; status: string }) => {
       const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
       return eventDateTime >= currentDateTime && event.status !== "Cancelled";
     }
   );
-  const sortedEvents = filteredEvents.sort((a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
-    const dateA = new Date(`${a.eventDate}T${a.startTime}`);
-    const dateB = new Date(`${b.eventDate}T${b.startTime}`);
-    return dateB.getTime() - dateA.getTime();
-  });
+
+  const sortedEvents = filteredEvents.sort(
+    (a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
+      const dateA = new Date(`${a.eventDate}T${a.startTime}`);
+      const dateB = new Date(`${b.eventDate}T${b.startTime}`);
+      return dateB.getTime() - dateA.getTime();
+    }
+  );
+
   return sortedEvents.slice(0, 6);
 };
 
+// Filter events without slicing for front-end user interactions
 export const getAllOtherEventDataForFrontEndWithoutSort = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
   const currentDateTime = new Date();
 
   const filteredEvents = response.data.filter(
-    (event: { eventType: string; eventDate: string; startTime: string, status: string }) => {
+    (event: { eventType: string; eventDate: string; startTime: string; status: string }) => {
       const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
       return eventDateTime >= currentDateTime && event.status !== "Cancelled";
     }
   );
-  const sortedEvents = filteredEvents.sort((a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
-    const dateA = new Date(`${a.eventDate}T${a.startTime}`);
-    const dateB = new Date(`${b.eventDate}T${b.startTime}`);
-    return dateB.getTime() - dateA.getTime();
-  });
+
+  const sortedEvents = filteredEvents.sort(
+    (a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
+      const dateA = new Date(`${a.eventDate}T${a.startTime}`);
+      const dateB = new Date(`${b.eventDate}T${b.startTime}`);
+      return dateB.getTime() - dateA.getTime();
+    }
+  );
+
   return sortedEvents;
 };
 
 export const getEventsInThisWeek = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+  // Retrieve the authorization token from session storage
+  //const token = sessionStorage.getItem("token");
+  if (!token) throw new Error("Authorization token is missing.");
+
+  // Define a function that includes the headers with the request
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  );
+
   const { start, end } = getStartAndEndOfWeek();
 
+  // Filter events that fall within the current week
   const filteredEvents = response.data.filter(
     (event: { eventDate: string; startTime: string }) => {
       const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
@@ -168,9 +258,20 @@ export const getEventsInThisWeek = async () => {
 };
 
 export const getEventsInThisMonth = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
-  const { start, end } = getStartAndEndOfMonth();
+  if (!token) throw new Error("Authorization token is missing.");
 
+  // Make a request with authorization header
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    })
+  );
+
+  const { start, end } = getStartAndEndOfMonth(); 
+
+  // Filter events that fall within the current month
   const filteredEvents = response.data.filter(
     (event: { eventDate: string; startTime: string }) => {
       const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
@@ -182,9 +283,20 @@ export const getEventsInThisMonth = async () => {
 };
 
 export const getEventsInThisYear = async () => {
-  const response = await requestWithFallback((apiUrl) => axios.get(`${apiUrl}/getAll`));
+  if (!token) throw new Error("Authorization token is missing.");
+
+  // Make a request with authorization header
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in headers
+      },
+    })
+  );
+
   const { start, end } = getStartAndEndOfYear();
 
+  // Filter events that fall within the current year
   const filteredEvents = response.data.filter(
     (event: { eventDate: string; startTime: string }) => {
       const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);

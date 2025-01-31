@@ -21,7 +21,7 @@ const stripePromise = loadStripe(
 );
 
 const Checkout: React.FC = () => {
-  useAuthCheck(["User", "Admin"]);
+  useAuthCheck(["USER", "ADMIN"]);
   const { reservationId } = useParams<{ reservationId: string }>();
   const [reservationData, setReservationData] = useState<Reservation | null>(
     null
@@ -48,7 +48,7 @@ const Checkout: React.FC = () => {
 
   const fetchEventData = async (eventId: string) => {
     const response = await getEventById(eventId);
-    setEventData(response);
+    setEventData(response as Event);
   };
 
   const fetchUserData = async (userId: string) => {

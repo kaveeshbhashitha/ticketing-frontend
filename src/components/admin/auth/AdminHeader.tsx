@@ -3,7 +3,7 @@ import Logo from "./../../layout/Logo";
 import { Link,useNavigate } from "react-router-dom";
 import { logout } from "../../../service/AuthService";
 
-const Header: React.FC = () => {
+const AdminHeader: React.FC = () => {
   const [className, setClassName] = useState('');
   const [signed, setSigned] = useState('');
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ const handleLogout = async () => {
       if (response) {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('role');
+        sessionStorage.removeItem('token');
         navigate('/login');
       }
     } catch (error) {
@@ -57,4 +58,4 @@ const handleLogout = async () => {
     </div>
   );
 };
-export default Header;
+export default AdminHeader;

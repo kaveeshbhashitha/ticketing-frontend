@@ -11,11 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { CheckoutFormProps } from "../../interfaces/CheckoutFormProps";
 import { cardBrandIcons } from "../../data/CardData";
 
-// API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/payment";
-const API_URL_2 = "http://localhost:8080/payment"; // Replace with your second API URL
+const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/payment";
+const API_URL_2 = "http://localhost:8080/api/payment";
 
-// Helper function to handle fallback
 const requestWithFallback = async (
   requestFunc: (apiUrl: string) => Promise<any>
 ): Promise<any> => {
@@ -32,7 +30,6 @@ const requestWithFallback = async (
   }
 };
 
-// Function to send data to backend
 const insertPaymentData = async (paymentDetails: {
   userId: string;
   reservationId: string;
@@ -59,6 +56,10 @@ const Payment: React.FC<CheckoutFormProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [cardBrand, setCardBrand] = useState<string | null>(null);
+  const [cardComplete, setCardComplete] = useState(false);
+  const [expiryComplete, setExpiryComplete] = useState(false);
+  const [cvcComplete, setCvcComplete] = useState(false);
+  const [cardName, setCardName] = useState("");
 
   const handlePayment = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -68,15 +69,14 @@ const Payment: React.FC<CheckoutFormProps> = ({
       return;
     }
 
-    if (!isChecked) {
-      alert("Please accept the terms and conditions to proceed.");
+    if (!isChecked || !cardComplete || !expiryComplete || !cvcComplete || !cardName.trim()) {
+      alert("Please fill in all required fields and accept the terms to proceed.");
       return;
     }
 
     setIsProcessing(true);
 
     try {
-      // Prepare payment details
       const paymentDetails = {
         userId,
         reservationId,
@@ -84,10 +84,7 @@ const Payment: React.FC<CheckoutFormProps> = ({
         amount,
       };
 
-      // Call function to insert payment details into the backend
       await insertPaymentData(paymentDetails);
-
-      // Navigate to another page after successful payment
       alert("Payment data saved successfully!");
       navigate("/myTickets");
     } catch (error) {
@@ -102,9 +99,7 @@ const Payment: React.FC<CheckoutFormProps> = ({
     <form className="px-3 pb-3" onSubmit={handlePayment}>
       <div className="payment-container">
         <div className="form-element">
-          <div className="mb-3 text-white bg-dark text-center width-70">
-            Payment Form
-          </div>
+          <div className="mb-3 text-white bg-dark text-center width-70">Payment Form</div>
           <div className="d-flex justify-content-between width-70 alert alert-dark">
             <span>Selected: {numOfTickets}</span>|<span>One is: Rs.{perTicketCharge}.00</span>|<span>Total: Rs.{amount}.00</span>
           </div>
@@ -113,12 +108,9 @@ const Payment: React.FC<CheckoutFormProps> = ({
             <input type="email" className="emailinput" value={userEmail} disabled />
           </div>
 
-          {/* Card Details */}
           <div>
             <div className="d-flex justify-content-between marginright">
-              <label htmlFor="card-number" className="form-label mt-2">
-                Card Information
-              </label>
+              <label htmlFor="card-number" className="form-label mt-2">Card Information</label>
               {cardBrand && (
                 <img
                   src={cardBrandIcons[cardBrand] || cardBrandIcons["unknown"]}
@@ -135,6 +127,7 @@ const Payment: React.FC<CheckoutFormProps> = ({
               options={{ style: { base: { fontSize: "16px" } } }}
               onChange={(event) => {
                 setCardBrand(event?.brand || "unknown");
+                setCardComplete(event.complete);
               }}
             />
           </div>
@@ -144,43 +137,35 @@ const Payment: React.FC<CheckoutFormProps> = ({
               id="card-expiry"
               className="form-control-date"
               options={{ style: { base: { fontSize: "16px" } } }}
+              onChange={(event) => setExpiryComplete(event.complete)}
             />
             <CardCvcElement
               id="card-cvc"
               className="form-control-cvc"
               options={{ style: { base: { fontSize: "16px" } } }}
+              onChange={(event) => setCvcComplete(event.complete)}
             />
           </div>
 
           <div className="mb-3">
-            <label htmlFor="postal-code" className="form-label">
-              Name on the Card
-            </label>
+            <label htmlFor="card-name" className="form-label">Name on the Card</label>
             <br />
             <input
               type="text"
-              id="postal-code"
+              id="card-name"
               className="form-control-name"
               placeholder="Zhang San"
+              value={cardName}
+              onChange={(e) => setCardName(e.target.value)}
             />
           </div>
 
-          {/* Terms & Conditions */}
           <div className="form-check mb-3">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="termsCheck"
-              checked={isChecked}
-              onChange={(e) => setIsChecked(e.target.checked)}
-            />
-            <label htmlFor="termsCheck" className="form-check-label">
-              I accept the terms and conditions
-            </label>
+            <input type="checkbox" className="form-check-input" id="termsCheck" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
+            <label htmlFor="termsCheck" className="form-check-label">I accept the terms and conditions</label>
           </div>
 
-          {/* Submit Button */}
-          <button type="submit" className="pay-button" disabled={isProcessing}>
+          <button type="submit" className="pay-button" disabled={isProcessing || !isChecked || !cardComplete || !expiryComplete || !cvcComplete || !cardName.trim()}>
             {isProcessing ? "Processing..." : "Pay Now"}
           </button>
         </div>

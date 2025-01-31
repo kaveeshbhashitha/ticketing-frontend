@@ -15,7 +15,7 @@ import { LineChart } from "../charts/LineChart";
 
 
 const UserProfile: React.FC = () => {
-  useAuthCheck(["User", "Admin"]);
+  useAuthCheck(["USER", "ADMIN"]);
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [, setError] = useState<string | null>(null);
@@ -41,7 +41,7 @@ const UserProfile: React.FC = () => {
       if (!userEmail) throw new Error("User email not found");
 
       const data = await getUserByEmail(userEmail);
-      const event = await getEventsByUserId(data.userId);
+      const event: Event[] = await getEventsByUserId(data.userId) as Event[];
 
       setFormData(data);
       setUserData(data);

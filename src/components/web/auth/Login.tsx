@@ -33,9 +33,11 @@ const Login: React.FC = () => {
       if (response.token && response.email) {
         sessionStorage.setItem('user', userEmail);
         sessionStorage.setItem('role', response.role);
+        sessionStorage.setItem('token', response.token);
+        
+        console.log(userEmail, response.role, response.token);
 
-        if (response.role === "Admin") {
-          console.log(response.role)
+        if (response.role === "ADMIN") {
           navigate('/dashboard');
         } else {
           navigate('/');

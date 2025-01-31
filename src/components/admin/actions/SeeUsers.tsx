@@ -4,10 +4,10 @@ import { deleteUser, getAllUsers } from "../../../service/UserService";
 import useAuthCheck from "../../../useAuthCheck";
 import { User } from "../../../interfaces/User";
 import ComponentDasboard from "../../layout/ComponetDashboard";
-import Footer from "../../layout/Footer";
+
 
 const SeeUsers: React.FC = () => {
-  useAuthCheck(['Admin']);
+  useAuthCheck(['ADMIN']);
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -167,7 +167,7 @@ const SeeUsers: React.FC = () => {
           </div>
         </div>
       </div>
-    </div><Footer /></>
+    </div></>
   );
 };
 

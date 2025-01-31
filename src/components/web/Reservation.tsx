@@ -9,7 +9,7 @@ import { getUserId } from "../../service/UserService";
 import { addReservation } from "../../service/ReservationService";
 
 const Reservation: React.FC = () => {
-  useAuthCheck(["User", "Admin"]);
+  useAuthCheck(["USER", "ADMIN"]);
   const { eventId } = useParams<{ eventId: string }>();
   const [event, setEvent] = useState<Event | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +22,7 @@ const Reservation: React.FC = () => {
       try {
         if (!eventId) throw new Error("Event ID is missing.");
         const eventData = await getEventById(eventId);
-        setEvent(eventData);
+        setEvent(eventData as Event);
       } catch (err) {
         setError("Failed to fetch event details.");
         console.error(err);

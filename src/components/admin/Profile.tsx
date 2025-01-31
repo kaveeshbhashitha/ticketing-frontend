@@ -13,7 +13,7 @@ import ComponentDasboard from "../layout/ComponetDashboard";
 import Footer from "../layout/Footer";
 
 const Profile: React.FC = () => {
-  useAuthCheck(["User", "Admin"]);
+  useAuthCheck(["USER", "ADMIN"]);
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [, setError] = useState<string | null>(null);
