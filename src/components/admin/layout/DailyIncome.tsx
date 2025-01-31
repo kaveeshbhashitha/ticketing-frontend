@@ -95,7 +95,7 @@ const DailyIncomeChart: React.FC = () => {
       tooltip: {
         callbacks: {
           label: function (tooltipItem: any) {
-            return `$${tooltipItem.raw.toFixed(2)} income`; // Tooltip format for daily income
+            return `RS.${tooltipItem.raw.toFixed(2)} income`; // Tooltip format for daily income
           },
         },
       },
