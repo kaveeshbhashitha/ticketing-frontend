@@ -19,41 +19,54 @@ const Register: React.FC = () => {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (firstName && lastName && userEmail && password) {
-      try {
-        const response = await register(
-          firstName,
-          lastName,
-          userEmail,
-          password
-        ) as { data: string };
+    // Strict Validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Minimum 8 characters, at least one letter and one number
 
-        const responseData = response as { data: string };
-
-        if (responseData.data === "User already registered as a user") {
-          setMessage({ text: responseData.data, class: "alert alert-danger" });
-        } else if (responseData.data === "User registered successfully") {
-          setMessage({ text: responseData.data, class: "alert alert-success" });
-          navigate("/login");
-        } else {
-          setMessage({
-            text: "Unexpected response from the server.",
-            class: "alert alert-warning",
-          });
-        }
-      } catch (error) {
-        // Handle error
-        setMessage({
-          text: "Error occurred, registration failed.",
-          class: "alert alert-danger",
-        });
-        console.error("Registration error:", error);
-      }
-    } else {
+    if (!firstName || !lastName || !userEmail || !password) {
       setMessage({
         text: "All fields are required, please fill them out.",
         class: "alert alert-warning",
       });
+      return;
+    }
+
+    if (!emailRegex.test(userEmail)) {
+      setMessage({
+        text: "Please enter a valid email address.",
+        class: "alert alert-warning",
+      });
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setMessage({
+        text: "Password must be at least 8 characters long and contain at least one letter and one number.",
+        class: "alert alert-warning",
+      });
+      return;
+    }
+
+    try {
+      const response = await register(firstName, lastName, userEmail, password) as { data: string };
+
+      if (response.data === "User already registered as a user") {
+        setMessage({ text: response.data, class: "alert alert-danger" });
+      } else if (response.data === "User registered successfully") {
+        setMessage({ text: response.data, class: "alert alert-success" });
+        navigate("/login");
+      } else {
+        setMessage({
+          text: "Unexpected response from the server.",
+          class: "alert alert-warning",
+        });
+      }
+    } catch (error) {
+      setMessage({
+        text: "Error occurred, registration failed.",
+        class: "alert alert-danger",
+      });
+      console.error("Registration error:", error);
     }
   };
 
@@ -75,49 +88,51 @@ const Register: React.FC = () => {
           className="card-header text-center text-white"
           style={{ backgroundColor: "#f82249" }}
         >
-          <h3 className="text-white">Ticketing Login!</h3>
-          <p className="mb-0">Login to access your account</p>
+          <h3 className="text-white">Ticketing Register!</h3>
+          <p className="mb-0">Sign up to access your account</p>
         </div>
         <div className="card-body">
           <form onSubmit={handleRegister}>
-            {/* Username Field */}
+            {/* First Name Field */}
             <div className="my-3">
-              <label htmlFor="username" className="form-label">
+              <label htmlFor="firstName" className="form-label">
                 First Name
               </label>
               <input
                 type="text"
-                id="username"
+                id="firstName"
                 className="form-control"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                placeholder="Enter your username"
+                placeholder="Enter your first name"
                 required
               />
             </div>
 
-            {/* Password Field */}
+            {/* Last Name Field */}
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">
+              <label htmlFor="lastName" className="form-label">
                 Last Name
               </label>
               <input
                 type="text"
-                id="lastname"
+                id="lastName"
                 className="form-control"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                placeholder="Enter your password"
+                placeholder="Enter your last name"
                 required
               />
             </div>
 
+            {/* Email Field */}
             <div className="mb-3">
               <label htmlFor="userEmail" className="form-label">
                 Email
               </label>
               <input
                 type="email"
+                id="userEmail"
                 className="form-control"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
@@ -125,12 +140,15 @@ const Register: React.FC = () => {
                 required
               />
             </div>
+
+            {/* Password Field */}
             <div className="mb-3 form-password-toggle">
               <label htmlFor="password" className="form-label">
                 Password
               </label>
               <input
                 type="password"
+                id="password"
                 className="form-control"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -140,11 +158,7 @@ const Register: React.FC = () => {
             </div>
 
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <Link to
-                ="#"
-                className="text-decoration-none small"
-                style={{ color: "#f82249" }}
-              >
+              <Link to="#" className="text-decoration-none small" style={{ color: "#f82249" }}>
                 Forgot Password?
               </Link>
             </div>
@@ -162,15 +176,13 @@ const Register: React.FC = () => {
             </div>
           </form>
         </div>
-        <Link to="/" className="text-center text-secondary"><span>Back to Home</span></Link>
+        <Link to="/" className="text-center text-secondary">
+          <span>Back to Home</span>
+        </Link>
         <div className="card-footer text-center">
           <p className="mb-0">
-            Already have an account?{" "}
-            <Link to
-              ="/login"
-              className="text-decoration-none"
-              style={{ color: "#f82249" }}
-            >
+            Already have an account? {" "}
+            <Link to="/login" className="text-decoration-none" style={{ color: "#f82249" }}>
               Sign In
             </Link>
           </p>
@@ -180,4 +192,5 @@ const Register: React.FC = () => {
     </div>
   );
 };
+
 export default Register;
