@@ -27,7 +27,7 @@ const HomeContactUs: React.FC = () => {
     console.log("Submitting form with data:", formData); 
   
     try {
-      const response = await axios.post("http://localhost:8080/notification/addNotification", formData);
+      const response = await axios.post("https://ticketing-backend-production-088a.up.railway.app/api/addNotification", formData);
       console.log("Response:", response); 
       if (response.status === 200) {
         setFormStatus({
@@ -38,12 +38,27 @@ const HomeContactUs: React.FC = () => {
         setFormData({ name: "", toEmail: "", subject: "", body: "" });
       }
     } catch (error) {
-      console.error("Failed to send message:", error);
-      setFormStatus({
-        success: false,
-        error: true,
-        message: "An error occurred while sending your message. Please try again.",
-      });
+      console.error("Failed to send message to primary link, trying secondary link:", error);
+      
+      try {
+        const secondaryResponse = await axios.post("http://localhost:8081/notification/api/addNotification", formData);
+        console.log("Secondary Response:", secondaryResponse);
+        if (secondaryResponse.status === 200) {
+          setFormStatus({
+            success: true,
+            error: false,
+            message: "Your message has been sent via the secondary link. Thank you!",
+          });
+          setFormData({ name: "", toEmail: "", subject: "", body: "" });
+        }
+      } catch (secondaryError) {
+        console.error("Failed to send message via both links:", secondaryError);
+        setFormStatus({
+          success: false,
+          error: true,
+          message: "An error occurred while sending your message. Please try again.",
+        });
+      }
     }
   };
   
@@ -62,7 +77,7 @@ const HomeContactUs: React.FC = () => {
               <div className="contact-address">
                 <i className="ion-ios-location-outline"></i>
                 <h3>Address</h3>
-                <address>No 100, Sebestian Lane, Colombo 7, Sri Lanaka</address>
+                <address>No 100, Sebestian Lane, Colombo 7, Sri Lanka</address>
               </div>
             </div>
 
@@ -70,15 +85,18 @@ const HomeContactUs: React.FC = () => {
               <div className="contact-email">
                 <i className="ion-ios-email-outline"></i>
                 <h3>Email</h3>
-                <p><a href="mailto:info@example.com">contact@theevenet.com</a></p>
+                <p><a href="mailto:contact@theevent.com">contact@theevent.com</a></p>
               </div>
             </div>
 
             <div className="col-md-4">
-              <div className="contact-email">
-                <i className="ion-ios-email-outline"></i>
+              <div className="contact-phone">
+                <i className="ion-ios-telephone-outline"></i>
                 <h3>Mobile</h3>
-                <p><a href="/">+94 123 233 444</a>{" | "}<a href="/">+94 112 114 251</a></p>
+                <p>
+                  <a href="tel:+94123233444">+94 123 233 444</a> | 
+                  <a href="tel:+94112114251">+94 112 114 251</a>
+                </p>
               </div>
             </div>
           </div>
