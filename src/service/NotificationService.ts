@@ -29,3 +29,16 @@ export const deleteNotification = async (id: string) => {
   }));
   return response.data;
 };
+
+export const addNotification = async (formData: {
+  name: string;
+  toEmail: string;
+  subject: string;
+  body: string;
+}) => {
+  return await requestWithFallback((apiUrl) =>
+    axios.post(`${apiUrl}/addNotification`, formData, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
+};

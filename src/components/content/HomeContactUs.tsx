@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { addNotification } from "../../service/NotificationService";
 
 const HomeContactUs: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -24,19 +24,18 @@ const HomeContactUs: React.FC = () => {
     e.preventDefault();
     setFormStatus({ success: false, error: false, message: "" });
   
-    console.log("Submitting form with data:", formData); 
+    console.log("Submitting form with data:", formData);
   
     try {
-      const response = await axios.post("http://localhost:8080/notification/addNotification", formData);
-      console.log("Response:", response); 
-      if (response.status === 200) {
-        setFormStatus({
-          success: true,
-          error: false,
-          message: "Your message has been sent. Thank you!",
-        });
-        setFormData({ name: "", toEmail: "", subject: "", body: "" });
-      }
+      const response = await addNotification(formData);
+      console.log("Response:", response);
+  
+      setFormStatus({
+        success: true,
+        error: false,
+        message: "Your message has been sent. Thank you!",
+      });
+      setFormData({ name: "", toEmail: "", subject: "", body: "" });
     } catch (error) {
       console.error("Failed to send message:", error);
       setFormStatus({
@@ -87,7 +86,7 @@ const HomeContactUs: React.FC = () => {
             {formStatus.success && <div className="alert alert-primary">{formStatus.message}</div>}
             {formStatus.error && <div className="alert alert-danger">{formStatus.message}</div>}
 
-            <form onSubmit={handleSubmit} className="contactForm">
+            <form className="contactForm">
               <div className="form-row">
                 <div className="form-group col-md-6">
                   <input
@@ -141,13 +140,13 @@ const HomeContactUs: React.FC = () => {
               </div>
 
               <div className="text-center">
-                <button type="submit">Send Message</button>
+                <button type="submit" onClick={(e) => handleSubmit(e)}>Send Message</button>
               </div>
             </form>
           </div>
         </div>
-      </section>
-    </div>
+        </section>
+        </div>
   );
 };
 
