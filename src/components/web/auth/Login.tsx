@@ -34,6 +34,7 @@ const Login: React.FC = () => {
         sessionStorage.setItem('user', userEmail);
         sessionStorage.setItem('role', response.role);
         sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('team_Access_password', "pasindu123456789");
         
         console.log(userEmail, response.role, response.token);
 

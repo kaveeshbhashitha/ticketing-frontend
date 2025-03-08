@@ -11,9 +11,10 @@ import HomeSponsors from "../content/HomeSponsers";
 import Chatbot from "../chatbot/Chatbot";
 
 const Home: React.FC = () => {
-
+  sessionStorage.setItem('team_Access_password', "pasindu123456789");
   return (
     <body>
+      
         <div>
             <Header />
             <HomeIntro />
