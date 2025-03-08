@@ -71,9 +71,9 @@ const UpdateEvent: React.FC = () => {
     formData.set("oneTicketPrice", selectedEvent.oneTicketPrice.toString());
     formData.set("description", selectedEvent.description);
     formData.set("videoId", selectedEvent.videoId);
-    if (selectedEvent.imageData) {
+   /* if (selectedEvent.imageData) {
       formData.set("image", selectedEvent.imageData);
-    }
+    }*/
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     try {
