@@ -199,7 +199,6 @@ const SideBar: React.FC = () => {
               <div data-i18n="Analytics">Reschedule</div>
             </NavLink>
           </li>
-         
           <li className="menu-item">
             <NavLink
               to="/OldEvents"
@@ -209,6 +208,17 @@ const SideBar: React.FC = () => {
             >
               <i className="menu-icon tf-icons bx bx-time"></i>
               <div data-i18n="Analytics">OldEvents</div>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
+              to="/adminPayment"
+              className={({ isActive }) =>
+                isActive ? "menu-link active" : "menu-link"
+              }
+            >
+              <i className="menu-icon tf-icons bx bx-table"></i>
+              <div data-i18n="Analytics">Payments</div>
             </NavLink>
           </li>
           <li className="menu-header small text-uppercase">
