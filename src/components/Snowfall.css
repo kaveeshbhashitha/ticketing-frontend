@@ -1,0 +1,80 @@
+@keyframes snowfall {
+    from {
+      transform: translateY(-10px);
+      opacity: 1;
+      background-color: gold; /* Initial color */
+    }
+    to {
+      transform: translateY(450px);
+      opacity: 0;
+      background-color: silver; /* Final color */
+    }
+  }
+  
+  /* Snowfall box styles */
+  .snowfall-box {
+    position: relative;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    max-width: 400px;
+    height: 450px;
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background-color: white; /* Set background color to white */
+    transition: all 0.3s ease-in-out; /* Smooth transition for size and color */
+  }
+  
+  /* Enlarge and change background color on hover */
+  .snowfall-box:hover {
+    width: 31%; /* Extremely slight enlargement in width */
+    max-width: 405px; /* Extremely slight enlargement in max-width */
+    height: 455px; /* Extremely slight enlargement in height */
+    background-color: #ebf8ef; /* Slightly off-white background on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow for a brighter effect */
+  }
+  
+  /* Snowflake styles */
+  .snowflake {
+    position: absolute;
+    top: -10px;
+    width: 5px;
+    height: 5px;
+    background-color: gold; /* Initial snowflake color */
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: snowfall linear infinite;
+  }
+  
+  /* Generate multiple snowflakes */
+  .snowfall-box::before,
+  .snowfall-box::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 5px;
+    height: 5px;
+    background-color: gold; /* Initial snowflake color */
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: snowfall linear infinite;
+  }
+  
+  .snowfall-box::before {
+    left: 20%;
+    animation-duration: 3s;
+    animation-delay: 0s;
+  }
+  
+  .snowfall-box::after {
+    left: 70%;
+    animation-duration: 4s;
+    animation-delay: 1s;
+  }
+  
