@@ -32,6 +32,7 @@ import EventDescription from "./components/content/Events/EventDescription";
 import EventCancellation from "./components/admin/operations/EventCancellation";
 import EventReschedule from "./components/admin/operations/EventReschedule";
 import AllEventsVideo from "./components/content/Events/AllEventsVideo";
+import OldEvents from "./components/admin/actions/OldEvents";
 function App() {
   return (
     <div>
@@ -70,6 +71,7 @@ function App() {
           <Route path="/cancellation" element={<EventCancellation />} />
           <Route path="/reschedule" element={<EventReschedule />} />
           <Route path="/AllEventsVideo/:eventId" element={<AllEventsVideo />} />
+          <Route path="/OldEvents" element={<OldEvents />} />
 
 
         </Routes>

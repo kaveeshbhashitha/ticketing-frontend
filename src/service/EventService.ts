@@ -230,6 +230,42 @@ export const getAllOtherEventDataForFrontEndWithoutSort = async () => {
   return sortedEvents;
 };
 
+//past events
+export const getOldEventsForFrontEnd = async () => {
+  const response = await requestWithFallback((apiUrl) =>
+    axios.get(`${apiUrl}/getAll`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  );
+
+  const currentDateTime = new Date();
+
+  // Filter only past events (events that have already happened)
+  const pastEvents = response.data.filter(
+    (event: { eventDate: string; startTime: string; status: string }) => {
+      const eventDateTime = new Date(`${event.eventDate}T${event.startTime}`);
+      return eventDateTime < currentDateTime && event.status !== "Cancelled";
+    }
+  );
+
+  // Sort past events from newest to oldest
+  const sortedPastEvents = pastEvents.sort(
+    (a: { eventDate: string; startTime: string }, b: { eventDate: string; startTime: string }) => {
+      const dateA = new Date(`${a.eventDate}T${a.startTime}`);
+      const dateB = new Date(`${b.eventDate}T${b.startTime}`);
+      return dateB.getTime() - dateA.getTime(); // Newest past events first
+    }
+  );
+
+  return sortedPastEvents;
+};
+
+
+
+
+
+
+
 export const getEventsInThisWeek = async () => {
   // Retrieve the authorization token from session storage
   //const token = sessionStorage.getItem("token");
