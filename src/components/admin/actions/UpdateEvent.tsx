@@ -283,6 +283,7 @@ const UpdateEvent: React.FC = () => {
               <div className="form-group">
                 <label>Event Image</label>
                 <input
+                  name="image"
                   type="file"
                   onChange={handleFileChange}
                   className="form-control"
