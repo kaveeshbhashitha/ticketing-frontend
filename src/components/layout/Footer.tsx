@@ -60,6 +60,7 @@ const Footer: React.FC = () => {
             </div>
                 <div className="container">
                     <div className="copyright">
+                    <span style={{ alignContent: 'left' }}> Powered By<strong><Link to="/Development">&nbsp;&nbsp;KPS DEV</Link></strong><br /></span>
                         &copy; Copyright <strong>TheEvent</strong>. All Rights Reserved
                     </div>
                 </div>
