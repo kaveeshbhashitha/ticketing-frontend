@@ -18,7 +18,7 @@ const devTeamMembers: Member[] = [
   { name: 'Supun Kalana', githubUsername: 'wickramDSK' }
 ];
 
-const GITHUB_TOKEN = "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"; // Get the token from .env.local
+const GITHUB_TOKEN = "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"; // Get the token from .env.local
 
 const DevTeam: React.FC = () => {
   const [userData, setUserData] = useState<GitHubUserData[]>([]);
