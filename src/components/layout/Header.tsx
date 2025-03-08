@@ -48,7 +48,7 @@ const handleLogout = async () => {
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/AllEvents">Events</Link></li>
                   {role == 'ADMIN' ? <li><Link to="/dashboard">Dashboard</Link></li> : <li></li> }
-                  {role == 'ADMIN' ? <li></li> : <li><Link to="/myTickets">My Tickets</Link></li>}
+                  {role == 'ADMIN' ? <li><Link to="/myTickets">Admin Tickets</Link></li> : <li><Link to="/myTickets">My Tickets</Link></li>}
                   {role == 'ADMIN' ? <li></li> : <li><Link to="/userProfile">Profile</Link></li>}
                   
                   <li><Link to="/contact">Contact Us</Link></li>
