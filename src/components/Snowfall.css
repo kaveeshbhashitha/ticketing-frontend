@@ -1,80 +1,191 @@
+/* Base Snowfall animation */
 @keyframes snowfall {
-    from {
-      transform: translateY(-10px);
-      opacity: 1;
-      background-color: gold; /* Initial color */
-    }
-    to {
-      transform: translateY(450px);
-      opacity: 0;
-      background-color: silver; /* Final color */
-    }
+  from {
+    transform: translateY(-10px);
+    opacity: 1;
+    background-color: gold; /* Initial color */
   }
-  
-  /* Snowfall box styles */
+  to {
+    transform: translateY(450px);
+    opacity: 0;
+    background-color: silver; /* Final color */
+  }
+}
+
+.boxborder{
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Snowfall box styles */
+.snowfall-box {
+  position: relative;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  max-width: 400px;
+  height: 450px;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background-color: white; /* Set background color to white */
+  transition: all 0.3s ease-in-out; /* Smooth transition for size and color */
+}
+
+/* Enlarge and change background color on hover */
+.snowfall-box:hover {
+  width: 31%; /* Extremely slight enlargement in width */
+  max-width: 405px; /* Extremely slight enlargement in max-width */
+  height: 455px; /* Slight enlargement in height */
+  background-color: #ebf8ef; /* Slightly off-white background on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow for a brighter effect */
+}
+
+/* Snowflake styles */
+.snowflake {
+  position: absolute;
+  top: -10px;
+  width: 5px;
+  height: 5px;
+  background-color: gold; /* Initial snowflake color */
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snowfall linear infinite;
+}
+
+/* Generate multiple snowflakes */
+.snowfall-box::before,
+.snowfall-box::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 5px;
+  height: 5px;
+  background-color: gold; /* Initial snowflake color */
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snowfall linear infinite;
+}
+
+.snowfall-box::before {
+  left: 20%;
+  animation-duration: 3s;
+  animation-delay: 0s;
+}
+
+.snowfall-box::after {
+  left: 70%;
+  animation-duration: 4s;
+  animation-delay: 1s;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
   .snowfall-box {
-    position: relative;
-    border: 2px solid #ddd;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    max-width: 400px;
-    height: 450px;
-    text-align: center;
+    width: 45%; /* Increase width to 45% on tablets */
     margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    background-color: white; /* Set background color to white */
-    transition: all 0.3s ease-in-out; /* Smooth transition for size and color */
+    height: auto; /* Allow the box to adjust height based on content */
   }
   
-  /* Enlarge and change background color on hover */
+
+  /* Remove hover effect on mobile */
   .snowfall-box:hover {
-    width: 31%; /* Extremely slight enlargement in width */
-    max-width: 405px; /* Extremely slight enlargement in max-width */
-    height: 455px; /* Extremely slight enlargement in height */
-    background-color: #ebf8ef; /* Slightly off-white background on hover */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow for a brighter effect */
+    width: 45%;
+    max-width: 400px;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Snowflake styles */
+
+  .snowfall-box img {
+    width: 120px; /* Smaller image size on mobile */
+    height: 120px;
+  }
+
+  /* Adjust text font sizes */
+  .snowfall-box h3 {
+    font-size: 1.6rem; /* Smaller heading font size */
+  }
+
+  .snowfall-box p {
+    font-size: 1rem; /* Smaller paragraph font size */
+  }
+
+  /* Adjust link size and spacing */
+  .snowfall-box a {
+    font-size: 1rem;
+    padding: 10px 15px;
+  }
+
+  /* Reduce snowflake sizes */
   .snowflake {
-    position: absolute;
-    top: -10px;
-    width: 5px;
-    height: 5px;
-    background-color: gold; /* Initial snowflake color */
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: snowfall linear infinite;
+    width: 4px;
+    height: 4px;
   }
-  
-  /* Generate multiple snowflakes */
+
   .snowfall-box::before,
   .snowfall-box::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    width: 5px;
-    height: 5px;
-    background-color: gold; /* Initial snowflake color */
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: snowfall linear infinite;
+    width: 4px;
+    height: 4px;
   }
-  
-  .snowfall-box::before {
-    left: 20%;
-    animation-duration: 3s;
-    animation-delay: 0s;
+}
+
+@media (max-width: 480px) {
+  .snowfall-box {
+    width: 100%; /* Full width for smaller screens */
+    margin-top: 10px;
   }
-  
+
+  .snowfall-box:hover {
+    width: 120%; /* Full width for smaller screens */
+    margin-top: 10px;
+  }
+
+  /* Adjust text font sizes for smaller screens */
+  .snowfall-box h3 {
+    font-size: 1.4rem;
+  }
+
+  .snowfall-box p {
+    font-size: 0.9rem;
+  }
+
+  .snowfall-box img {
+    width: 100px; /* Smaller image size */
+    height: 100px;
+  }
+
+  /* Further reduce snowflake sizes */
+  .snowflake {
+    width: 3px;
+    height: 3px;
+  }
+
+  .snowfall-box::before,
   .snowfall-box::after {
-    left: 70%;
-    animation-duration: 4s;
-    animation-delay: 1s;
+    width: 3px;
+    height: 3px;
   }
-  
+
+  /* Adjust button for mobile */
+  .snowfall-box a {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  /* Adjust heading font size */
+  h1 {
+    font-size: 2rem;
+  }
+  .boxborder{
+    margin-top: 12cm;
+  }
+
+}
+

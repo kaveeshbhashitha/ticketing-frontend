@@ -99,7 +99,7 @@ const DevTeam: React.FC = () => {
 
   return (
     <div style={{ height: '100vh', overflow: 'auto', padding: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ width: '80%', textAlign: 'center', marginTop: '30px' }}>
+      <div className='boxborder'>
         <h1 style={{ fontSize: '3rem', marginBottom: '30px' }}>Our Dev Team</h1>
         {!password && <p style={{ color: 'red' }}>Password is required in sessionStorage</p>}
 
