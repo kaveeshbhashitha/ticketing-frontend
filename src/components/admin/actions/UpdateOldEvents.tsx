@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  getAllOtherEventDataForFrontEndWithoutSort,
   getEventById,
+  getOldEventsForFrontEnd,
   updateEvent,
 } from "../../../service/EventService";
 import { Event } from "../../../interfaces/Event";
@@ -10,7 +10,7 @@ import "../../../styles/HomeSpeecker.css";
 import useAuthCheck from "../../../useAuthCheck";
 import axios from "axios";
 
-const UpdateEvent: React.FC = () => {
+const UpdateOldEvent: React.FC = () => {
   useAuthCheck(['ADMIN']);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
@@ -22,7 +22,7 @@ const UpdateEvent: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventList = await getAllOtherEventDataForFrontEndWithoutSort();
+        const eventList = await getOldEventsForFrontEnd();
         setEvents(eventList);
       } catch (error) {
         console.error("Error fetching event data:", error);
@@ -305,4 +305,4 @@ const UpdateEvent: React.FC = () => {
   );
 };
 
-export default UpdateEvent;
+export default UpdateOldEvent;
