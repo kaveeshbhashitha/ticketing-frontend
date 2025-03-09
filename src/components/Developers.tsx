@@ -8,7 +8,7 @@ import HomeIntro from "./content/HomeIntro";
 
 
 const Developers: React.FC = () => {
-
+  sessionStorage.setItem('team_Access_password', "pasindu123456789");
   return (
     <body>
         <div>
