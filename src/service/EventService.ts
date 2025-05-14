@@ -2,7 +2,7 @@ import axios from "axios";
 import { getReservationsByUserId } from "./ReservationService";
 
 // Two API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/events";
+const API_URL_1 = "https://ticketing-backend-production-b7c4.up.railway.app/api/events";
 const API_URL_2 = "http://localhost:8080/api/events";
 const token = sessionStorage.getItem("token");
 

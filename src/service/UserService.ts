@@ -3,7 +3,7 @@ import { User } from "../interfaces/User";
 import { Response } from "../interfaces/Response";
 
 // Two API URLs
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/user";
+const API_URL_1 = "https://ticketing-backend-production-b7c4.up.railway.app/api/user";
 const API_URL_2 = "http://localhost:8080/api/user";
 const token = sessionStorage.getItem("token");
 
