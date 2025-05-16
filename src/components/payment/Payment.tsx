@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { CheckoutFormProps } from "../../interfaces/CheckoutFormProps";
 import { cardBrandIcons } from "../../data/CardData";
 
-const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/payment";
+const API_URL_1 = "https://ticketing-backend-production-b7c4.up.railway.app/api/payment";
 const API_URL_2 = "http://localhost:8080/api/payment";
 
 const requestWithFallback = async (
