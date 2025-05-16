@@ -12,7 +12,7 @@ const TicketsByUser: React.FC = () => {
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
 
-  const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/reservation/getAllReservations";
+  const API_URL_1 = "https://ticketing-backend-production-b7c4.up.railway.app/api/reservation/getAllReservations";
   const API_URL_2 = "http://localhost:8080/api/reservation/getAllReservations";
 
   // Helper function to attempt requests on both APIs

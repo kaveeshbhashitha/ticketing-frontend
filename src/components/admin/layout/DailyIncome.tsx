@@ -26,7 +26,7 @@ const DailyIncomeChart: React.FC = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const API_URL_1 = "https://ticketing-backend-production-088a.up.railway.app/api/payment/getAllPayment";
+  const API_URL_1 = "https://ticketing-backend-production-b7c4.up.railway.app/api/payment/getAllPayment";
   const API_URL_2 = "http://localhost:8080/api/payment/getAllPayment";
 
   // Helper function to attempt requests on both APIs

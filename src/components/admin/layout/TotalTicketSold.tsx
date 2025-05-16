@@ -13,7 +13,7 @@ const TotalTicketsSold: React.FC = () => {
   useEffect(() => {
     // Fetch reservation data (e.g., the number of reservations by date)
     axios
-      .get("https://ticketing-backend-production-088a.up.railway.app/api/reservation/getAllReservations", {
+      .get("https://ticketing-backend-production-b7c4.up.railway.app/api/reservation/getAllReservations", {
         headers: getAuthHeaders(),
       })
       .then((response) => {

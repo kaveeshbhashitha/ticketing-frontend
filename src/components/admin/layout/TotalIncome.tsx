@@ -13,7 +13,7 @@ const TotalIncome: React.FC = () => {
   useEffect(() => {
     axios
       .get(
-        "https://ticketing-backend-production-088a.up.railway.app/api/reservation/totalCharge",
+        "https://ticketing-backend-production-b7c4.up.railway.app/api/reservation/totalCharge",
         { headers: getAuthHeaders() }
       )
       .then((response) => {
